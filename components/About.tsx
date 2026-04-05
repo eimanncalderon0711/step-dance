@@ -1,12 +1,16 @@
 import aboutDance from "@/assets/about-dance.jpg";
-import { Heart, Users, Zap, Music } from "lucide-react";
+import { Heart, Users, Zap, Music, Weight, Dumbbell, StretchHorizontal, Target, Battery, Brain } from "lucide-react";
 import Image from "next/image";
 
 const features = [
-  { icon: Heart, title: "Healthy Lifestyle", desc: "Burn calories and boost your cardiovascular health while having a blast." },
-  { icon: Zap, title: "High Energy", desc: "Our routines are designed to keep you energized and motivated throughout." },
-  { icon: Users, title: "All Levels Welcome", desc: "Whether you're a beginner or experienced, there's a spot for you." },
-  { icon: Music, title: "Great Music", desc: "Move to curated playlists that make every session feel like a party." },
+  { icon: Heart, title: "Cardiovascular Health", desc: "Improve heart and lung function through energizing aerobic step routines." },
+  { icon: Weight, title: "Weight Management", desc: "Burn calories effectively to support weight loss or healthy maintenance." },
+  { icon: Dumbbell, title: "Muscle Toning", desc: "Strengthen and tone your legs, glutes, and core with every session." },
+  { icon: StretchHorizontal, title: "Flexibility", desc: "Enhance your range of motion and reduce stiffness through dynamic movements." },
+  { icon: Target, title: "Coordination & Balance", desc: "Sharpen body coordination and balance with rhythmic step patterns." },
+  { icon: Battery, title: "Endurance", desc: "Build stamina and energy levels for prolonged physical activity." },
+  { icon: Brain, title: "Mental Health", desc: "Reduce stress, boost your mood, and gain mental clarity through movement." },
+  { icon: Users, title: "Social Interaction", desc: "Build community and lasting friendships through fun group exercise." },
 ];
 
 const AboutSection = () => {
@@ -18,7 +22,7 @@ const AboutSection = () => {
           <div className="space-y-5">
             <span className="text-xs font-semibold uppercase tracking-wider text-orange-400">About Us</span>
             <h2 className="text-3xl md:text-4xl font-extrabold text-white leading-tight">
-              More Than Just a Dance Class
+              More Than Just a Workout
             </h2>
             <p className="text-muted-foreground leading-relaxed">
               Step Dance Studio was founded with one mission: to make fitness fun and accessible through the power of step dancing. We believe that staying healthy shouldn't feel like a chore — it should feel like a celebration.
