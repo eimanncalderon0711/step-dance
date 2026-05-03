@@ -36,11 +36,7 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`sticky top-0 z-50 border-b border-slate-700 backdrop-blur-sm transition-colors duration-300 ${
-        scrolled
-          ? "bg-slate-900/80" // darker slate with 80% opacity when scrolled
-          : "bg-slate-900/10 backdrop:bg-amber-700" // original
-      }`}
+      className={`sticky top-0 z-50 border-b border-slate-700 backdrop-blur-sm transition-colors duration-300`}
     >
       <div className="container max-w-6xl mx-auto flex items-center justify-between h-20 px-4">
         <button onClick={() => scrollTo("#home")} className="flex items-center gap-2.5">
