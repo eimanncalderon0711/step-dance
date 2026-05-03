@@ -51,7 +51,10 @@ export const AnyNull = runtime.AnyNull
 
 
 export const ModelName = {
+  Booking: 'Booking',
   Post: 'Post',
+  ScheduleDay: 'ScheduleDay',
+  ScheduleSlot: 'ScheduleSlot',
   User: 'User',
   Role: 'Role'
 } as const
@@ -72,6 +75,22 @@ export const TransactionIsolationLevel = runtime.makeStrictEnum({
 export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
 
 
+export const BookingScalarFieldEnum = {
+  id: 'id',
+  fullName: 'fullName',
+  email: 'email',
+  phone: 'phone',
+  proofOfPaymentUrl: 'proofOfPaymentUrl',
+  referenceNumber: 'referenceNumber',
+  userId: 'userId',
+  slotId: 'slotId',
+  updatedAt: 'updatedAt',
+  createdAt: 'createdAt'
+} as const
+
+export type BookingScalarFieldEnum = (typeof BookingScalarFieldEnum)[keyof typeof BookingScalarFieldEnum]
+
+
 export const PostScalarFieldEnum = {
   id: 'id',
   title: 'title',
@@ -83,8 +102,31 @@ export const PostScalarFieldEnum = {
 export type PostScalarFieldEnum = (typeof PostScalarFieldEnum)[keyof typeof PostScalarFieldEnum]
 
 
+export const ScheduleDayScalarFieldEnum = {
+  id: 'id',
+  date: 'date'
+} as const
+
+export type ScheduleDayScalarFieldEnum = (typeof ScheduleDayScalarFieldEnum)[keyof typeof ScheduleDayScalarFieldEnum]
+
+
+export const ScheduleSlotScalarFieldEnum = {
+  id: 'id',
+  startTime: 'startTime',
+  endTime: 'endTime',
+  capacity: 'capacity',
+  booked: 'booked',
+  dayId: 'dayId',
+  updatedAt: 'updatedAt',
+  createdAt: 'createdAt'
+} as const
+
+export type ScheduleSlotScalarFieldEnum = (typeof ScheduleSlotScalarFieldEnum)[keyof typeof ScheduleSlotScalarFieldEnum]
+
+
 export const UserScalarFieldEnum = {
   id: 'id',
+  supabaseId: 'supabaseId',
   email: 'email',
   name: 'name',
   roleId: 'roleId'

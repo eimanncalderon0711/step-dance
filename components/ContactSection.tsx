@@ -1,8 +1,8 @@
 import { MapPin, Phone, Mail, Clock } from "lucide-react";
 
 const contactInfo = [
-  { icon: MapPin, label: "Visit Us", value: "123 Dance Street, Fitness City" },
-  { icon: Phone, label: "Call Us", value: "+63 912 345 6789" },
+  { icon: MapPin, label: "Visit Us", value: "Cagayan de Oro City" },
+  { icon: Phone, label: "Call Us", value: "+63 935 110 6411" },
   { icon: Mail, label: "Email Us", value: "hello@stepdancestudio.com" },
   { icon: Clock, label: "Hours", value: "Mon–Sat: 8:00 AM – 6:00 PM" },
 ];

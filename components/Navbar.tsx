@@ -1,5 +1,6 @@
 'use client';
 import { Footprints, Menu, X } from "lucide-react";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 
 
@@ -41,12 +42,13 @@ const Navbar = () => {
           : "bg-slate-900/10 backdrop:bg-amber-700" // original
       }`}
     >
-      <div className="container max-w-6xl mx-auto flex items-center justify-between h-16 px-4">
+      <div className="container max-w-6xl mx-auto flex items-center justify-between h-20 px-4">
         <button onClick={() => scrollTo("#home")} className="flex items-center gap-2.5">
-          <div className="w-9 h-9 rounded-full bg-orange-400 flex items-center justify-center">
-            <Footprints className="w-4.5 h-4.5 text-primary-foreground" />
+          <div className="w-16 h-16 rounded-full overflow-hidden flex items-center justify-center">
+            {/* <Footprints className="w-4.5 h-4.5 text-primary-foreground" /> */}
+            <Image src="/images/step-dance-logo.png" alt="Step Dance Logo" width={64} height={64} />
           </div>
-          <span className="font-bold text-lg text-orange-400">Step Dance</span>
+          <span className="font-bold text-lg text-orange-400">Step Dance PH</span>
         </button>
 
         {/* Desktop */}
@@ -55,7 +57,7 @@ const Navbar = () => {
             <li key={l.href}>
               <button
                 onClick={() => scrollTo(l.href)}
-                className="px-4 py-2 rounded-md text-sm font-medium text-muted-foreground cursor-pointer hover:text-foreground hover:bg-orange-400 transition-colors"
+                className="px-4 py-2 rounded-md text-base font-medium text-muted-foreground cursor-pointer hover:text-foreground hover:bg-orange-400 transition-colors"
               >
                 {l.label}
               </button>

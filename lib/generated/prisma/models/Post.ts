@@ -270,7 +270,7 @@ export type PostScalarWhereWithAggregatesInput = {
 
 export type PostCreateInput = {
   title: string
-  content?: string
+  content: string
   published?: boolean
   author?: Prisma.UserCreateNestedOneWithoutPostsInput
 }
@@ -278,7 +278,7 @@ export type PostCreateInput = {
 export type PostUncheckedCreateInput = {
   id?: number
   title: string
-  content?: string
+  content: string
   published?: boolean
   authorId?: number | null
 }
@@ -301,7 +301,7 @@ export type PostUncheckedUpdateInput = {
 export type PostCreateManyInput = {
   id?: number
   title: string
-  content?: string
+  content: string
   published?: boolean
   authorId?: number | null
 }
@@ -364,28 +364,8 @@ export type PostOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
-export type StringFieldUpdateOperationsInput = {
-  set?: string
-}
-
 export type BoolFieldUpdateOperationsInput = {
   set?: boolean
-}
-
-export type IntFieldUpdateOperationsInput = {
-  set?: number
-  increment?: number
-  decrement?: number
-  multiply?: number
-  divide?: number
-}
-
-export type NullableIntFieldUpdateOperationsInput = {
-  set?: number | null
-  increment?: number
-  decrement?: number
-  multiply?: number
-  divide?: number
 }
 
 export type PostCreateNestedManyWithoutAuthorInput = {
@@ -432,14 +412,14 @@ export type PostUncheckedUpdateManyWithoutAuthorNestedInput = {
 
 export type PostCreateWithoutAuthorInput = {
   title: string
-  content?: string
+  content: string
   published?: boolean
 }
 
 export type PostUncheckedCreateWithoutAuthorInput = {
   id?: number
   title: string
-  content?: string
+  content: string
   published?: boolean
 }
 
@@ -483,7 +463,7 @@ export type PostScalarWhereInput = {
 export type PostCreateManyAuthorInput = {
   id?: number
   title: string
-  content?: string
+  content: string
   published?: boolean
 }
 

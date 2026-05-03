@@ -1,14 +1,14 @@
 import aboutDance from "@/assets/about-dance.jpg";
-import { Heart, Users, Zap, Music, Weight, Dumbbell, StretchHorizontal, Target, Battery, Brain } from "lucide-react";
+import { Heart, Users, Zap, Dumbbell, StretchHorizontal, Target, Brain, Scale } from "lucide-react";
 import Image from "next/image";
 
 const features = [
   { icon: Heart, title: "Cardiovascular Health", desc: "Improve heart and lung function through energizing aerobic step routines." },
-  { icon: Weight, title: "Weight Management", desc: "Burn calories effectively to support weight loss or healthy maintenance." },
+  { icon: Scale, title: "Weight Management", desc: "Burn calories effectively to support weight loss or healthy maintenance." },
   { icon: Dumbbell, title: "Muscle Toning", desc: "Strengthen and tone your legs, glutes, and core with every session." },
   { icon: StretchHorizontal, title: "Flexibility", desc: "Enhance your range of motion and reduce stiffness through dynamic movements." },
   { icon: Target, title: "Coordination & Balance", desc: "Sharpen body coordination and balance with rhythmic step patterns." },
-  { icon: Battery, title: "Endurance", desc: "Build stamina and energy levels for prolonged physical activity." },
+  { icon: Zap, title: "Endurance", desc: "Build stamina and energy levels for prolonged physical activity." },
   { icon: Brain, title: "Mental Health", desc: "Reduce stress, boost your mood, and gain mental clarity through movement." },
   { icon: Users, title: "Social Interaction", desc: "Build community and lasting friendships through fun group exercise." },
 ];
@@ -47,6 +47,7 @@ const AboutSection = () => {
               <p className="text-sm text-muted-foreground leading-relaxed">{f.desc}</p>
             </div>
           ))}
+          
         </div>
       </div>
     </section>

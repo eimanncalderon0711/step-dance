@@ -1,18 +1,13 @@
+import { getBookingsAction } from "@/actions/bookings";
+// import { getScheduleSlotsAction } from "@/actions/schedule";
 import About from "@/components/About";
 import BookingForm from "@/components/BookingForm";
 import ContactSection from "@/components/ContactSection";
 import Hero from "@/components/HeroSection";
 import Navbar from "@/components/Navbar";
 
-;
-
-const features = [
-  { title: "Feature One", description: "Explain the first amazing feature." },
-  { title: "Feature Two", description: "Explain the second amazing feature." },
-  { title: "Feature Three", description: "Explain the third amazing feature." },
-];
-
-export default function HomePage() {
+export default async function HomePage() {
+  
   return (
     <div className="min-h-screen bg-slate-900">
       <Navbar />

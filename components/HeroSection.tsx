@@ -11,7 +11,7 @@ const HeroSection = () => {
     <section id="home" className="relative min-h-[85vh] flex items-center overflow-hidden">
       {/* Background image */}
       <div className="absolute inset-0 bg-orange-400">
-        <Image src={'/images/hero-dance.jpg'} alt="Step dance class in action" width={1920} height={1080} className="w-full h-full object-cover" />
+        <Image src={'/images/hero-dance.jpg'} alt="Step dance class in action" width={1920} height={1080} priority className="w-full h-full object-cover" />
         <div className="absolute inset-0 bg-linear-to-r from-slate-900/95 via-slate-900/80 to-slate-500/30" />
       </div>
 
