@@ -1,21 +1,23 @@
-import { getMe } from "@/actions/users";
-import Header from "@/components/Header";
-import { redirect } from "next/navigation";
-import React from "react";
+// app/admin/layout.tsx
+import { getMe } from "@/actions/users"
+import Header from "@/components/Header"
+import { redirect } from "next/navigation"
 
-const layout = async ({ children }: { children: React.ReactNode }) => {
-  const userDetails = await getMe();
+export default async function AdminLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
+  const user = await getMe()
 
-  if (!userDetails) {
+  if (!user) {
     redirect("/login")
   }
 
   return (
     <div className="flex flex-col min-h-screen bg-slate-900">
-      <Header user={userDetails}/>
-      <main className="h-full container w-full m-auto">{children}</main>
+      <Header user={user} />
+      <main className="container mx-auto">{children}</main>
     </div>
-  );
-};
-
-export default layout;
+  )
+}

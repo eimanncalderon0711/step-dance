@@ -10,10 +10,15 @@ export async function getUsers() {
 }
 
 export async function getMe() {
-  const supabase = await createClient();
+  const supabase = await createClient()
 
-  const {data: { user }} = await supabase.auth.getUser();
-  return userService.getUserById(user!.id);
+  const {
+    data: { user },
+  } = await supabase.auth.getUser()
+
+  if (!user) return null
+
+  return userService.getUserById(user.id)
 }
 
 export async function createUserActions(data: CreateUserDTO) {

@@ -1,5 +1,3 @@
-import { getBookingsAction } from "@/actions/bookings";
-// import { getScheduleSlotsAction } from "@/actions/schedule";
 import About from "@/components/About";
 import BookingForm from "@/components/BookingForm";
 import ContactSection from "@/components/ContactSection";
