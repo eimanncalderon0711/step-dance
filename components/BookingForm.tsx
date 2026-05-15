@@ -71,7 +71,7 @@ export default function BookingForm() {
   const fetchSchedule = async () => {
     const res = await fetch("/api/schedules");
     const data = await res.json();
-    setSchedule(data);
+    setSchedule(data.data);
   };
 
   useEffect(() => {
