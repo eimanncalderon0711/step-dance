@@ -3,9 +3,26 @@ import { BookingUpdateInput } from "@/lib/generated/prisma/models";
 import { prisma } from "@/lib/prisma";
 import { bookingRepository } from "@/repositories/booking.repository";
 
+
+type GetAllBookingsParams = {
+  page?: number;
+  limit?: number;
+
+  search?: string;
+
+  slotId?: number;
+  userId?: number;
+
+  startDate?: string;
+  endDate?: string;
+
+  sortBy?: "createdAt" | "scheduleDate";
+  sortOrder?: "asc" | "desc";
+};
+
 export const bookingService = {
-  async getAllBookings() {
-    return await bookingRepository.findAll();
+  async getAllBookings(params: GetAllBookingsParams) {
+    return await bookingRepository.findAll(params);
   },
 
   async createBooking(data: createBookingDTO) {

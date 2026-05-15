@@ -4,13 +4,15 @@ import { scheduleRepository } from "@/repositories/schedule.repository"
 import {
   CreateScheduleDayDTO,
   CreateScheduleSlotDTO,
+  ScheduleQueryParams,
   UpdateScheduleSlotDTO,
 } from "@/dto/schedule.dto"
 
 export const scheduleService = {
   
-  async getSchedule() {
-    return await scheduleRepository.findDays()
+  
+  getAll: async (params: ScheduleQueryParams) => {
+    return scheduleRepository.findAll(params)
   },
 
   async createDay(data: CreateScheduleDayDTO) {

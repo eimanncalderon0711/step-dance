@@ -1,172 +1,285 @@
-"use client";
+'use client';
+import { format } from "date-fns";
 
-import { useEffect, useState } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-
-import { CalendarPlus } from "lucide-react";
-import ScheduleDays from "@/components/ScheduleDays";
-import {
-  createDayAction,
-  createSlotAction,
-  deleteDayAction,
-  editSlotAction,
-  getDayAction,
-} from "@/actions/schedule";
-import { format, parseISO } from "date-fns";
 import { CreateDayDialog } from "@/components/CreateDayDialog";
 
-// ---------- Types matching schema ----------
-type ScheduleSlot = {
-  id: number;
-  startTime: string; // "HH:mm"
-  endTime: string; // "HH:mm"
-  capacity: number;
-  booked: number;
-  dayId: number;
-  createdAt: string;
-  updatedAt: string;
+import { useState } from "react";
+import { createDayAction, createSlotAction, deleteDayAction, editSlotAction } from "@/actions/schedule";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { CalendarPlus } from "lucide-react";
+import ScheduleDays from "@/components/ScheduleDays";
+import { useRouter, useSearchParams } from "next/navigation";
+
+type Props = {
+  schedules: any[];
+
+  meta: {
+    total: number;
+    page: number;
+    limit: number;
+    totalPages: number;
+
+    hasNextPage: boolean;
+    hasPreviousPage: boolean;
+  };
 };
 
-type ScheduleDay = {
-  id: number;
-  date: string; // "YYYY-MM-DD"
-  slots: ScheduleSlot[];
-};
+const ScheduleManager = ({
+  schedules,
+  meta,
+}: Props) => {
+  const [isDialogOpen, setIsDialogOpen] =
+    useState(false);
 
-const ScheduleManager = () => {
-  const [days, setDays] = useState<ScheduleDay[]>([]);
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const router = useRouter();
 
-  // Fetch the available days
-  const fetchDays = async () => {
-    const res = await getDayAction();
+  const searchParams = useSearchParams();
 
-    const formatted: ScheduleDay[] = res.map((day: any) => ({
-      id: day.id,
-      // Date formats - pick one:
-      date: format(new Date(day.date), "yyyy-MM-dd"),
-      slots: day.slots.map((slot: any) => ({
-        id: slot.id,
-        // Time formats - pick one:
-        startTime: format(new Date(slot.startTime), "HH:mm"),
-        endTime: format(new Date(slot.endTime), "HH:mm"),
-        capacity: slot.capacity,
-        booked: slot.booked,
-        dayId: slot.dayId,
-        createdAt: slot.createdAt,
-        updatedAt: slot.updatedAt,
-      })),
-    }));
+  /**
+   * SEARCH
+   */
+  const handleSearch = (
+    value: string
+  ) => {
+    const params = new URLSearchParams(
+      searchParams.toString()
+    );
 
-    setDays(formatted);
+    params.set("scheduleSearch", value);
+
+    params.set("schedulePage", "1");
+
+    router.push(`?${params.toString()}`);
   };
 
-  // Add Schedule Slot Logic
+  /**
+   * RESET FILTERS
+   */
+  const handleResetFilters = () => {
+    const params = new URLSearchParams(
+      searchParams.toString()
+    );
+
+    params.delete("scheduleSearch");
+
+    params.delete("scheduleSortOrder");
+
+    params.delete("scheduleSortBy");
+
+    params.delete("schedulePage");
+
+    router.push(`?${params.toString()}`);
+  };
+
+  /**
+   * SORT
+   */
+  const handleSort = (
+    value: string
+  ) => {
+    const params = new URLSearchParams(
+      searchParams.toString()
+    );
+
+    params.set("scheduleSortOrder", value);
+
+    router.push(`?${params.toString()}`);
+  };
+
+  /**
+   * PAGINATION
+   */
+  const handlePageChange = (
+    page: number
+  ) => {
+    const params = new URLSearchParams(
+      searchParams.toString()
+    );
+
+    params.set(
+      "schedulePage",
+      String(page)
+    );
+
+    router.push(`?${params.toString()}`);
+  };
+
+  /**
+   * ADD SLOT
+   */
   const handleAddSlot = async (
     dayId: number,
     startTime: string,
     endTime: string,
-    capacity: number,
+    capacity: number
   ) => {
-    try {
-      const day = days.find((d) => d.id === dayId);
-      if (!day) throw new Error("Day not found");
+    const day = schedules.find(
+      (d) => d.id === dayId
+    );
 
-      // Create datetime strings directly
-      const datePart = format(new Date(day.date), "yyyy-MM-dd");
+    if (!day) return;
 
-      await createSlotAction({
-        dayId,
-        startTime: new Date(`${datePart}T${startTime}:00`).toISOString(),
-        endTime: new Date(`${datePart}T${endTime}:00`).toISOString(),
-        capacity,
-      });
+    const datePart = format(
+      new Date(day.date),
+      "yyyy-MM-dd"
+    );
 
-      await fetchDays();
-    } catch (error) {
-      console.error("Failed to add slot:", error);
-      throw error;
-    }
+    await createSlotAction({
+      dayId,
+
+      startTime: new Date(
+        `${datePart}T${startTime}:00`
+      ).toISOString(),
+
+      endTime: new Date(
+        `${datePart}T${endTime}:00`
+      ).toISOString(),
+
+      capacity,
+    });
   };
 
-  // Edit for schedule slot logic
+  /**
+   * EDIT SLOT
+   */
   const handleEditSlot = async (
     slotId: number,
     startTime: string,
     endTime: string,
-    capacity: number,
+    capacity: number
   ) => {
-    try {
-      const day = days.find((d) => d.slots.some((s) => s.id === slotId));
+    const day = schedules.find((d) =>
+      d.slots.some(
+        (s: any) => s.id === slotId
+      )
+    );
 
-      if(!day) throw new Error("Day not found");
+    if (!day) return;
 
-      const datePart = format(new Date(day.date), "yyyy-MM-dd");
+    const datePart = format(
+      new Date(day.date),
+      "yyyy-MM-dd"
+    );
 
-      await editSlotAction(slotId, {
-        startTime: new Date(`${datePart}T${startTime}:00`).toISOString(),
-        endTime: new Date(`${datePart}T${endTime}:00`).toISOString(),
-        capacity,
-      })
+    await editSlotAction(slotId, {
+      startTime: new Date(
+        `${datePart}T${startTime}:00`
+      ).toISOString(),
 
-      await fetchDays();
-    } catch (error) {
-      console.error("Failed to edit slot:", error);
-      throw error;
-    }
+      endTime: new Date(
+        `${datePart}T${endTime}:00`
+      ).toISOString(),
+
+      capacity,
+    });
   };
 
-  // Add schedule day logic
-  const handleAddDay = async (date: Date) => {
-    const localDateString = format(date, "yyyy-MM-dd");
-    await createDayAction({ date: localDateString });
-
-    await fetchDays();
+  /**
+   * ADD DAY
+   */
+  const handleAddDay = async (
+    date: Date
+  ) => {
+    await createDayAction({
+      date: format(date, "yyyy-MM-dd"),
+    });
   };
 
-  const handleDeleteDay = async (dayId: number) => {
-    // Implement delete day logic here
-    await deleteDayAction(dayId);
-    await fetchDays();
-  };
-
-  
-  useEffect(() => {
-    fetchDays();
-  }, []);
-
-  // ---------- Render ----------
   return (
     <Card className="border-0 shadow-md bg-slate-800 my-4">
-      <CardHeader className="pb-2 flex flex-row items-center justify-between">
-        <CardTitle className="text-base flex items-center gap-2 text-white">
-          <CalendarPlus className="w-4 h-4" /> Schedule Management
-        </CardTitle>
-        {/* <Button size="sm">
-          <Plus className="w-4 h-4 mr-1.5" /> Add Day
-        </Button> */}
-        <CreateDayDialog
-          open={isDialogOpen}
-          onOpenChange={setIsDialogOpen}
-          onAdd={handleAddDay}
-        />
+      <CardHeader className="space-y-4">
+        <div className="flex items-center justify-between">
+          <CardTitle className="text-white flex items-center gap-2">
+            <CalendarPlus className="w-4 h-4" />
+            Schedule Management
+          </CardTitle>
+
+          <CreateDayDialog
+            open={isDialogOpen}
+            onOpenChange={setIsDialogOpen}
+            onAdd={handleAddDay}
+          />
+        </div>
+
+        {/* SEARCH + SORT */}
+        <div className="flex gap-2">
+          <input
+            type="date"
+            className="border rounded px-3 py-2 text-white bg-slate-700"
+            onChange={(e) =>
+              handleSearch(e.target.value)
+            }
+          />
+
+          <select
+            className="border rounded px-3 py-2 text-white bg-slate-700"
+            onChange={(e) =>
+              handleSort(e.target.value)
+            }
+          >
+            <option value="asc">
+              Oldest
+            </option>
+
+            <option value="desc">
+              Newest
+            </option>
+          </select>
+            <button
+              onClick={handleResetFilters}
+              className="px-4 py-2 rounded bg-slate-500 text-white hover:bg-slate-600"
+            >
+              Reset
+            </button>
+        </div>
       </CardHeader>
-      <CardContent className="space-y-6 overflow-y-auto h-full max-h-130">
-        {days.length === 0 ? (
-          <div className="text-center text-muted-foreground py-12 border border-dashed border-border rounded-lg">
-            No schedule days yet. Click "Add Day" to create one.
-          </div>
-        ) : (
-          days.map((day) => (
-            <ScheduleDays
-              key={day.id}
-              day={day}
-              onAddSlot={handleAddSlot}
-              handleEditSlot={handleEditSlot}
-              handleDeleteDay={handleDeleteDay}
-            />
-          ))
-        )}
+
+      <CardContent className="space-y-6">
+        {schedules.map((day) => (
+          <ScheduleDays
+            key={day.id}
+            day={day}
+            onAddSlot={handleAddSlot}
+            handleEditSlot={
+              handleEditSlot
+            }
+            handleDeleteDay={
+              deleteDayAction
+            }
+          />
+        ))}
+
+        {/* PAGINATION */}
+        <div className="flex items-center justify-between text-white">
+          <button
+            disabled={
+              !meta.hasPreviousPage
+            }
+            onClick={() =>
+              handlePageChange(
+                meta.page - 1
+              )
+            }
+          >
+            Previous
+          </button>
+
+          <p className="text-white">
+            Page {meta.page} of{" "}
+            {meta.totalPages}
+          </p>
+
+          <button
+            disabled={!meta.hasNextPage}
+            onClick={() =>
+              handlePageChange(
+                meta.page + 1
+              )
+            }
+          >
+            Next
+          </button>
+        </div>
       </CardContent>
     </Card>
   );

@@ -5,11 +5,12 @@ import { revalidatePath } from "next/cache"
 import {
   CreateScheduleDayDTO,
   CreateScheduleSlotDTO,
+  ScheduleQueryParams,
   UpdateScheduleSlotDTO,
 } from "@/dto/schedule.dto"
 
-export async function getDayAction(){
-  return await scheduleService.getSchedule();
+export async function getDayAction({params}: {params: ScheduleQueryParams}) {
+  return await scheduleService.getAll(params);
 }
 
 export async function createDayAction(data: CreateScheduleDayDTO) {

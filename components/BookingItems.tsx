@@ -24,6 +24,12 @@ const BookingItems = ({ bookings }: Props) => {
 
   const [deleteOpen, setDeleteOpen] = useState(false)
   const [selectedId, setSelectedId] = useState<number | null>(null)
+
+  const viewReceipt = (booking: BookingResponse) => {
+    // Implement logic to view receipt, e.g., open a modal with the receipt image
+    console.log("Viewing receipt for booking:", booking.proofOfPaymentUrl);
+    window.open(booking.proofOfPaymentUrl, "_blank");
+  }
   return (
     <Table>
       <TableHeader>
@@ -49,6 +55,9 @@ const BookingItems = ({ bookings }: Props) => {
             onDelete={() => {
               setSelectedId(booking.id)
               setDeleteOpen(true)
+            }}
+            onViewReceipt={() => {
+              viewReceipt(booking);
             }}
           />
         ))}

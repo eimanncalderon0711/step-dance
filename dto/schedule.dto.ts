@@ -15,3 +15,16 @@ export type UpdateScheduleSlotDTO = {
   endTime?: string
   capacity?: number
 }
+
+export interface ScheduleQueryParams {
+  page?: number
+  limit?: number
+
+  search?: string
+
+  startDate?: string
+  endDate?: string
+
+  sortBy?: "date" | "createdAt"
+  sortOrder?: "asc" | "desc"
+}

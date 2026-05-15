@@ -22,9 +22,10 @@ type Props = {
   booking: BookingResponse;
   onEdit: () => void;
   onDelete: () => void;
+  onViewReceipt: () => void;
 };
 
-const BookingItem = ({ booking, onEdit, onDelete }: Props) => {
+const BookingItem = ({ booking, onEdit, onDelete, onViewReceipt }: Props) => {
   return (
     <>
       <TableRow className="text-white">
@@ -41,7 +42,9 @@ const BookingItem = ({ booking, onEdit, onDelete }: Props) => {
         <TableCell>{booking.referenceNumber}</TableCell>
         <TableCell className="flex items-center gap-2 cursor-pointer">
           <Eye className="h-4 w-4" />
-          View
+          <div onClick={onViewReceipt}>
+            View Receipt
+          </div>
         </TableCell>
         <TableCell>
           <DropdownMenu>
