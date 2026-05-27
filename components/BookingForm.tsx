@@ -24,7 +24,10 @@ import {
 import UploadWrapper from "@/components/UploadWrapper";
 import ConfirmationModal from "@/components/ConfirmationModal";
 import { createBookingAction } from "@/actions/bookings";
-import { NativeSelect, NativeSelectOption } from "@/components/ui/native-select";
+import {
+  NativeSelect,
+  NativeSelectOption,
+} from "@/components/ui/native-select";
 
 // ---------------- TYPES ----------------
 type Slot = {
@@ -54,8 +57,12 @@ export type BookingData = {
 // ---------------- COMPONENT ----------------
 export default function BookingForm() {
   const [submitted, setSubmitted] = useState(false);
+
   const [schedule, setSchedule] = useState<Day[]>([]);
   const [selectedDate, setSelectedDate] = useState<Date | undefined>();
+
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const [form, setForm] = useState<BookingData>({
     fullName: "",
@@ -69,22 +76,37 @@ export default function BookingForm() {
 
   // ---------------- FETCH ----------------
   const fetchSchedule = async () => {
-    const res = await fetch("/api/schedules");
-    const data = await res.json();
-    setSchedule(data.data);
+    try {
+      const res = await fetch("/api/schedules");
+
+      if (!res.ok) {
+        throw new Error("Failed to fetch schedules");
+      }
+
+      const data = await res.json();
+
+      setSchedule(data.data);
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   useEffect(() => {
     fetchSchedule();
   }, []);
 
-  // ---------------- LOGIC ----------------
+  // ---------------- HELPERS ----------------
   const toLocalDate = (date: string | Date) => {
     const d = new Date(date);
-    return new Date(d.getFullYear(), d.getMonth(), d.getDate());
+
+    return new Date(
+      d.getFullYear(),
+      d.getMonth(),
+      d.getDate()
+    );
   };
 
-    const isDateDisabled = (date: Date) => {
+  const isDateDisabled = (date: Date) => {
     return !schedule.some((day) =>
       isSameDay(toLocalDate(day.date), date)
     );
@@ -97,16 +119,19 @@ export default function BookingForm() {
   );
 
   // ---------------- VALIDATION ----------------
-  const isValid =
+  const isValid = Boolean(
     form.fullName &&
     form.email &&
     form.phone &&
     form.scheduleId &&
     form.referenceNumber &&
-    form.proofOfPaymentUrl;
+    form.proofOfPaymentUrl
+  );
 
   // ---------------- HANDLERS ----------------
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const { name, value } = e.target;
 
     setForm((prev) => ({
@@ -115,28 +140,76 @@ export default function BookingForm() {
     }));
   };
 
-  const handleSubmit = async (e: React.SubmitEvent) => {
-    e.preventDefault();
+  const resetForm = () => {
+    setSelectedDate(undefined);
 
-    // ------------Create Booking------------
-    await createBookingAction({
-      fullName: form.fullName,
-      email: form.email,
-      phone: form.phone,
-      proofOfPaymentUrl: form.proofOfPaymentUrl!,
-      referenceNumber: form.referenceNumber,
-      scheduleId: form.scheduleId!,
+    setForm({
+      fullName: "",
+      email: "",
+      phone: "",
+      scheduleId: null,
+      referenceNumber: "",
+      proofOfPaymentUrl: "",
+      userId: null,
     });
-
-    setSubmitted(true);
   };
 
+  // ---------------- SUBMIT ----------------
+  const handleSubmit = async (
+    e: React.FormEvent
+  ) => {
+    e.preventDefault();
+
+    try {
+      setLoading(true);
+      setError(null);
+
+      await createBookingAction({
+        fullName: form.fullName,
+        email: form.email,
+        phone: form.phone,
+        proofOfPaymentUrl:
+          form.proofOfPaymentUrl!,
+        referenceNumber:
+          form.referenceNumber,
+        scheduleId: form.scheduleId!,
+      });
+
+      // Refresh schedule immediately
+      await fetchSchedule();
+
+      setSubmitted(true);
+
+    } catch (err: any) {
+      console.error(err);
+
+      setError(
+        err?.message ||
+          "Something went wrong while creating booking."
+      );
+
+      // Refresh schedule because another user
+      // may have taken the slot already
+      await fetchSchedule();
+
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // ---------------- SUCCESS MODAL ----------------
   if (submitted) {
     return (
       <ConfirmationModal
         form={form}
         setForm={setForm}
-        setSubmitted={setSubmitted}
+        setSubmitted={(value) => {
+          setSubmitted(value);
+
+          if (!value) {
+            resetForm();
+          }
+        }}
       />
     );
   }
@@ -148,17 +221,28 @@ export default function BookingForm() {
         <CardTitle className="text-xl text-amber-50">
           Book a Session
         </CardTitle>
+
         <CardDescription>
           Choose a date and available time slot
         </CardDescription>
       </CardHeader>
 
       <CardContent>
-        <form onSubmit={handleSubmit} className="space-y-5">
+        <form
+          onSubmit={handleSubmit}
+          className="space-y-5"
+        >
+          {/* ERROR MESSAGE */}
+          {error && (
+            <div className="rounded-md border border-red-500 bg-red-500/10 p-3 text-sm text-red-400">
+              {error}
+            </div>
+          )}
 
           {/* NAME */}
           <div className="space-y-2 text-amber-50">
             <Label>Full Name</Label>
+
             <Input
               className="bg-white text-black"
               name="fullName"
@@ -170,9 +254,11 @@ export default function BookingForm() {
           {/* EMAIL */}
           <div className="space-y-2 text-amber-50">
             <Label>Email</Label>
+
             <Input
               className="bg-white text-black"
               name="email"
+              type="email"
               value={form.email}
               onChange={handleChange}
             />
@@ -181,6 +267,7 @@ export default function BookingForm() {
           {/* PHONE */}
           <div className="space-y-2 text-amber-50">
             <Label>Phone</Label>
+
             <Input
               className="bg-white text-black"
               name="phone"
@@ -189,7 +276,7 @@ export default function BookingForm() {
             />
           </div>
 
-          {/* 📅 DATE PICKER */}
+          {/* DATE PICKER */}
           <div className="space-y-2 text-amber-50">
             <Label>Select Date</Label>
 
@@ -204,6 +291,7 @@ export default function BookingForm() {
                   ) : (
                     <span>Pick a date</span>
                   )}
+
                   <ChevronDownIcon className="w-4 h-4" />
                 </Button>
               </PopoverTrigger>
@@ -214,10 +302,13 @@ export default function BookingForm() {
                   selected={selectedDate}
                   onSelect={(date) => {
                     setSelectedDate(date);
+
                     setForm((prev) => ({
                       ...prev,
                       scheduleId: null,
                     }));
+
+                    setError(null);
                   }}
                   disabled={isDateDisabled}
                 />
@@ -225,21 +316,28 @@ export default function BookingForm() {
             </Popover>
           </div>
 
-          {/* ⏰ SLOT SELECTOR */}
+          {/* SLOT SELECTOR */}
           {selectedDay && (
             <div className="space-y-2 text-amber-50">
               <Label>Select Time Slot</Label>
 
               <NativeSelect
-                className="w-full rounded-full bg-white text-black border-0 "
-                onChange={(e) =>
+                className="w-full rounded-full bg-white text-black border-0"
+                value={form.scheduleId ?? ""}
+                onChange={(e) => {
                   setForm((prev) => ({
                     ...prev,
-                    scheduleId: Number(e.target.value),
-                  }))
-                }
+                    scheduleId: Number(
+                      e.target.value
+                    ),
+                  }));
+
+                  setError(null);
+                }}
               >
-                <NativeSelectOption className="rounded-full" value="">Select a time</NativeSelectOption>
+                <NativeSelectOption value="">
+                  Select a time
+                </NativeSelectOption>
 
                 {selectedDay.slots.map((slot) => {
                   const available =
@@ -251,9 +349,16 @@ export default function BookingForm() {
                       value={slot.id}
                       disabled={available <= 0}
                     >
-                      {format(new Date(slot.startTime), "hh:mm a")} -{" "}
-                      {format(new Date(slot.endTime), "hh:mm a")} (
-                      {available} left)
+                      {format(
+                        new Date(slot.startTime),
+                        "hh:mm a"
+                      )}{" "}
+                      -{" "}
+                      {format(
+                        new Date(slot.endTime),
+                        "hh:mm a"
+                      )}{" "}
+                      ({available} left)
                     </NativeSelectOption>
                   );
                 })}
@@ -264,10 +369,11 @@ export default function BookingForm() {
           {/* REFERENCE */}
           <div className="space-y-2 text-amber-50">
             <Label>Reference Number</Label>
+
             <Input
               className="bg-white text-black"
               name="referenceNumber"
-              value={form.referenceNumber ?? ""}
+              value={form.referenceNumber}
               onChange={handleChange}
             />
           </div>
@@ -277,20 +383,31 @@ export default function BookingForm() {
             <p className="text-xs text-orange-400 uppercase">
               GCash Payment
             </p>
-            <p className="font-bold">0975 549 4306</p>
-            <p className="text-sm">Eimann Joshua L. Calderon</p>
+
+            <p className="font-bold">
+              0975 549 4306
+            </p>
+
+            <p className="text-sm">
+              Eimann Joshua L. Calderon
+            </p>
           </div>
 
           {/* UPLOAD */}
-          <UploadWrapper setForm={setForm} form={form} />
+          <UploadWrapper
+            setForm={setForm}
+            form={form}
+          />
 
           {/* SUBMIT */}
           <Button
             type="submit"
-            disabled={!isValid}
-            className="w-full bg-orange-500"
+            disabled={!isValid || loading}
+            className="w-full bg-orange-500 hover:bg-orange-600"
           >
-            Confirm Booking
+            {loading
+              ? "Submitting..."
+              : "Confirm Booking"}
           </Button>
         </form>
       </CardContent>

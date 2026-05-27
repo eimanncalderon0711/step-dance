@@ -2,7 +2,7 @@ import { createBookingDTO } from "@/dto/booking.dto";
 import { BookingUpdateInput } from "@/lib/generated/prisma/models";
 import { prisma } from "@/lib/prisma";
 import { bookingRepository } from "@/repositories/booking.repository";
-
+import { sendBookingEmail } from "@/lib/email/send-booking-email";
 
 type GetAllBookingsParams = {
   page?: number;
@@ -26,38 +26,28 @@ export const bookingService = {
   },
 
   async createBooking(data: createBookingDTO) {
-    return await prisma.$transaction(async (tx) => {
-      // 1. Get the slot to check capacity
+    const booking = await prisma.$transaction(async (tx) => {
       const slot = await tx.scheduleSlot.findUnique({
         where: { id: data.scheduleId },
       });
 
-      if (!slot) {
-        throw new Error("Slot not found");
-      }
+      if (!slot) throw new Error("Slot not found");
 
-      // 2. Increment booked count ONLY if slot is not full
       const result = await tx.scheduleSlot.updateMany({
         where: {
           id: data.scheduleId,
-          booked: {
-            lt: slot.capacity,
-          },
+          booked: { lt: slot.capacity },
         },
         data: {
-          booked: {
-            increment: 1,
-          },
+          booked: { increment: 1 },
         },
       });
 
-      // 3. If no rows were updated, the slot is full
       if (result.count === 0) {
         throw new Error("Slot is full");
       }
 
-      // 4. Create the booking
-      const booking = await tx.booking.create({
+      return await tx.booking.create({
         data: {
           fullName: data.fullName,
           email: data.email,
@@ -68,9 +58,20 @@ export const bookingService = {
           userId: data.userId ?? null,
         },
       });
-
-      return booking;
     });
+
+    // ✅ EMAIL AFTER SUCCESS
+    try {
+      await sendBookingEmail({
+        to: booking.email,
+        fullName: booking.fullName,
+        referenceNumber: booking.referenceNumber,
+      });
+    } catch (err) {
+      console.error("Email failed but booking succeeded:", err);
+    }
+
+    return booking;
   },
 
   async getBookingById(id: number) {
