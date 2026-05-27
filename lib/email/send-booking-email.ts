@@ -1,7 +1,5 @@
 import nodemailer from "nodemailer";
 
-export const runtime = "nodejs";
-
 type SendBookingEmailParams = {
   to: string;
   fullName: string;
@@ -10,8 +8,8 @@ type SendBookingEmailParams = {
 
 const transporter = nodemailer.createTransport({
   host: "smtp-relay.brevo.com",
-  port: 587,
-  secure: false,
+  port: 465,
+  secure: true, // use SSL
   auth: {
     user: process.env.BREVO_SMTP_LOGIN, // a8df0a001@smtp-brevo.com
     pass: process.env.BREVO_SMTP_KEY, // SMTP KEY
