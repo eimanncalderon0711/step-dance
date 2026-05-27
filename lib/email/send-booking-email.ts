@@ -1,20 +1,8 @@
-import nodemailer from "nodemailer";
-
 type SendBookingEmailParams = {
   to: string;
   fullName: string;
   referenceNumber: string;
 };
-
-const transporter = nodemailer.createTransport({
-  host: "smtp-relay.brevo.com",
-  port: 465,
-  secure: true, // use SSL
-  auth: {
-    user: process.env.BREVO_SMTP_LOGIN, // a8df0a001@smtp-brevo.com
-    pass: process.env.BREVO_SMTP_KEY, // SMTP KEY
-  },
-});
 
 export async function sendBookingEmail({
   to,
@@ -22,39 +10,58 @@ export async function sendBookingEmail({
   referenceNumber,
 }: SendBookingEmailParams) {
   try {
-    const info = await transporter.sendMail({
-      from: `"Step Dance" <eimanjoshua.calderon@ustp.edu.ph>`,
-      to,
-      subject: "Booking Confirmation 🎉",
-      html: `
-      <div style="font-family:Arial;padding:20px;">
-        <h2>Booking Confirmed 🎉</h2>
+    const res = await fetch("https://api.brevo.com/v3/smtp/email", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "api-key": process.env.BREVO_API_KEY!,
+      },
+      body: JSON.stringify({
+        sender: {
+          name: "Step Dance",
+          email: "eimanjoshua.calderon@ustp.edu.ph",
+        },
+        to: [
+          {
+            email: to,
+            name: fullName,
+          },
+        ],
+        subject: "Booking Confirmation 🎉",
+        htmlContent: `
+          <div style="font-family:Arial;padding:20px;">
+            <h2>Booking Confirmed 🎉</h2>
 
-        <p>Hello <b>${fullName}</b>,</p>
+            <p>Hello <b>${fullName}</b>,</p>
 
-        <p>Your booking has been successfully confirmed.</p>
+            <p>Your booking has been successfully confirmed.</p>
 
-        <p>
-          <b>Reference Number:</b><br/>
-          ${referenceNumber}
-        </p>
+            <p>
+              <b>Reference Number:</b><br/>
+              ${referenceNumber}
+            </p>
 
-        <hr/>
-        <p style="font-size:12px;color:#777;">
-          Step Dance Studio
-        </p>
-      </div>
-    `,
+            <hr/>
+            <p style="font-size:12px;color:#777;">
+              Step Dance Studio
+            </p>
+          </div>
+        `,
+      }),
     });
 
-    return info;
-  } catch (error: any) {
-    console.error("SMTP EMAIL ERROR:", error);
+    const data = await res.json();
 
-    // Log more details
-    if (error.code) console.error("Error code:", error.code);
-    if (error.response) console.error("SMTP response:", error.response);
+    if (!res.ok) {
+      console.error("Brevo API Error:", data);
+      throw new Error(data.message || "Failed to send email");
+    }
 
+    console.log("Email sent successfully:", data);
+
+    return data;
+  } catch (error) {
+    console.error("EMAIL ERROR:", error);
     throw error;
   }
 }
