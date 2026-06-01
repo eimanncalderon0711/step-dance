@@ -156,7 +156,7 @@ export default function BookingForm() {
 
   // ---------------- SUBMIT ----------------
   const handleSubmit = async (
-    e: React.FormEvent
+    e: React.SubmitEvent<HTMLFormElement>
   ) => {
     e.preventDefault();
 
@@ -164,7 +164,7 @@ export default function BookingForm() {
       setLoading(true);
       setError(null);
 
-      await createBookingAction({
+      const result = await createBookingAction({
         fullName: form.fullName,
         email: form.email,
         phone: form.phone,
@@ -175,9 +175,14 @@ export default function BookingForm() {
         scheduleId: form.scheduleId!,
       });
 
-      // Refresh schedule immediately
-      await fetchSchedule();
+      if (!result.success) {
+        setError(result.message || "Slot is full or not available");
+        // Refresh schedule immediately
+        await fetchSchedule();
+        return;
+      }
 
+      await fetchSchedule();
       setSubmitted(true);
 
     } catch (err: any) {
@@ -190,8 +195,6 @@ export default function BookingForm() {
 
       // Refresh schedule because another user
       // may have taken the slot already
-      await fetchSchedule();
-
     } finally {
       setLoading(false);
     }

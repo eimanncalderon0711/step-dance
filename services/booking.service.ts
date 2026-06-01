@@ -26,52 +26,81 @@ export const bookingService = {
   },
 
   async createBooking(data: createBookingDTO) {
-    const booking = await prisma.$transaction(async (tx) => {
-      const slot = await tx.scheduleSlot.findUnique({
-        where: { id: data.scheduleId },
+    try {
+      const booking = await prisma.$transaction(async (tx) => {
+        const slot = await tx.scheduleSlot.findUnique({
+          where: { id: data.scheduleId },
+        });
+
+        if (!slot) {
+          throw new Error("Slot not found");
+        }
+
+        const result = await tx.scheduleSlot.updateMany({
+          where: {
+            id: data.scheduleId,
+            booked: {
+              lt: slot.capacity,
+            },
+          },
+          data: {
+            booked: {
+              increment: 1,
+            },
+          },
+        });
+
+        // Another user already took the last slot
+        if (result.count === 0) {
+          return null;
+        }
+
+        return await tx.booking.create({
+          data: {
+            fullName: data.fullName,
+            email: data.email,
+            phone: data.phone,
+            proofOfPaymentUrl: data.proofOfPaymentUrl,
+            referenceNumber: data.referenceNumber,
+            slotId: data.scheduleId,
+            userId: data.userId ?? null,
+          },
+        });
       });
 
-      if (!slot) throw new Error("Slot not found");
-
-      const result = await tx.scheduleSlot.updateMany({
-        where: {
-          id: data.scheduleId,
-          booked: { lt: slot.capacity },
-        },
-        data: {
-          booked: { increment: 1 },
-        },
-      });
-
-      if (result.count === 0) {
-        throw new Error("Slot is full");
+      if (!booking) {
+        return {
+          success: false,
+          message: "Sorry, this slot was just booked by another user.",
+        };
       }
 
-      return await tx.booking.create({
-        data: {
-          fullName: data.fullName,
-          email: data.email,
-          phone: data.phone,
-          proofOfPaymentUrl: data.proofOfPaymentUrl,
-          referenceNumber: data.referenceNumber,
-          slotId: data.scheduleId,
-          userId: data.userId ?? null,
-        },
-      });
-    });
+      // Send email only after successful booking
+      try {
+        await sendBookingEmail({
+          to: booking.email,
+          fullName: booking.fullName,
+          referenceNumber: booking.referenceNumber,
+        });
+      } catch (err) {
+        console.error(
+          "Email failed but booking succeeded:",
+          err
+        );
+      }
 
-    // ✅ EMAIL AFTER SUCCESS
-    try {
-      await sendBookingEmail({
-        to: booking.email,
-        fullName: booking.fullName,
-        referenceNumber: booking.referenceNumber,
-      });
+      return {
+        success: true,
+        booking,
+      };
     } catch (err) {
-      console.error("Email failed but booking succeeded:", err);
-    }
+      console.error("Booking failed:", err);
 
-    return booking;
+      return {
+        success: false,
+        message: "Something went wrong. Please try again.",
+      };
+    }
   },
 
   async getBookingById(id: number) {
