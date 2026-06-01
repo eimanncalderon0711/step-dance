@@ -2,6 +2,7 @@ import { getBookingsAction } from "@/actions/bookings";
 import { getDayAction } from "@/actions/schedule";
 import RecentBookings from "@/components/RecentBookings";
 import ScheduleManager from "@/components/ScheduleManager";
+import { format } from "date-fns/format";
 
 type Props = {
   searchParams: Promise<{
@@ -60,7 +61,7 @@ const Admin = async ({ searchParams }: Props) => {
   /**
    * SERIALIZE DATES
    */
-  const serializedSchedules = schedules.data.map((day) => ({
+const serializedSchedules = schedules.data.map((day) => ({
   ...day,
 
   date: day.date.toISOString(),
@@ -68,12 +69,10 @@ const Admin = async ({ searchParams }: Props) => {
   slots: day.slots.map((slot) => ({
     ...slot,
 
-    startTime: slot.startTime.toISOString(),
-
-    endTime: slot.endTime.toISOString(),
+    startTime: format(slot.startTime, "HH:mm"),
+    endTime: format(slot.endTime, "HH:mm"),
 
     createdAt: slot.createdAt.toISOString(),
-
     updatedAt: slot.updatedAt.toISOString(),
   })),
 }));

@@ -172,6 +172,8 @@ const ScheduleManager = ({
 
       capacity,
     });
+    
+    router.refresh();
   };
 
   /**
