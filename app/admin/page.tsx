@@ -69,8 +69,8 @@ const serializedSchedules = schedules.data.map((day) => ({
   slots: day.slots.map((slot) => ({
     ...slot,
 
-    startTime: format(slot.startTime, "HH:mm"),
-    endTime: format(slot.endTime, "HH:mm"),
+    startTime: slot.startTime.toISOString(),
+    endTime: slot.endTime.toISOString(),
 
     createdAt: slot.createdAt.toISOString(),
     updatedAt: slot.updatedAt.toISOString(),

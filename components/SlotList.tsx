@@ -1,15 +1,16 @@
 "use client";
+
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { TableCell, TableRow } from "@/components/ui/table";
-import { format, parse } from "date-fns";
+import { format } from "date-fns";
 import { Clock, Pencil, Trash2, Users } from "lucide-react";
 import React from "react";
 
 type ScheduleSlot = {
   id: number;
-  startTime: string; // "HH:mm"
-  endTime: string; // "HH:mm"
+  startTime: string;
+  endTime: string;
   capacity: number;
   booked: number;
   dayId: number;
@@ -26,9 +27,8 @@ type SlotProps = {
 
 export const SlotList = ({ slot, full, remaining, onEdit }: SlotProps) => {
   const formatTime = (time: string) => {
-    console.log("TIME VALUE:", time);
-
-    return format(parse(time, "HH:mm", new Date()), "h:mm a");
+    if (!time) return "";
+    return format(new Date(time), "h:mm a");
   };
 
   return (
@@ -39,24 +39,24 @@ export const SlotList = ({ slot, full, remaining, onEdit }: SlotProps) => {
           {formatTime(slot.startTime)}
         </span>
       </TableCell>
+
       <TableCell>{formatTime(slot.endTime)}</TableCell>
+
       <TableCell>
         <span className="inline-flex items-center gap-1.5">
           <Users className="w-3.5 h-3.5 text-muted-foreground" />
           {slot.capacity}
         </span>
       </TableCell>
+
       <TableCell>{slot.booked}</TableCell>
+
       <TableCell>
-        <Badge
-          variant={full ? "destructive" : "secondary"}
-          className={
-            !full ? "bg-success/15 text-success hover:bg-success/20" : ""
-          }
-        >
+        <Badge variant={full ? "destructive" : "secondary"}>
           {full ? "Full" : `${remaining} left`}
         </Badge>
       </TableCell>
+
       <TableCell className="text-right">
         <Button
           size="icon"
@@ -66,10 +66,11 @@ export const SlotList = ({ slot, full, remaining, onEdit }: SlotProps) => {
         >
           <Pencil className="w-4 h-4" />
         </Button>
+
         <Button
           size="icon"
           variant="ghost"
-          className="h-8 w-8 text-destructive hover:text-destructive hover:bg-destructive/10"
+          className="h-8 w-8 text-destructive"
         >
           <Trash2 className="w-4 h-4" />
         </Button>
