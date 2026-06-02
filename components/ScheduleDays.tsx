@@ -68,10 +68,7 @@ const ScheduleDays = ({
             <p className="font-semibold text-orange-500">
               {format(day.date, "EEEE, MMMM do, yyyy")}
             </p>
-            <p className="text-xs text-white">
-              {day.date} · {day.slots.length} slot
-              {day.slots.length !== 1 ? "s" : ""}
-            </p>
+           
           </div>
         </div>
         <div className="flex items-center gap-1">
