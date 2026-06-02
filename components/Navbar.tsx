@@ -42,7 +42,7 @@ const Navbar = () => {
         <button onClick={() => scrollTo("#home")} className="flex items-center gap-2.5">
           <div className="w-16 h-16 rounded-full overflow-hidden flex items-center justify-center">
             {/* <Footprints className="w-4.5 h-4.5 text-primary-foreground" /> */}
-            <Image src="/images/step-dance-logo.png" alt="Step Dance Logo" width={64} height={64} />
+            <Image src="/images/step-dance-logo.png" alt="Step Dance Logo" width={64} height={64} priority/>
           </div>
           <span className="font-bold text-lg text-orange-400">Step Dance PH</span>
         </button>

@@ -27,6 +27,7 @@ export default function Header({ user }: { user: any }) {
               alt="Step Dance Logo"
               width={64}
               height={64}
+              priority
             />
           </div>
 

@@ -1,7 +1,8 @@
-
+"use client";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { TableCell, TableRow } from "@/components/ui/table";
+import { format, parse } from "date-fns";
 import { Clock, Pencil, Trash2, Users } from "lucide-react";
 import React from "react";
 
@@ -23,15 +24,14 @@ type SlotProps = {
   onEdit: (slot: ScheduleSlot) => void;
 };
 
-export const SlotList = ({slot, full, remaining, onEdit}: SlotProps) => {
+export const SlotList = ({ slot, full, remaining, onEdit }: SlotProps) => {
+  const formatTime = (time: string) => {
+    if (!time) return "";
 
-    const formatTime = (t: string): string => {
-        if (!t) return "";
-        const [h, m] = t.split(":").map(Number);
-        const period = h >= 12 ? "PM" : "AM";
-        const hour = h % 12 || 12;
-        return `${hour}:${m.toString().padStart(2, "0")} ${period}`;
-    };
+    const parsed = parse(time, "HH:mm", new Date());
+
+    return format(parsed, "h:mm a");
+  };
 
   return (
     <TableRow key={slot.id}>
