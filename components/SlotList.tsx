@@ -3,7 +3,7 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { TableCell, TableRow } from "@/components/ui/table";
-import { format } from "date-fns";
+import { format, isValid, parse } from "date-fns";
 import { Clock, Pencil, Trash2, Users } from "lucide-react";
 import React from "react";
 
@@ -27,9 +27,22 @@ type SlotProps = {
 
 export const SlotList = ({ slot, full, remaining, onEdit }: SlotProps) => {
   const formatTime = (time: string) => {
-    if (!time) return "";
-    return format(new Date(time), "h:mm a");
-  };
+  if (!time) return "";
+
+  // Case 1: ISO string
+  const iso = new Date(time);
+  if (isValid(iso)) {
+    return format(iso, "h:mm a");
+  }
+
+  // Case 2: "HH:mm" fallback (fallback-safe)
+  const parsed = parse(time, "HH:mm", new Date());
+  if (isValid(parsed)) {
+    return format(parsed, "h:mm a");
+  }
+
+  return "";
+};
 
   return (
     <TableRow key={slot.id}>

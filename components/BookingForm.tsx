@@ -315,10 +315,6 @@ export default function BookingForm() {
 
                 {selectedDay.slots.map((slot) => {
                   const available = slot.capacity - slot.booked;
-
-                  console.log("BOOKING SLOT:", slot);
-                  console.log("BOOKING START:", slot.startTime);
-                  console.log("BOOKING END:", slot.endTime);
                   return (
                     <NativeSelectOption
                       key={slot.id}
