@@ -56,6 +56,8 @@ const ScheduleDays = ({
   const [isSlotDialogOpen, setIsSlotDialogOpen] = useState(false);
   const [selectedSlot, setSelectedSlot] = useState<ScheduleSlot | null>(null);
 
+   console.log("SLOT DEBUG:", day.slots);
+
   return (
     <div
       key={day.id}

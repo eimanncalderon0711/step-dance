@@ -23,6 +23,9 @@ type SlotProps = {
 };
 
 export const SlotList = ({ slot, full, remaining, onEdit }: SlotProps) => {
+
+  if (!slot) return null; // 🔥 prevents React crash
+  
   const formatTime = (time: string) => {
     if (!time) return "";
 
