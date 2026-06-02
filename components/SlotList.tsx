@@ -28,9 +28,7 @@ export const SlotList = ({ slot, full, remaining, onEdit }: SlotProps) => {
   const formatTime = (time: string) => {
     if (!time) return "";
 
-    const parsed = parse(time, "HH:mm", new Date());
-
-    return format(parsed, "h:mm a");
+    return format(parse(time, "HH:mm", new Date()), "h:mm a");
   };
 
   return (
