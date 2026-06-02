@@ -347,9 +347,9 @@ export default function BookingForm() {
           <div className="border-t pt-4 text-amber-50">
             <p className="text-xs text-orange-400 uppercase">GCash Payment</p>
 
-            <p className="font-bold">0975 549 4306</p>
+            <p className="font-bold">0935 110 6411</p>
 
-            <p className="text-sm">Eimann Joshua L. Calderon</p>
+            <p className="text-sm">Al Batulan</p>
           </div>
 
           {/* UPLOAD */}
