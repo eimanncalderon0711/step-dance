@@ -13,6 +13,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Clock, Users } from "lucide-react";
 import { format } from "date-fns";
+import { toISOTime, toTimeString } from "@/lib/time";
+import { date } from "zod";
 
 interface AddSlotDialogProps {
   open: boolean;
@@ -57,8 +59,8 @@ export function AddSlotDialog({
 
   useEffect(() => {
     if (mode === "edit" && slot) {
-      setStartTime(slot.startTime);
-      setEndTime(slot.endTime);
+      setStartTime(toTimeString(slot.startTime));
+      setEndTime(toTimeString(slot.endTime));
       setCapacity(slot.capacity);
     } else {
       setStartTime("09:00");
@@ -80,7 +82,7 @@ export function AddSlotDialog({
       if (mode === "edit" && slot && onEditSlot) {
         await onEditSlot(slot.id, startTime, endTime, capacity);
       } else {
-        await onAddSlot(dayId, startTime, endTime, capacity);
+        await onAddSlot(dayId, toISOTime(dayDate, startTime), toISOTime(dayDate, endTime), capacity);
       }
 
       onOpenChange(false);
