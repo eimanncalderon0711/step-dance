@@ -26,7 +26,7 @@ type SlotProps = {
 
 export const SlotList = ({ slot, full, remaining, onEdit }: SlotProps) => {
   const formatTime = (time: string) => {
-    if (!time) return "";
+    console.log("TIME VALUE:", time);
 
     return format(parse(time, "HH:mm", new Date()), "h:mm a");
   };
