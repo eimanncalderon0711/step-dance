@@ -119,11 +119,13 @@ const ScheduleManager = ({
 
     if (!day) return;
 
-    const datePart = format(
-      new Date(day.date),
-      "yyyy-MM-dd"
-    );
+    // const datePart = format(
+    //   new Date(day.date),
+    //   "yyyy-MM-dd"
+    // );
 
+    const datePart = format(new Date(`${day.date}T00:00:00`), "yyyy-MM-dd");
+    
     await createSlotAction({
       dayId,
 

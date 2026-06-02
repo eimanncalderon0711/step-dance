@@ -94,7 +94,11 @@ export function AddSlotDialog({
   };
 
   // Format date for display using date-fns
-  const formattedDate = format(new Date(dayDate), "EEEE, MMMM do, yyyy");
+  // const formattedDate = format(new Date(dayDate), "EEEE, MMMM do, yyyy");
+const formattedDate = format(
+  new Date(`${dayDate.slice(0, 10)}T00:00:00`),
+  "EEEE, MMMM do, yyyy"
+);
 
   // Alternative formats you could use:
   // const formattedDate = format(new Date(dayDate), 'PPP'); // Apr 18th, 2026
