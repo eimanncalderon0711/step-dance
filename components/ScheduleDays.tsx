@@ -12,11 +12,10 @@ import { format } from "date-fns";
 import { Pencil, Plus, Trash2 } from "lucide-react";
 import { useState } from "react";
 
-// ---------- Types matching schema ----------
 type ScheduleSlot = {
   id: number;
-  startTime: string; // "HH:mm"
-  endTime: string; // "HH:mm"
+  startTime: string;
+  endTime: string;
   capacity: number;
   booked: number;
   dayId: number;
@@ -26,7 +25,7 @@ type ScheduleSlot = {
 
 type ScheduleDay = {
   id: number;
-  date: string; // "YYYY-MM-DD"
+  date: string;
   slots: ScheduleSlot[];
 };
 
@@ -56,7 +55,11 @@ const ScheduleDays = ({
   const [isSlotDialogOpen, setIsSlotDialogOpen] = useState(false);
   const [selectedSlot, setSelectedSlot] = useState<ScheduleSlot | null>(null);
 
-   console.log("SLOT DEBUG:", day.slots);
+  // Fix: parse date string safely to avoid timezone mismatch
+  const displayDate = format(
+    new Date(`${day.date.slice(0, 10)}T00:00:00`),
+    "EEEE, MMMM do, yyyy"
+  );
 
   return (
     <div
@@ -68,9 +71,8 @@ const ScheduleDays = ({
         <div className="flex items-center gap-3">
           <div className="space-y-0.5">
             <p className="font-semibold text-orange-500">
-              {format(day.date, "EEEE, MMMM do, yyyy")}
+              {displayDate}
             </p>
-           
           </div>
         </div>
         <div className="flex items-center gap-1">
@@ -78,7 +80,10 @@ const ScheduleDays = ({
             className="bg-gray-800 border border-gray-900 text-white"
             size="sm"
             variant="outline"
-            onClick={() => setIsSlotDialogOpen(!isSlotDialogOpen)}
+            onClick={() => {
+              setSelectedSlot(null);
+              setIsSlotDialogOpen(true);
+            }}
           >
             <Plus className="w-3.5 h-3.5 mr-1" /> Add Slot
           </Button>
@@ -124,8 +129,8 @@ const ScheduleDays = ({
                   remaining={remaining}
                   full={full}
                   onEdit={(slot) => {
-                    setIsSlotDialogOpen(true);
                     setSelectedSlot(slot);
+                    setIsSlotDialogOpen(true);
                   }}
                 />
               );
@@ -133,9 +138,13 @@ const ScheduleDays = ({
           </TableBody>
         </Table>
       )}
+
       <AddSlotDialog
         open={isSlotDialogOpen}
-        onOpenChange={setIsSlotDialogOpen}
+        onOpenChange={(open) => {
+          setIsSlotDialogOpen(open);
+          if (!open) setSelectedSlot(null);
+        }}
         dayId={day.id}
         dayDate={day.date}
         onAddSlot={onAddSlot || (async () => {})}

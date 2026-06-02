@@ -1,4 +1,3 @@
-// components/AddSlotDialog.tsx
 import { useEffect, useState } from "react";
 import {
   Dialog,
@@ -11,10 +10,9 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Clock, Users } from "lucide-react";
+import { Users } from "lucide-react";
 import { format } from "date-fns";
 import { toISOTime, toTimeString } from "@/lib/time";
-import { date } from "zod";
 
 interface AddSlotDialogProps {
   open: boolean;
@@ -56,6 +54,17 @@ export function AddSlotDialog({
   const [endTime, setEndTime] = useState<string>("10:00");
   const [capacity, setCapacity] = useState<number>(10);
   const [isLoading, setIsLoading] = useState(false);
+  // Fix: defer date formatting to client-side only to avoid SSR/client hydration mismatch
+  const [formattedDate, setFormattedDate] = useState<string>("");
+
+  useEffect(() => {
+    setFormattedDate(
+      format(
+        new Date(`${dayDate.slice(0, 10)}T00:00:00`),
+        "EEEE, MMMM do, yyyy"
+      )
+    );
+  }, [dayDate]);
 
   useEffect(() => {
     if (mode === "edit" && slot) {
@@ -82,9 +91,13 @@ export function AddSlotDialog({
       if (mode === "edit" && slot && onEditSlot) {
         await onEditSlot(slot.id, startTime, endTime, capacity);
       } else {
-        await onAddSlot(dayId, toISOTime(dayDate, startTime), toISOTime(dayDate, endTime), capacity);
+        await onAddSlot(
+          dayId,
+          toISOTime(dayDate, startTime),
+          toISOTime(dayDate, endTime),
+          capacity
+        );
       }
-
       onOpenChange(false);
     } catch (error) {
       console.error("Failed:", error);
@@ -92,18 +105,6 @@ export function AddSlotDialog({
       setIsLoading(false);
     }
   };
-
-  // Format date for display using date-fns
-  // const formattedDate = format(new Date(dayDate), "EEEE, MMMM do, yyyy");
-const formattedDate = format(
-  new Date(`${dayDate.slice(0, 10)}T00:00:00`),
-  "EEEE, MMMM do, yyyy"
-);
-
-  // Alternative formats you could use:
-  // const formattedDate = format(new Date(dayDate), 'PPP'); // Apr 18th, 2026
-  // const formattedDate = format(new Date(dayDate), 'PPPP'); // Saturday, April 18th, 2026
-  // const formattedDate = format(new Date(dayDate), 'EEEE, MMMM d, yyyy'); // Saturday, April 18, 2026
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -114,9 +115,8 @@ const formattedDate = format(
           </DialogTitle>
           <DialogDescription className="text-slate-400 mt-2">
             Fill in the time range and capacity for this schedule slot. <br />
-            For {formattedDate}
+            {formattedDate && `For ${formattedDate}`}
           </DialogDescription>
-          
         </DialogHeader>
 
         <div className="space-y-5 py-4">
@@ -164,7 +164,9 @@ const formattedDate = format(
               min="1"
               max="999"
               value={capacity}
-              onChange={(e) => setCapacity(parseInt(e.target.value) || 0)}
+              onChange={(e) =>
+                setCapacity(parseInt(e.target.value) || 0)
+              }
               className="bg-slate-700 text-white border-slate-600"
             />
             <p className="text-xs text-slate-400">
@@ -181,7 +183,7 @@ const formattedDate = format(
           >
             Cancel
           </Button>
-          <Button onClick={handleSubmit}>
+          <Button onClick={handleSubmit} disabled={isLoading}>
             {isLoading
               ? mode === "edit"
                 ? "Saving..."

@@ -63,15 +63,12 @@ const Admin = async ({ searchParams }: Props) => {
    */
 const serializedSchedules = schedules.data.map((day) => ({
   ...day,
-
-  date: day.date.toISOString(),
-
+  // Fix: keep date as YYYY-MM-DD only, not full ISO string
+  date: format(day.date, "yyyy-MM-dd"),
   slots: day.slots.map((slot) => ({
     ...slot,
-
     startTime: slot.startTime.toISOString(),
     endTime: slot.endTime.toISOString(),
-
     createdAt: slot.createdAt.toISOString(),
     updatedAt: slot.updatedAt.toISOString(),
   })),

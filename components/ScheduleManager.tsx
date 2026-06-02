@@ -1,8 +1,6 @@
 'use client';
 import { format } from "date-fns";
-
 import { CreateDayDialog } from "@/components/CreateDayDialog";
-
 import { useState } from "react";
 import { createDayAction, createSlotAction, deleteDayAction, editSlotAction } from "@/actions/schedule";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -12,138 +10,58 @@ import { useRouter, useSearchParams } from "next/navigation";
 
 type Props = {
   schedules: any[];
-
   meta: {
     total: number;
     page: number;
     limit: number;
     totalPages: number;
-
     hasNextPage: boolean;
     hasPreviousPage: boolean;
   };
 };
 
-const ScheduleManager = ({
-  schedules,
-  meta,
-}: Props) => {
-  const [isDialogOpen, setIsDialogOpen] =
-    useState(false);
-
+const ScheduleManager = ({ schedules, meta }: Props) => {
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
   const router = useRouter();
-
   const searchParams = useSearchParams();
 
-  /**
-   * SEARCH
-   */
-  const handleSearch = (
-    value: string
-  ) => {
-    const params = new URLSearchParams(
-      searchParams.toString()
-    );
-
+  const handleSearch = (value: string) => {
+    const params = new URLSearchParams(searchParams.toString());
     params.set("scheduleSearch", value);
-
     params.set("schedulePage", "1");
-
     router.push(`?${params.toString()}`);
   };
 
-  /**
-   * RESET FILTERS
-   */
   const handleResetFilters = () => {
-    const params = new URLSearchParams(
-      searchParams.toString()
-    );
-
+    const params = new URLSearchParams(searchParams.toString());
     params.delete("scheduleSearch");
-
     params.delete("scheduleSortOrder");
-
     params.delete("scheduleSortBy");
-
     params.delete("schedulePage");
-
     router.push(`?${params.toString()}`);
   };
 
-  /**
-   * SORT
-   */
-  const handleSort = (
-    value: string
-  ) => {
-    const params = new URLSearchParams(
-      searchParams.toString()
-    );
-
+  const handleSort = (value: string) => {
+    const params = new URLSearchParams(searchParams.toString());
     params.set("scheduleSortOrder", value);
-
     router.push(`?${params.toString()}`);
   };
 
-  /**
-   * PAGINATION
-   */
-  const handlePageChange = (
-    page: number
-  ) => {
-    const params = new URLSearchParams(
-      searchParams.toString()
-    );
-
-    params.set(
-      "schedulePage",
-      String(page)
-    );
-
+  const handlePageChange = (page: number) => {
+    const params = new URLSearchParams(searchParams.toString());
+    params.set("schedulePage", String(page));
     router.push(`?${params.toString()}`);
   };
 
-  /**
-   * ADD SLOT
-   */
   const handleAddSlot = async (
     dayId: number,
     startTime: string,
     endTime: string,
     capacity: number
   ) => {
-    const day = schedules.find(
-      (d) => d.id === dayId
-    );
-
-    if (!day) return;
-
-    // const datePart = format(
-    //   new Date(day.date),
-    //   "yyyy-MM-dd"
-    // );
-
-    const datePart = format(new Date(`${day.date}T00:00:00`), "yyyy-MM-dd");
-    
-    await createSlotAction({
-      dayId,
-
-      startTime: new Date(
-        `${datePart}T${startTime}:00`
-      ).toISOString(),
-
-      endTime: new Date(
-        `${datePart}T${endTime}:00`
-      ).toISOString(),
-
-      capacity,
-    });
+    await createSlotAction({ dayId, startTime, endTime, capacity });
   };
 
-  /**
-   * EDIT SLOT
-   */
   const handleEditSlot = async (
     slotId: number,
     startTime: string,
@@ -151,42 +69,25 @@ const ScheduleManager = ({
     capacity: number
   ) => {
     const day = schedules.find((d) =>
-      d.slots.some(
-        (s: any) => s.id === slotId
-      )
+      d.slots.some((s: any) => s.id === slotId)
     );
 
     if (!day) return;
 
-    const datePart = format(
-      new Date(day.date),
-      "yyyy-MM-dd"
-    );
+    // Fix: safely extract date part before parsing
+    const datePart = day.date.slice(0, 10);
 
     await editSlotAction(slotId, {
-      startTime: new Date(
-        `${datePart}T${startTime}:00`
-      ).toISOString(),
-
-      endTime: new Date(
-        `${datePart}T${endTime}:00`
-      ).toISOString(),
-
+      startTime: new Date(`${datePart}T${startTime}:00`).toISOString(),
+      endTime: new Date(`${datePart}T${endTime}:00`).toISOString(),
       capacity,
     });
-    
+
     router.refresh();
   };
 
-  /**
-   * ADD DAY
-   */
-  const handleAddDay = async (
-    date: Date
-  ) => {
-    await createDayAction({
-      date: format(date, "yyyy-MM-dd"),
-    });
+  const handleAddDay = async (date: Date) => {
+    await createDayAction({ date: format(date, "yyyy-MM-dd") });
   };
 
   return (
@@ -205,36 +106,27 @@ const ScheduleManager = ({
           />
         </div>
 
-        {/* SEARCH + SORT */}
         <div className="flex gap-2">
           <input
             type="date"
             className="border rounded px-3 py-2 text-white bg-slate-700"
-            onChange={(e) =>
-              handleSearch(e.target.value)
-            }
+            onChange={(e) => handleSearch(e.target.value)}
           />
 
           <select
             className="border rounded px-3 py-2 text-white bg-slate-700"
-            onChange={(e) =>
-              handleSort(e.target.value)
-            }
+            onChange={(e) => handleSort(e.target.value)}
           >
-            <option value="asc">
-              Oldest
-            </option>
-
-            <option value="desc">
-              Newest
-            </option>
+            <option value="asc">Oldest</option>
+            <option value="desc">Newest</option>
           </select>
-            <button
-              onClick={handleResetFilters}
-              className="px-4 py-2 rounded bg-slate-500 text-white hover:bg-slate-600"
-            >
-              Reset
-            </button>
+
+          <button
+            onClick={handleResetFilters}
+            className="px-4 py-2 rounded bg-slate-500 text-white hover:bg-slate-600"
+          >
+            Reset
+          </button>
         </div>
       </CardHeader>
 
@@ -244,42 +136,26 @@ const ScheduleManager = ({
             key={day.id}
             day={day}
             onAddSlot={handleAddSlot}
-            handleEditSlot={
-              handleEditSlot
-            }
-            handleDeleteDay={
-              deleteDayAction
-            }
+            handleEditSlot={handleEditSlot}
+            handleDeleteDay={deleteDayAction}
           />
         ))}
 
-        {/* PAGINATION */}
         <div className="flex items-center justify-between text-white">
           <button
-            disabled={
-              !meta.hasPreviousPage
-            }
-            onClick={() =>
-              handlePageChange(
-                meta.page - 1
-              )
-            }
+            disabled={!meta.hasPreviousPage}
+            onClick={() => handlePageChange(meta.page - 1)}
           >
             Previous
           </button>
 
           <p className="text-white">
-            Page {meta.page} of{" "}
-            {meta.totalPages}
+            Page {meta.page} of {meta.totalPages}
           </p>
 
           <button
             disabled={!meta.hasNextPage}
-            onClick={() =>
-              handlePageChange(
-                meta.page + 1
-              )
-            }
+            onClick={() => handlePageChange(meta.page + 1)}
           >
             Next
           </button>
