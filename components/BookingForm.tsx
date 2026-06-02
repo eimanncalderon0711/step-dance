@@ -99,23 +99,15 @@ export default function BookingForm() {
   const toLocalDate = (date: string | Date) => {
     const d = new Date(date);
 
-    return new Date(
-      d.getFullYear(),
-      d.getMonth(),
-      d.getDate()
-    );
+    return new Date(d.getFullYear(), d.getMonth(), d.getDate());
   };
 
   const isDateDisabled = (date: Date) => {
-    return !schedule.some((day) =>
-      isSameDay(toLocalDate(day.date), date)
-    );
+    return !schedule.some((day) => isSameDay(toLocalDate(day.date), date));
   };
 
   const selectedDay = schedule.find((day) =>
-    selectedDate
-      ? isSameDay(toLocalDate(day.date), selectedDate)
-      : false
+    selectedDate ? isSameDay(toLocalDate(day.date), selectedDate) : false,
   );
 
   // ---------------- VALIDATION ----------------
@@ -125,13 +117,11 @@ export default function BookingForm() {
     form.phone &&
     form.scheduleId &&
     form.referenceNumber &&
-    form.proofOfPaymentUrl
+    form.proofOfPaymentUrl,
   );
 
   // ---------------- HANDLERS ----------------
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
     setForm((prev) => ({
@@ -155,9 +145,7 @@ export default function BookingForm() {
   };
 
   // ---------------- SUBMIT ----------------
-  const handleSubmit = async (
-    e: React.SubmitEvent<HTMLFormElement>
-  ) => {
+  const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     try {
@@ -168,10 +156,8 @@ export default function BookingForm() {
         fullName: form.fullName,
         email: form.email,
         phone: form.phone,
-        proofOfPaymentUrl:
-          form.proofOfPaymentUrl!,
-        referenceNumber:
-          form.referenceNumber,
+        proofOfPaymentUrl: form.proofOfPaymentUrl!,
+        referenceNumber: form.referenceNumber,
         scheduleId: form.scheduleId!,
       });
 
@@ -184,14 +170,10 @@ export default function BookingForm() {
 
       await fetchSchedule();
       setSubmitted(true);
-
     } catch (err: any) {
       console.error(err);
 
-      setError(
-        err?.message ||
-          "Something went wrong while creating booking."
-      );
+      setError(err?.message || "Something went wrong while creating booking.");
 
       // Refresh schedule because another user
       // may have taken the slot already
@@ -221,20 +203,13 @@ export default function BookingForm() {
   return (
     <Card className="max-w-lg mx-auto shadow-lg border-0 bg-slate-800">
       <CardHeader>
-        <CardTitle className="text-xl text-amber-50">
-          Book a Session
-        </CardTitle>
+        <CardTitle className="text-xl text-amber-50">Book a Session</CardTitle>
 
-        <CardDescription>
-          Choose a date and available time slot
-        </CardDescription>
+        <CardDescription>Choose a date and available time slot</CardDescription>
       </CardHeader>
 
       <CardContent>
-        <form
-          onSubmit={handleSubmit}
-          className="space-y-5"
-        >
+        <form onSubmit={handleSubmit} className="space-y-5">
           {/* ERROR MESSAGE */}
           {error && (
             <div className="rounded-md border border-red-500 bg-red-500/10 p-3 text-sm text-red-400">
@@ -330,38 +305,29 @@ export default function BookingForm() {
                 onChange={(e) => {
                   setForm((prev) => ({
                     ...prev,
-                    scheduleId: Number(
-                      e.target.value
-                    ),
+                    scheduleId: Number(e.target.value),
                   }));
 
                   setError(null);
                 }}
               >
-                <NativeSelectOption value="">
-                  Select a time
-                </NativeSelectOption>
+                <NativeSelectOption value="">Select a time</NativeSelectOption>
 
                 {selectedDay.slots.map((slot) => {
-                  const available =
-                    slot.capacity - slot.booked;
+                  const available = slot.capacity - slot.booked;
 
+                  console.log("BOOKING SLOT:", slot);
+                  console.log("BOOKING START:", slot.startTime);
+                  console.log("BOOKING END:", slot.endTime);
                   return (
                     <NativeSelectOption
                       key={slot.id}
                       value={slot.id}
                       disabled={available <= 0}
                     >
-                      {format(
-                        new Date(slot.startTime),
-                        "hh:mm a"
-                      )}{" "}
-                      -{" "}
-                      {format(
-                        new Date(slot.endTime),
-                        "hh:mm a"
-                      )}{" "}
-                      ({available} left)
+                      {format(new Date(slot.startTime), "hh:mm a")} -{" "}
+                      {format(new Date(slot.endTime), "hh:mm a")} ({available}{" "}
+                      left)
                     </NativeSelectOption>
                   );
                 })}
@@ -383,24 +349,15 @@ export default function BookingForm() {
 
           {/* PAYMENT */}
           <div className="border-t pt-4 text-amber-50">
-            <p className="text-xs text-orange-400 uppercase">
-              GCash Payment
-            </p>
+            <p className="text-xs text-orange-400 uppercase">GCash Payment</p>
 
-            <p className="font-bold">
-              0975 549 4306
-            </p>
+            <p className="font-bold">0975 549 4306</p>
 
-            <p className="text-sm">
-              Eimann Joshua L. Calderon
-            </p>
+            <p className="text-sm">Eimann Joshua L. Calderon</p>
           </div>
 
           {/* UPLOAD */}
-          <UploadWrapper
-            setForm={setForm}
-            form={form}
-          />
+          <UploadWrapper setForm={setForm} form={form} />
 
           {/* SUBMIT */}
           <Button
@@ -408,9 +365,7 @@ export default function BookingForm() {
             disabled={!isValid || loading}
             className="w-full bg-orange-500 hover:bg-orange-600"
           >
-            {loading
-              ? "Submitting..."
-              : "Confirm Booking"}
+            {loading ? "Submitting..." : "Confirm Booking"}
           </Button>
         </form>
       </CardContent>
