@@ -27,22 +27,34 @@ type SlotProps = {
 
 export const SlotList = ({ slot, full, remaining, onEdit }: SlotProps) => {
   const formatTime = (time: string) => {
-  if (!time) return "";
+    if (!time) return "";
 
-  // Case 1: ISO string
-  const iso = new Date(time);
-  if (isValid(iso)) {
-    return format(iso, "h:mm a");
-  }
+    let date: Date | null = null;
 
-  // Case 2: "HH:mm" fallback (fallback-safe)
-  const parsed = parse(time, "HH:mm", new Date());
-  if (isValid(parsed)) {
-    return format(parsed, "h:mm a");
-  }
+    // 1. STRICT ISO CHECK
+    if (time.includes("T")) {
+      const d = new Date(time);
+      if (!isNaN(d.getTime())) {
+        date = d;
+      }
+    }
 
-  return "";
-};
+    // 2. HH:mm fallback ONLY if needed
+    if (!date) {
+      const parsed = parse(time, "HH:mm", new Date());
+      if (!isNaN(parsed.getTime())) {
+        date = parsed;
+      }
+    }
+
+    // 3. HARD GUARD (prevents React crash)
+    if (!date) {
+      console.error("Invalid time format:", time);
+      return "";
+    }
+
+    return format(date, "h:mm a");
+  };
 
   return (
     <TableRow key={slot.id}>
