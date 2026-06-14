@@ -1,7 +1,7 @@
-import { CreateUserDTO, UpdateUserDTO } from '@/dto/user.dto';
-import { Prisma } from '@/lib/generated/prisma/browser';
-import { userRepository } from '@/repositories/user.repository';
-import { get } from 'http';
+import { CreateUserDTO, UpdateUserDTO } from "@/dto/user.dto";
+import { Prisma } from "@/lib/generated/prisma/browser";
+import { userRepository } from "@/repositories/user.repository";
+import { get } from "http";
 
 export const userService = {
   async getAllUsers() {
@@ -13,12 +13,12 @@ export const userService = {
     const existing = await userRepository.findByEmail(data.email);
 
     if (existing) {
-      throw new Error('Email already exists');
+      throw new Error("Email already exists");
     }
 
     return userRepository.create({
       email: data.email,
-      supabaseId: '', // This will be updated after Supabase user creation
+      supabaseId: "", // This will be updated after Supabase user creation
       name: data.name,
       role: {
         connect: { id: data.roleId },
@@ -26,25 +26,26 @@ export const userService = {
     });
   },
 
-  async updateUser(data: UpdateUserDTO) {
-    const { id, email, name, roleId } = data;
+  async getUserBySupabaseId(supabaseId: string) {
+    return userRepository.findBySupabaseId(supabaseId);
+  },
 
-    // ✅ Validate email uniqueness
+  async updateUser(data: UpdateUserDTO) {
+    const { supabaseId, email, name, roleId } = data;
+
     if (email) {
       const existing = await userRepository.findByEmail(email);
 
-      if (existing && existing.id !== id) {
-        throw new Error('Email already taken');
+      if (existing && existing.supabaseId !== supabaseId) {
+        throw new Error("Email already taken");
       }
     }
 
-    const updateData: Prisma.UserUpdateInput = {
+    return userRepository.update(supabaseId, {
       email,
       name,
-      role: { connect: roleId ? { id: roleId } : undefined },
-    };
-
-    return userRepository.update(id, updateData);
+      role: roleId ? { connect: { id: roleId } } : undefined,
+    });
   },
 
   async getUserById(id: string) {

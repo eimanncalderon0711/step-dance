@@ -4,9 +4,9 @@ export type CreateUserDTO = {
   roleId: number;
 };
 
-export type UpdateUserDTO = {
-  id: number;
-  email?: string;
+export interface UpdateUserDTO {
+  supabaseId: string;
   name?: string;
+  email?: string;
   roleId?: number;
-};
+}

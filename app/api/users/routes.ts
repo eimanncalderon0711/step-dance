@@ -1,9 +1,7 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { userService } from '@/services/user.service';
-import {
-  updateUserSchema,
-} from '@/validators/user.validator';
-import { createUserActions } from '@/actions/users';
+import { NextRequest, NextResponse } from "next/server";
+import { userService } from "@/services/user.service";
+import { updateUserSchema } from "@/validators/user.validator";
+import { createUserActions } from "@/actions/users";
 
 export async function GET() {
   try {
@@ -11,8 +9,8 @@ export async function GET() {
     return NextResponse.json(users);
   } catch (error) {
     return NextResponse.json(
-      { message: 'Failed to fetch users' },
-      { status: 500 }
+      { message: "Failed to fetch users" },
+      { status: 500 },
     );
   }
 }
@@ -25,10 +23,7 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json(user);
   } catch (error: any) {
-    return NextResponse.json(
-      { message: error.message },
-      { status: 400 }
-    );
+    return NextResponse.json({ message: error.message }, { status: 400 });
   }
 }
 
@@ -36,16 +31,21 @@ export async function PUT(req: NextRequest) {
   try {
     const body = await req.json();
 
+    const { supabaseId, email, name, roleId } = body;
+
     // ✅ Validate input
     const validated = updateUserSchema.parse(body);
 
-    const user = await userService.updateUser(validated);
+    // const user = await userService.updateUser(validated);
+    const user = await userService.updateUser({
+      supabaseId,
+      email,
+      name,
+      roleId,
+    });
 
     return NextResponse.json(user);
   } catch (error: any) {
-    return NextResponse.json(
-      { message: error.message },
-      { status: 400 }
-    );
+    return NextResponse.json({ message: error.message }, { status: 400 });
   }
 }

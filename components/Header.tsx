@@ -1,21 +1,23 @@
-"use client"
+"use client";
 
-import { Button } from "@/components/ui/button"
-import { createClient } from "@/lib/supabase/client"
-import Image from "next/image"
-import { useRouter } from "next/navigation"
+import { Button } from "@/components/ui/button";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { createClient } from "@/lib/supabase/client";
+import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default function Header({ user }: { user: any }) {
-  const router = useRouter()
+  const router = useRouter();
 
   const handleLogout = async () => {
-    const supabase = createClient()
+    const supabase = createClient();
 
-    await supabase.auth.signOut()
+    await supabase.auth.signOut();
 
-    router.push("/login")
-    router.refresh()
-  }
+    router.push("/login");
+    router.refresh();
+  };
 
   return (
     <header className="sticky top-0 z-50 bg-slate-800 text-white py-2 px-2">
@@ -32,17 +34,24 @@ export default function Header({ user }: { user: any }) {
           </div>
 
           <span className="font-bold text-lg text-orange-400">
-            Step Dance PH
+            <Link href="/admin">Step DancePH</Link>
           </span>
         </div>
 
-        <div className="flex gap-5 items-center">
-          {user.name}
-          <Button variant="destructive" onClick={handleLogout}>
-            Logout
-          </Button>
-        </div>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="ghost" className="hover:bg-transparent hover:text-white cursor-pointer">{user.name}</Button>
+          </DropdownMenuTrigger>
+
+          <DropdownMenuContent align="end">
+            <DropdownMenuItem asChild>
+              <Link href="/admin/settings">Settings</Link>
+            </DropdownMenuItem>
+
+            <DropdownMenuItem onClick={handleLogout}>Logout</DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
       </nav>
     </header>
-  )
+  );
 }

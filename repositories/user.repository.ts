@@ -1,6 +1,5 @@
-import { Prisma } from '@/lib/generated/prisma/client';
-import { prisma } from '@/lib/prisma';
-
+import { Prisma } from "@/lib/generated/prisma/client";
+import { prisma } from "@/lib/prisma";
 
 export const userRepository = {
   findAll: () => {
@@ -32,10 +31,20 @@ export const userRepository = {
     return prisma.user.create({ data });
   },
 
-  update: (id: number, data: Prisma.UserUpdateInput) => {
+  update: (supabaseId: string, data: Prisma.UserUpdateInput) => {
     return prisma.user.update({
-      where: { id },
+      where: { supabaseId },
       data,
+    });
+  },
+
+  findBySupabaseId: (supabaseId: string) => {
+    return prisma.user.findUnique({
+      where: { supabaseId },
+      include: {
+        role: true,
+        posts: true,
+      },
     });
   },
 };
