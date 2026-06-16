@@ -25,7 +25,7 @@ const HeroSection = () => {
             <span className="text-orange-400">Healthier</span> Life
           </h1>
           <p className="text-white/80 text-lg max-w-md">
-            Step Dance Studio offers fun, high-energy step dance sessions that keep your body moving and your spirit high. No experience needed!
+            Stepdance offers fun, high-energy step dance sessions that keep your body moving and your spirit high. No experience needed!
           </p>
           <div className="flex flex-wrap gap-3 pt-2">
             <button
