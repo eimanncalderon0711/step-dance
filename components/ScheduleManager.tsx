@@ -91,6 +91,8 @@ const ScheduleManager = ({ schedules, meta }: Props) => {
     await createDayAction({ date: format(date, "yyyy-MM-dd") });
   };
 
+  console.log(schedules)
+
   return (
     <Card className="border-0 shadow-md bg-slate-800 my-4">
       <CardHeader className="space-y-4">
@@ -132,15 +134,21 @@ const ScheduleManager = ({ schedules, meta }: Props) => {
       </CardHeader>
 
       <CardContent className="space-y-6">
-        {schedules.map((day) => (
-          <ScheduleDays
-            key={day.id}
-            day={day}
-            onAddSlot={handleAddSlot}
-            handleEditSlot={handleEditSlot}
-            handleDeleteDay={deleteDayAction}
-          />
-        ))}
+        {schedules.length === 0 ? (
+          <div className="text-center text-muted-foreground py-10 border border-dashed rounded-sm">
+            No available schedule days
+          </div>
+        ) : (
+          schedules.map((day) => (
+            <ScheduleDays
+              key={day.id}
+              day={day}
+              onAddSlot={handleAddSlot}
+              handleEditSlot={handleEditSlot}
+              handleDeleteDay={deleteDayAction}
+            />
+          ))
+        )}
 
         <div className="flex items-center justify-between text-white">
           <button
