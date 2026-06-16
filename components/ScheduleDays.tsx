@@ -17,6 +17,7 @@ type ScheduleSlot = {
   startTime: string;
   endTime: string;
   capacity: number;
+  location:string;
   booked: number;
   dayId: number;
   createdAt: string;
@@ -36,12 +37,14 @@ type ScheduleDaysProps = {
     startTime: string,
     endTime: string,
     capacity: number,
+    location:string
   ) => Promise<void>;
   handleEditSlot: (
     slotId: number,
     startTime: string,
     endTime: string,
     capacity: number,
+    location:string
   ) => Promise<void>;
   handleDeleteDay: (dayId: number) => Promise<void>;
 };
@@ -110,6 +113,7 @@ const ScheduleDays = ({
         <Table>
           <TableHeader>
             <TableRow>
+              <TableHead className="text-white">Venue</TableHead>
               <TableHead className="text-white">Start</TableHead>
               <TableHead className="text-white">End</TableHead>
               <TableHead className="text-white">Capacity</TableHead>

@@ -8,6 +8,7 @@ export type CreateScheduleSlotDTO = {
   startTime: string
   endTime: string
   capacity: number
+  location:string
 }
 
 export type UpdateScheduleSlotDTO = {

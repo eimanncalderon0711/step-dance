@@ -10,6 +10,7 @@ model ScheduleSlot {
   id        Int      @id @default(autoincrement())
   startTime DateTime 
   endTime   DateTime 
+  location  String
   capacity  Int
   booked    Int @default(0)
 

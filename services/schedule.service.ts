@@ -58,6 +58,7 @@ export const scheduleService = {
       startTime: start,
       endTime: end,
       capacity: data.capacity,
+      location: data.location
     })
   },
 

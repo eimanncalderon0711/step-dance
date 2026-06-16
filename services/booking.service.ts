@@ -65,6 +65,9 @@ export const bookingService = {
             slotId: data.scheduleId,
             userId: data.userId ?? null,
           },
+          include:{
+            slot: true,
+          },
         });
       });
 
@@ -75,12 +78,15 @@ export const bookingService = {
         };
       }
 
+      
       // Send email only after successful booking
       try {
+        console.log(booking)
         await sendBookingEmail({
           to: booking.email,
           fullName: booking.fullName,
           referenceNumber: booking.referenceNumber,
+          startTime: booking.slot.startTime
         });
       } catch (err) {
         console.error(

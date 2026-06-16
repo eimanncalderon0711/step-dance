@@ -35,6 +35,7 @@ type Slot = {
   startTime: string;
   endTime: string;
   capacity: number;
+  location:string;
   booked: number;
 };
 
@@ -323,7 +324,7 @@ export default function BookingForm() {
                     >
                       {format(new Date(slot.startTime), "hh:mm a")} -{" "}
                       {format(new Date(slot.endTime), "hh:mm a")} ({available}{" "}
-                      left)
+                      left){" - "}{slot.location}
                     </NativeSelectOption>
                   );
                 })}

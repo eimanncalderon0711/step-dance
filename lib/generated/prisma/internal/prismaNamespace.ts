@@ -931,6 +931,7 @@ export const ScheduleSlotScalarFieldEnum = {
   id: 'id',
   startTime: 'startTime',
   endTime: 'endTime',
+  location: 'location',
   capacity: 'capacity',
   booked: 'booked',
   dayId: 'dayId',

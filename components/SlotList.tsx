@@ -9,6 +9,7 @@ type ScheduleSlot = {
   startTime: string;
   endTime: string;
   capacity: number;
+  location:string;
   booked: number;
   dayId: number;
   createdAt: string;
@@ -38,7 +39,14 @@ export const SlotList = ({ slot, full, remaining, onEdit }: SlotProps) => {
   };
 
   return (
-    <TableRow key={slot.id}>
+    <TableRow>
+      <TableCell className="font-medium">
+        <span className="inline-flex items-center gap-1.5">
+          <Clock className="w-3.5 h-3.5 text-muted-foreground" />
+          {slot.location}
+        </span>
+      </TableCell>
+
       <TableCell className="font-medium">
         <span className="inline-flex items-center gap-1.5">
           <Clock className="w-3.5 h-3.5 text-muted-foreground" />

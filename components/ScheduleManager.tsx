@@ -57,9 +57,10 @@ const ScheduleManager = ({ schedules, meta }: Props) => {
     dayId: number,
     startTime: string,
     endTime: string,
-    capacity: number
+    capacity: number,
+    location: string
   ) => {
-    await createSlotAction({ dayId, startTime, endTime, capacity });
+    await createSlotAction({ dayId, startTime, endTime, capacity, location });
   };
 
   const handleEditSlot = async (

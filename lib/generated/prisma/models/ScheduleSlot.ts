@@ -44,6 +44,7 @@ export type ScheduleSlotMinAggregateOutputType = {
   id: number | null
   startTime: Date | null
   endTime: Date | null
+  location: string | null
   capacity: number | null
   booked: number | null
   dayId: number | null
@@ -55,6 +56,7 @@ export type ScheduleSlotMaxAggregateOutputType = {
   id: number | null
   startTime: Date | null
   endTime: Date | null
+  location: string | null
   capacity: number | null
   booked: number | null
   dayId: number | null
@@ -66,6 +68,7 @@ export type ScheduleSlotCountAggregateOutputType = {
   id: number
   startTime: number
   endTime: number
+  location: number
   capacity: number
   booked: number
   dayId: number
@@ -93,6 +96,7 @@ export type ScheduleSlotMinAggregateInputType = {
   id?: true
   startTime?: true
   endTime?: true
+  location?: true
   capacity?: true
   booked?: true
   dayId?: true
@@ -104,6 +108,7 @@ export type ScheduleSlotMaxAggregateInputType = {
   id?: true
   startTime?: true
   endTime?: true
+  location?: true
   capacity?: true
   booked?: true
   dayId?: true
@@ -115,6 +120,7 @@ export type ScheduleSlotCountAggregateInputType = {
   id?: true
   startTime?: true
   endTime?: true
+  location?: true
   capacity?: true
   booked?: true
   dayId?: true
@@ -213,6 +219,7 @@ export type ScheduleSlotGroupByOutputType = {
   id: number
   startTime: Date
   endTime: Date
+  location: string
   capacity: number
   booked: number
   dayId: number
@@ -247,6 +254,7 @@ export type ScheduleSlotWhereInput = {
   id?: Prisma.IntFilter<"ScheduleSlot"> | number
   startTime?: Prisma.DateTimeFilter<"ScheduleSlot"> | Date | string
   endTime?: Prisma.DateTimeFilter<"ScheduleSlot"> | Date | string
+  location?: Prisma.StringFilter<"ScheduleSlot"> | string
   capacity?: Prisma.IntFilter<"ScheduleSlot"> | number
   booked?: Prisma.IntFilter<"ScheduleSlot"> | number
   dayId?: Prisma.IntFilter<"ScheduleSlot"> | number
@@ -260,6 +268,7 @@ export type ScheduleSlotOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   startTime?: Prisma.SortOrder
   endTime?: Prisma.SortOrder
+  location?: Prisma.SortOrder
   capacity?: Prisma.SortOrder
   booked?: Prisma.SortOrder
   dayId?: Prisma.SortOrder
@@ -276,6 +285,7 @@ export type ScheduleSlotWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.ScheduleSlotWhereInput | Prisma.ScheduleSlotWhereInput[]
   startTime?: Prisma.DateTimeFilter<"ScheduleSlot"> | Date | string
   endTime?: Prisma.DateTimeFilter<"ScheduleSlot"> | Date | string
+  location?: Prisma.StringFilter<"ScheduleSlot"> | string
   capacity?: Prisma.IntFilter<"ScheduleSlot"> | number
   booked?: Prisma.IntFilter<"ScheduleSlot"> | number
   dayId?: Prisma.IntFilter<"ScheduleSlot"> | number
@@ -289,6 +299,7 @@ export type ScheduleSlotOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   startTime?: Prisma.SortOrder
   endTime?: Prisma.SortOrder
+  location?: Prisma.SortOrder
   capacity?: Prisma.SortOrder
   booked?: Prisma.SortOrder
   dayId?: Prisma.SortOrder
@@ -308,6 +319,7 @@ export type ScheduleSlotScalarWhereWithAggregatesInput = {
   id?: Prisma.IntWithAggregatesFilter<"ScheduleSlot"> | number
   startTime?: Prisma.DateTimeWithAggregatesFilter<"ScheduleSlot"> | Date | string
   endTime?: Prisma.DateTimeWithAggregatesFilter<"ScheduleSlot"> | Date | string
+  location?: Prisma.StringWithAggregatesFilter<"ScheduleSlot"> | string
   capacity?: Prisma.IntWithAggregatesFilter<"ScheduleSlot"> | number
   booked?: Prisma.IntWithAggregatesFilter<"ScheduleSlot"> | number
   dayId?: Prisma.IntWithAggregatesFilter<"ScheduleSlot"> | number
@@ -318,6 +330,7 @@ export type ScheduleSlotScalarWhereWithAggregatesInput = {
 export type ScheduleSlotCreateInput = {
   startTime: Date | string
   endTime: Date | string
+  location: string
   capacity: number
   booked?: number
   updatedAt?: Date | string
@@ -330,6 +343,7 @@ export type ScheduleSlotUncheckedCreateInput = {
   id?: number
   startTime: Date | string
   endTime: Date | string
+  location: string
   capacity: number
   booked?: number
   dayId: number
@@ -341,6 +355,7 @@ export type ScheduleSlotUncheckedCreateInput = {
 export type ScheduleSlotUpdateInput = {
   startTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   endTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  location?: Prisma.StringFieldUpdateOperationsInput | string
   capacity?: Prisma.IntFieldUpdateOperationsInput | number
   booked?: Prisma.IntFieldUpdateOperationsInput | number
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -353,6 +368,7 @@ export type ScheduleSlotUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   startTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   endTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  location?: Prisma.StringFieldUpdateOperationsInput | string
   capacity?: Prisma.IntFieldUpdateOperationsInput | number
   booked?: Prisma.IntFieldUpdateOperationsInput | number
   dayId?: Prisma.IntFieldUpdateOperationsInput | number
@@ -365,6 +381,7 @@ export type ScheduleSlotCreateManyInput = {
   id?: number
   startTime: Date | string
   endTime: Date | string
+  location: string
   capacity: number
   booked?: number
   dayId: number
@@ -375,6 +392,7 @@ export type ScheduleSlotCreateManyInput = {
 export type ScheduleSlotUpdateManyMutationInput = {
   startTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   endTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  location?: Prisma.StringFieldUpdateOperationsInput | string
   capacity?: Prisma.IntFieldUpdateOperationsInput | number
   booked?: Prisma.IntFieldUpdateOperationsInput | number
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -385,6 +403,7 @@ export type ScheduleSlotUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   startTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   endTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  location?: Prisma.StringFieldUpdateOperationsInput | string
   capacity?: Prisma.IntFieldUpdateOperationsInput | number
   booked?: Prisma.IntFieldUpdateOperationsInput | number
   dayId?: Prisma.IntFieldUpdateOperationsInput | number
@@ -411,6 +430,7 @@ export type ScheduleSlotCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   startTime?: Prisma.SortOrder
   endTime?: Prisma.SortOrder
+  location?: Prisma.SortOrder
   capacity?: Prisma.SortOrder
   booked?: Prisma.SortOrder
   dayId?: Prisma.SortOrder
@@ -429,6 +449,7 @@ export type ScheduleSlotMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   startTime?: Prisma.SortOrder
   endTime?: Prisma.SortOrder
+  location?: Prisma.SortOrder
   capacity?: Prisma.SortOrder
   booked?: Prisma.SortOrder
   dayId?: Prisma.SortOrder
@@ -440,6 +461,7 @@ export type ScheduleSlotMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   startTime?: Prisma.SortOrder
   endTime?: Prisma.SortOrder
+  location?: Prisma.SortOrder
   capacity?: Prisma.SortOrder
   booked?: Prisma.SortOrder
   dayId?: Prisma.SortOrder
@@ -513,6 +535,7 @@ export type ScheduleSlotUncheckedUpdateManyWithoutDayNestedInput = {
 export type ScheduleSlotCreateWithoutBookingsInput = {
   startTime: Date | string
   endTime: Date | string
+  location: string
   capacity: number
   booked?: number
   updatedAt?: Date | string
@@ -524,6 +547,7 @@ export type ScheduleSlotUncheckedCreateWithoutBookingsInput = {
   id?: number
   startTime: Date | string
   endTime: Date | string
+  location: string
   capacity: number
   booked?: number
   dayId: number
@@ -550,6 +574,7 @@ export type ScheduleSlotUpdateToOneWithWhereWithoutBookingsInput = {
 export type ScheduleSlotUpdateWithoutBookingsInput = {
   startTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   endTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  location?: Prisma.StringFieldUpdateOperationsInput | string
   capacity?: Prisma.IntFieldUpdateOperationsInput | number
   booked?: Prisma.IntFieldUpdateOperationsInput | number
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -561,6 +586,7 @@ export type ScheduleSlotUncheckedUpdateWithoutBookingsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   startTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   endTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  location?: Prisma.StringFieldUpdateOperationsInput | string
   capacity?: Prisma.IntFieldUpdateOperationsInput | number
   booked?: Prisma.IntFieldUpdateOperationsInput | number
   dayId?: Prisma.IntFieldUpdateOperationsInput | number
@@ -571,6 +597,7 @@ export type ScheduleSlotUncheckedUpdateWithoutBookingsInput = {
 export type ScheduleSlotCreateWithoutDayInput = {
   startTime: Date | string
   endTime: Date | string
+  location: string
   capacity: number
   booked?: number
   updatedAt?: Date | string
@@ -582,6 +609,7 @@ export type ScheduleSlotUncheckedCreateWithoutDayInput = {
   id?: number
   startTime: Date | string
   endTime: Date | string
+  location: string
   capacity: number
   booked?: number
   updatedAt?: Date | string
@@ -622,6 +650,7 @@ export type ScheduleSlotScalarWhereInput = {
   id?: Prisma.IntFilter<"ScheduleSlot"> | number
   startTime?: Prisma.DateTimeFilter<"ScheduleSlot"> | Date | string
   endTime?: Prisma.DateTimeFilter<"ScheduleSlot"> | Date | string
+  location?: Prisma.StringFilter<"ScheduleSlot"> | string
   capacity?: Prisma.IntFilter<"ScheduleSlot"> | number
   booked?: Prisma.IntFilter<"ScheduleSlot"> | number
   dayId?: Prisma.IntFilter<"ScheduleSlot"> | number
@@ -633,6 +662,7 @@ export type ScheduleSlotCreateManyDayInput = {
   id?: number
   startTime: Date | string
   endTime: Date | string
+  location: string
   capacity: number
   booked?: number
   updatedAt?: Date | string
@@ -642,6 +672,7 @@ export type ScheduleSlotCreateManyDayInput = {
 export type ScheduleSlotUpdateWithoutDayInput = {
   startTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   endTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  location?: Prisma.StringFieldUpdateOperationsInput | string
   capacity?: Prisma.IntFieldUpdateOperationsInput | number
   booked?: Prisma.IntFieldUpdateOperationsInput | number
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -653,6 +684,7 @@ export type ScheduleSlotUncheckedUpdateWithoutDayInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   startTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   endTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  location?: Prisma.StringFieldUpdateOperationsInput | string
   capacity?: Prisma.IntFieldUpdateOperationsInput | number
   booked?: Prisma.IntFieldUpdateOperationsInput | number
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -664,6 +696,7 @@ export type ScheduleSlotUncheckedUpdateManyWithoutDayInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   startTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   endTime?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  location?: Prisma.StringFieldUpdateOperationsInput | string
   capacity?: Prisma.IntFieldUpdateOperationsInput | number
   booked?: Prisma.IntFieldUpdateOperationsInput | number
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -705,6 +738,7 @@ export type ScheduleSlotSelect<ExtArgs extends runtime.Types.Extensions.Internal
   id?: boolean
   startTime?: boolean
   endTime?: boolean
+  location?: boolean
   capacity?: boolean
   booked?: boolean
   dayId?: boolean
@@ -719,6 +753,7 @@ export type ScheduleSlotSelectCreateManyAndReturn<ExtArgs extends runtime.Types.
   id?: boolean
   startTime?: boolean
   endTime?: boolean
+  location?: boolean
   capacity?: boolean
   booked?: boolean
   dayId?: boolean
@@ -731,6 +766,7 @@ export type ScheduleSlotSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.
   id?: boolean
   startTime?: boolean
   endTime?: boolean
+  location?: boolean
   capacity?: boolean
   booked?: boolean
   dayId?: boolean
@@ -743,6 +779,7 @@ export type ScheduleSlotSelectScalar = {
   id?: boolean
   startTime?: boolean
   endTime?: boolean
+  location?: boolean
   capacity?: boolean
   booked?: boolean
   dayId?: boolean
@@ -750,7 +787,7 @@ export type ScheduleSlotSelectScalar = {
   createdAt?: boolean
 }
 
-export type ScheduleSlotOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "startTime" | "endTime" | "capacity" | "booked" | "dayId" | "updatedAt" | "createdAt", ExtArgs["result"]["scheduleSlot"]>
+export type ScheduleSlotOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "startTime" | "endTime" | "location" | "capacity" | "booked" | "dayId" | "updatedAt" | "createdAt", ExtArgs["result"]["scheduleSlot"]>
 export type ScheduleSlotInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   day?: boolean | Prisma.ScheduleDayDefaultArgs<ExtArgs>
   bookings?: boolean | Prisma.ScheduleSlot$bookingsArgs<ExtArgs>
@@ -773,6 +810,7 @@ export type $ScheduleSlotPayload<ExtArgs extends runtime.Types.Extensions.Intern
     id: number
     startTime: Date
     endTime: Date
+    location: string
     capacity: number
     booked: number
     dayId: number
@@ -1206,6 +1244,7 @@ export interface ScheduleSlotFieldRefs {
   readonly id: Prisma.FieldRef<"ScheduleSlot", 'Int'>
   readonly startTime: Prisma.FieldRef<"ScheduleSlot", 'DateTime'>
   readonly endTime: Prisma.FieldRef<"ScheduleSlot", 'DateTime'>
+  readonly location: Prisma.FieldRef<"ScheduleSlot", 'String'>
   readonly capacity: Prisma.FieldRef<"ScheduleSlot", 'Int'>
   readonly booked: Prisma.FieldRef<"ScheduleSlot", 'Int'>
   readonly dayId: Prisma.FieldRef<"ScheduleSlot", 'Int'>

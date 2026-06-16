@@ -24,6 +24,7 @@ interface AddSlotDialogProps {
     startTime: string,
     endTime: string,
     capacity: number,
+    location: string
   ) => Promise<void>;
   mode?: "add" | "edit";
   slot?: {
@@ -37,6 +38,7 @@ interface AddSlotDialogProps {
     startTime: string,
     endTime: string,
     capacity: number,
+    location: string
   ) => Promise<void>;
 }
 
@@ -53,6 +55,7 @@ export function AddSlotDialog({
   const [startTime, setStartTime] = useState<string>("09:00");
   const [endTime, setEndTime] = useState<string>("10:00");
   const [capacity, setCapacity] = useState<number>(10);
+  const [location, setLocation] = useState<string>("");
   const [isLoading, setIsLoading] = useState(false);
   // Fix: defer date formatting to client-side only to avoid SSR/client hydration mismatch
   const [formattedDate, setFormattedDate] = useState<string>("");
@@ -71,10 +74,12 @@ export function AddSlotDialog({
       setStartTime(toTimeString(slot.startTime));
       setEndTime(toTimeString(slot.endTime));
       setCapacity(slot.capacity);
+      setLocation((slot as any).location || "");
     } else {
       setStartTime("09:00");
       setEndTime("10:00");
       setCapacity(10);
+      setLocation("");
     }
   }, [mode, slot, open]);
 
@@ -89,13 +94,14 @@ export function AddSlotDialog({
     setIsLoading(true);
     try {
       if (mode === "edit" && slot && onEditSlot) {
-        await onEditSlot(slot.id, startTime, endTime, capacity);
+        await onEditSlot(slot.id, startTime, endTime, capacity, location);
       } else {
         await onAddSlot(
           dayId,
           toISOTime(dayDate, startTime),
           toISOTime(dayDate, endTime),
-          capacity
+          capacity,
+          location
         );
       }
       onOpenChange(false);
@@ -172,6 +178,19 @@ export function AddSlotDialog({
             <p className="text-xs text-slate-400">
               Maximum number of bookings for this time slot
             </p>
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="location" className="text-slate-300">
+              Location
+            </Label>
+            <Input
+              id="location"
+              type="text"
+              value={location}
+              onChange={(e) => setLocation(e.target.value)}
+              className="bg-slate-700 text-white border-slate-600"
+              placeholder="e.g. Step Dance Studio - Davao"
+            />
           </div>
         </div>
 

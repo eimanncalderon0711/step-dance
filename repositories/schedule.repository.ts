@@ -182,7 +182,8 @@ export const scheduleRepository = {
     dayId: number
     startTime: Date
     endTime: Date
-    capacity: number
+    capacity: number,
+    location:string
   }) => {
     return prisma.scheduleSlot.create({
       data,

@@ -29,6 +29,8 @@ export async function deleteDayAction(dayId: number) {
 export async function createSlotAction(data: CreateScheduleSlotDTO) {
   await scheduleService.createSlot(data)
 
+  console.log(data)
+
   revalidatePath("/admin")
 }
 
