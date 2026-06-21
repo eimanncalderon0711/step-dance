@@ -334,7 +334,7 @@ export default function BookingForm() {
 
           {/* REFERENCE */}
           <div className="space-y-2 text-amber-50">
-            <Label>Reference Number</Label>
+            <Label>Payment Reference Number</Label>
 
             <Input
               className="bg-white text-black"
@@ -345,13 +345,24 @@ export default function BookingForm() {
           </div>
 
           {/* PAYMENT */}
-          <div className="border-t pt-4 text-amber-50">
-            <p className="text-xs text-orange-400 uppercase">GCash Payment</p>
-
-            <p className="font-bold">0935 110 6411</p>
-
-            <p className="text-sm">Al Batulan</p>
+          <div className="border-t pt-4 text-amber-50 flex justify-start gap-10">
+            {/* <div>
+              <p className="text-xs text-orange-400 uppercase">GCash Payment</p>
+              <p className="font-bold">0935 110 6411</p>
+              <p className="text-sm">Al Batulan</p>
+            </div> */}
+            <div>
+              <p className="text-xs text-orange-400 uppercase font-bold">Gotyme</p>
+              <p className="font-bold">019 957 154 852</p>
+              <p className="text-sm">Stepdanceph</p>
+            </div>
+            <div>
+              <p className="text-xs text-orange-400 uppercase font-bold">GCash Payment</p>
+              <p className="font-bold">0955 193 8646</p>
+              <p className="text-sm">Chinlery Anne Moreno</p>
+            </div>
           </div>
+          
 
           {/* UPLOAD */}
           <UploadWrapper setForm={setForm} form={form} />
