@@ -25,7 +25,7 @@ const AboutSection = () => {
               More Than Just a Workout
             </h2>
             <p className="text-muted-foreground leading-relaxed">
-              Step Dance Studio was founded with one mission: to make fitness fun and accessible through the power of step dancing. We believe that staying healthy shouldn't feel like a chore — it should feel like a celebration.
+              StepDance PH was founded with one mission: to make fitness fun and accessible through the power of step dancing. We believe that staying healthy shouldn't feel like a chore — it should feel like a celebration.
             </p>
             <p className="text-muted-foreground leading-relaxed">
               Our certified instructors create an inclusive, supportive environment where everyone can move at their own pace. Every class is a chance to connect with your body, meet new people, and leave feeling amazing.
