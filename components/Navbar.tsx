@@ -44,7 +44,7 @@ const Navbar = () => {
             {/* <Footprints className="w-4.5 h-4.5 text-primary-foreground" /> */}
             <Image src="/images/step-dance-logo.png" alt="Step Dance Logo" width={64} height={64} priority/>
           </div>
-          <span className="font-bold text-lg text-orange-400">Step Dance PH</span>
+          <span className="font-bold text-lg text-orange-400">StepDance PH</span>
         </button>
 
         {/* Desktop */}

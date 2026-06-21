@@ -34,7 +34,7 @@ export default function Header({ user }: { user: any }) {
           </div>
 
           <span className="font-bold text-lg text-orange-400">
-            <Link href="/admin">Step DancePH</Link>
+            <Link href="/admin">StepDance PH</Link>
           </span>
         </div>
 
