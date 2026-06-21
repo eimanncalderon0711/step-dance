@@ -62,8 +62,6 @@ export function BookingModal({open, setOpen, booking}: Props) {
         slotId: formData.scheduleId!,
         userId: formData.userId
       });
-
-      console.log(response)
       router.refresh();
       setOpen(false);
     } catch (error) {

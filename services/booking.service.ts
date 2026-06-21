@@ -81,7 +81,6 @@ export const bookingService = {
       
       // Send email only after successful booking
       try {
-        console.log(booking)
         await sendBookingEmail({
           to: booking.email,
           fullName: booking.fullName,

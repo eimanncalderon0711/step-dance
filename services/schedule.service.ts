@@ -43,7 +43,12 @@ export const scheduleService = {
 
     // 🚨 Prevent overlapping slots
     const overlap = existingSlots.some((slot) => {
+      const sameLocation =
+        slot.location.trim().toLowerCase() ===
+        data.location.trim().toLowerCase()
+
       return (
+        sameLocation &&
         start < slot.endTime &&
         end > slot.startTime
       )

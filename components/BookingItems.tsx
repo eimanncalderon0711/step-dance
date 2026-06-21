@@ -27,7 +27,6 @@ const BookingItems = ({ bookings }: Props) => {
 
   const viewReceipt = (booking: BookingResponse) => {
     // Implement logic to view receipt, e.g., open a modal with the receipt image
-    console.log("Viewing receipt for booking:", booking.proofOfPaymentUrl);
     window.open(booking.proofOfPaymentUrl, "_blank");
   }
   return (

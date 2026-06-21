@@ -2,7 +2,7 @@
 import { format } from "date-fns";
 import { CreateDayDialog } from "@/components/CreateDayDialog";
 import { useState } from "react";
-import { createDayAction, createSlotAction, deleteDayAction, editSlotAction } from "@/actions/schedule";
+import { createDayAction, createSlotAction, deleteDayAction, deleteSlotAction, editSlotAction } from "@/actions/schedule";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { CalendarPlus } from "lucide-react";
 import ScheduleDays from "@/components/ScheduleDays";
@@ -87,11 +87,13 @@ const ScheduleManager = ({ schedules, meta }: Props) => {
     router.refresh();
   };
 
+  const handleDeleteSlot = async (slotId: number) => {
+    await deleteSlotAction(slotId);
+  }
+
   const handleAddDay = async (date: Date) => {
     await createDayAction({ date: format(date, "yyyy-MM-dd") });
   };
-
-  console.log(schedules)
 
   return (
     <Card className="border-0 shadow-md bg-slate-800 my-4">
@@ -145,6 +147,7 @@ const ScheduleManager = ({ schedules, meta }: Props) => {
               day={day}
               onAddSlot={handleAddSlot}
               handleEditSlot={handleEditSlot}
+              handleDeleteSlot={handleDeleteSlot}
               handleDeleteDay={deleteDayAction}
             />
           ))

@@ -82,8 +82,6 @@ export async function sendBookingEmail({
       throw new Error(data.message || "Failed to send email");
     }
 
-    console.log("Email sent successfully:", data);
-
     return data;
   } catch (error) {
     console.error("EMAIL ERROR:", error);

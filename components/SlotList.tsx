@@ -21,9 +21,10 @@ type SlotProps = {
   remaining: number;
   full: boolean;
   onEdit: (slot: ScheduleSlot) => void;
+  handleDeleteSlot: () => void;
 };
 
-export const SlotList = ({ slot, full, remaining, onEdit }: SlotProps) => {
+export const SlotList = ({ slot, full, remaining, onEdit, handleDeleteSlot }: SlotProps) => {
 
   if (!slot) return null; // 🔥 prevents React crash
   
@@ -85,6 +86,7 @@ export const SlotList = ({ slot, full, remaining, onEdit }: SlotProps) => {
           size="icon"
           variant="ghost"
           className="h-8 w-8 text-destructive"
+          onClick={handleDeleteSlot}
         >
           <Trash2 className="w-4 h-4" />
         </Button>

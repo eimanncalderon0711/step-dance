@@ -47,6 +47,7 @@ type ScheduleDaysProps = {
     location:string
   ) => Promise<void>;
   handleDeleteDay: (dayId: number) => Promise<void>;
+  handleDeleteSlot: (slotId: number) => Promise<void>;
 };
 
 const ScheduleDays = ({
@@ -54,6 +55,7 @@ const ScheduleDays = ({
   onAddSlot,
   handleEditSlot,
   handleDeleteDay,
+  handleDeleteSlot
 }: ScheduleDaysProps) => {
   const [isSlotDialogOpen, setIsSlotDialogOpen] = useState(false);
   const [selectedSlot, setSelectedSlot] = useState<ScheduleSlot | null>(null);
@@ -132,6 +134,7 @@ const ScheduleDays = ({
                   slot={slot}
                   remaining={remaining}
                   full={full}
+                  handleDeleteSlot={() => handleDeleteSlot(slot.id)}
                   onEdit={(slot) => {
                     setSelectedSlot(slot);
                     setIsSlotDialogOpen(true);
