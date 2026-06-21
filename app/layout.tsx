@@ -17,7 +17,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Step Dance PH",
-  description: "Step dance studio in Cagayan De Oro City offering classes, workshops, and private lessons for all ages and skill levels. Join us to learn the art of step dancing and connect with a vibrant community of dancers.",
+  description: "StepDance PH in Cagayan De Oro City offering classes, workshops, and private lessons for all ages and skill levels. Join us to learn the art of step dancing and connect with a vibrant community of dancers.",
 };
 
 export default function RootLayout({
