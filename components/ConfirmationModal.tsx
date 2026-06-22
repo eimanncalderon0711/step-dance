@@ -103,7 +103,7 @@ const ConfirmationModal = ({ form, setForm, setSubmitted }: ConfirmationModalPro
       <body>
         <div class="receipt">
           <div class="header">
-            <h2>Step Dance Studio</h2>
+            <h2>StepDance PH</h2>
             <p>Booking Confirmation</p>
           </div>
           <div class="content">
@@ -134,8 +134,8 @@ const ConfirmationModal = ({ form, setForm, setSubmitted }: ConfirmationModalPro
               </div>
             </div>
             <div class="footer">
-              <p>Thank you for choosing Step Dance Studio!</p>
-              <p>Please present this receipt at the studio.</p>
+              <p>Thank you for choosing StepDance PH!</p>
+              <p>Please present this receipt as proof.</p>
             </div>
           </div>
         </div>
@@ -249,7 +249,7 @@ const ConfirmationModal = ({ form, setForm, setSubmitted }: ConfirmationModalPro
       <body>
         <div class="receipt">
           <div class="header">
-            <h2>Step Dance Studio</h2>
+            <h2>StepDance PH</h2>
             <p>Booking Confirmation</p>
           </div>
           <div class="content">
@@ -280,8 +280,8 @@ const ConfirmationModal = ({ form, setForm, setSubmitted }: ConfirmationModalPro
               </div>
             </div>
             <div class="footer">
-              <p>Thank you for choosing Step Dance Studio!</p>
-              <p>Please present this receipt at the studio.</p>
+              <p>Thank you for choosing StepDance PH!</p>
+              <p>Please present this receipt as proof.</p>
             </div>
           </div>
         </div>
