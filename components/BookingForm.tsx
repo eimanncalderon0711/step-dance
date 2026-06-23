@@ -352,14 +352,14 @@ export default function BookingForm() {
               <p className="text-sm">Al Batulan</p>
             </div> */}
             <div>
-              <p className="text-xs text-orange-400 uppercase font-bold">Gotyme</p>
-              <p className="font-bold">019 957 154 852</p>
-              <p className="text-sm">Stepdanceph</p>
+              <p className="text-xs text-orange-400 uppercase font-bold">BPI</p>
+              <p className="font-bold">201 9284 495</p>
+              <p className="text-sm">Chary Ann Liquit</p>
             </div>
             <div>
-              <p className="text-xs text-orange-400 uppercase font-bold">GCash Payment</p>
-              <p className="font-bold">0955 193 8646</p>
-              <p className="text-sm">Chinlery Anne Moreno</p>
+              <p className="text-xs text-orange-400 uppercase font-bold">GoTyme</p>
+              <p className="font-bold">010 224 907 026</p>
+              <p className="text-sm">Chary Ann Liquit</p>
             </div>
           </div>
           
