@@ -352,9 +352,9 @@ export default function BookingForm() {
               <p className="text-sm">Al Batulan</p>
             </div> */}
             <div>
-              <p className="text-xs text-orange-400 uppercase font-bold">BPI</p>
-              <p className="font-bold">201 9284 495</p>
-              <p className="text-sm">Chary Ann Liquit</p>
+              <p className="text-xs text-orange-400 uppercase font-bold">GCash</p>
+              <p className="font-bold">0965 528 6894</p>
+              <p className="text-sm">Ariston Liquit</p>
             </div>
             <div>
               <p className="text-xs text-orange-400 uppercase font-bold">GoTyme</p>
