@@ -40,41 +40,41 @@ export type BookingSumAggregateOutputType = {
 
 export type BookingMinAggregateOutputType = {
   id: number | null
-  fullName: string | null
   email: string | null
   phone: string | null
   proofOfPaymentUrl: string | null
-  referenceNumber: string | null
   userId: number | null
   slotId: number | null
   updatedAt: Date | null
   createdAt: Date | null
+  fullName: string | null
+  referenceNumber: string | null
 }
 
 export type BookingMaxAggregateOutputType = {
   id: number | null
-  fullName: string | null
   email: string | null
   phone: string | null
   proofOfPaymentUrl: string | null
-  referenceNumber: string | null
   userId: number | null
   slotId: number | null
   updatedAt: Date | null
   createdAt: Date | null
+  fullName: string | null
+  referenceNumber: string | null
 }
 
 export type BookingCountAggregateOutputType = {
   id: number
-  fullName: number
   email: number
   phone: number
   proofOfPaymentUrl: number
-  referenceNumber: number
   userId: number
   slotId: number
   updatedAt: number
   createdAt: number
+  fullName: number
+  referenceNumber: number
   _all: number
 }
 
@@ -93,41 +93,41 @@ export type BookingSumAggregateInputType = {
 
 export type BookingMinAggregateInputType = {
   id?: true
-  fullName?: true
   email?: true
   phone?: true
   proofOfPaymentUrl?: true
-  referenceNumber?: true
   userId?: true
   slotId?: true
   updatedAt?: true
   createdAt?: true
+  fullName?: true
+  referenceNumber?: true
 }
 
 export type BookingMaxAggregateInputType = {
   id?: true
-  fullName?: true
   email?: true
   phone?: true
   proofOfPaymentUrl?: true
-  referenceNumber?: true
   userId?: true
   slotId?: true
   updatedAt?: true
   createdAt?: true
+  fullName?: true
+  referenceNumber?: true
 }
 
 export type BookingCountAggregateInputType = {
   id?: true
-  fullName?: true
   email?: true
   phone?: true
   proofOfPaymentUrl?: true
-  referenceNumber?: true
   userId?: true
   slotId?: true
   updatedAt?: true
   createdAt?: true
+  fullName?: true
+  referenceNumber?: true
   _all?: true
 }
 
@@ -219,15 +219,15 @@ export type BookingGroupByArgs<ExtArgs extends runtime.Types.Extensions.Internal
 
 export type BookingGroupByOutputType = {
   id: number
-  fullName: string
   email: string
   phone: string
   proofOfPaymentUrl: string
-  referenceNumber: string
   userId: number | null
   slotId: number
   updatedAt: Date
   createdAt: Date
+  fullName: string
+  referenceNumber: string
   _count: BookingCountAggregateOutputType | null
   _avg: BookingAvgAggregateOutputType | null
   _sum: BookingSumAggregateOutputType | null
@@ -255,30 +255,30 @@ export type BookingWhereInput = {
   OR?: Prisma.BookingWhereInput[]
   NOT?: Prisma.BookingWhereInput | Prisma.BookingWhereInput[]
   id?: Prisma.IntFilter<"Booking"> | number
-  fullName?: Prisma.StringFilter<"Booking"> | string
   email?: Prisma.StringFilter<"Booking"> | string
   phone?: Prisma.StringFilter<"Booking"> | string
   proofOfPaymentUrl?: Prisma.StringFilter<"Booking"> | string
-  referenceNumber?: Prisma.StringFilter<"Booking"> | string
   userId?: Prisma.IntNullableFilter<"Booking"> | number | null
   slotId?: Prisma.IntFilter<"Booking"> | number
   updatedAt?: Prisma.DateTimeFilter<"Booking"> | Date | string
   createdAt?: Prisma.DateTimeFilter<"Booking"> | Date | string
+  fullName?: Prisma.StringFilter<"Booking"> | string
+  referenceNumber?: Prisma.StringFilter<"Booking"> | string
   slot?: Prisma.XOR<Prisma.ScheduleSlotScalarRelationFilter, Prisma.ScheduleSlotWhereInput>
   user?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
 }
 
 export type BookingOrderByWithRelationInput = {
   id?: Prisma.SortOrder
-  fullName?: Prisma.SortOrder
   email?: Prisma.SortOrder
   phone?: Prisma.SortOrder
   proofOfPaymentUrl?: Prisma.SortOrder
-  referenceNumber?: Prisma.SortOrder
   userId?: Prisma.SortOrderInput | Prisma.SortOrder
   slotId?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  fullName?: Prisma.SortOrder
+  referenceNumber?: Prisma.SortOrder
   slot?: Prisma.ScheduleSlotOrderByWithRelationInput
   user?: Prisma.UserOrderByWithRelationInput
 }
@@ -288,30 +288,30 @@ export type BookingWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.BookingWhereInput | Prisma.BookingWhereInput[]
   OR?: Prisma.BookingWhereInput[]
   NOT?: Prisma.BookingWhereInput | Prisma.BookingWhereInput[]
-  fullName?: Prisma.StringFilter<"Booking"> | string
   email?: Prisma.StringFilter<"Booking"> | string
   phone?: Prisma.StringFilter<"Booking"> | string
   proofOfPaymentUrl?: Prisma.StringFilter<"Booking"> | string
-  referenceNumber?: Prisma.StringFilter<"Booking"> | string
   userId?: Prisma.IntNullableFilter<"Booking"> | number | null
   slotId?: Prisma.IntFilter<"Booking"> | number
   updatedAt?: Prisma.DateTimeFilter<"Booking"> | Date | string
   createdAt?: Prisma.DateTimeFilter<"Booking"> | Date | string
+  fullName?: Prisma.StringFilter<"Booking"> | string
+  referenceNumber?: Prisma.StringFilter<"Booking"> | string
   slot?: Prisma.XOR<Prisma.ScheduleSlotScalarRelationFilter, Prisma.ScheduleSlotWhereInput>
   user?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
 }, "id">
 
 export type BookingOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
-  fullName?: Prisma.SortOrder
   email?: Prisma.SortOrder
   phone?: Prisma.SortOrder
   proofOfPaymentUrl?: Prisma.SortOrder
-  referenceNumber?: Prisma.SortOrder
   userId?: Prisma.SortOrderInput | Prisma.SortOrder
   slotId?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  fullName?: Prisma.SortOrder
+  referenceNumber?: Prisma.SortOrder
   _count?: Prisma.BookingCountOrderByAggregateInput
   _avg?: Prisma.BookingAvgOrderByAggregateInput
   _max?: Prisma.BookingMaxOrderByAggregateInput
@@ -324,114 +324,114 @@ export type BookingScalarWhereWithAggregatesInput = {
   OR?: Prisma.BookingScalarWhereWithAggregatesInput[]
   NOT?: Prisma.BookingScalarWhereWithAggregatesInput | Prisma.BookingScalarWhereWithAggregatesInput[]
   id?: Prisma.IntWithAggregatesFilter<"Booking"> | number
-  fullName?: Prisma.StringWithAggregatesFilter<"Booking"> | string
   email?: Prisma.StringWithAggregatesFilter<"Booking"> | string
   phone?: Prisma.StringWithAggregatesFilter<"Booking"> | string
   proofOfPaymentUrl?: Prisma.StringWithAggregatesFilter<"Booking"> | string
-  referenceNumber?: Prisma.StringWithAggregatesFilter<"Booking"> | string
   userId?: Prisma.IntNullableWithAggregatesFilter<"Booking"> | number | null
   slotId?: Prisma.IntWithAggregatesFilter<"Booking"> | number
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Booking"> | Date | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Booking"> | Date | string
+  fullName?: Prisma.StringWithAggregatesFilter<"Booking"> | string
+  referenceNumber?: Prisma.StringWithAggregatesFilter<"Booking"> | string
 }
 
 export type BookingCreateInput = {
-  fullName: string
   email: string
   phone: string
   proofOfPaymentUrl: string
-  referenceNumber: string
   updatedAt?: Date | string
   createdAt?: Date | string
+  fullName: string
+  referenceNumber: string
   slot: Prisma.ScheduleSlotCreateNestedOneWithoutBookingsInput
   user?: Prisma.UserCreateNestedOneWithoutBookingsInput
 }
 
 export type BookingUncheckedCreateInput = {
   id?: number
-  fullName: string
   email: string
   phone: string
   proofOfPaymentUrl: string
-  referenceNumber: string
   userId?: number | null
   slotId: number
   updatedAt?: Date | string
   createdAt?: Date | string
+  fullName: string
+  referenceNumber: string
 }
 
 export type BookingUpdateInput = {
-  fullName?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.StringFieldUpdateOperationsInput | string
   proofOfPaymentUrl?: Prisma.StringFieldUpdateOperationsInput | string
-  referenceNumber?: Prisma.StringFieldUpdateOperationsInput | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  referenceNumber?: Prisma.StringFieldUpdateOperationsInput | string
   slot?: Prisma.ScheduleSlotUpdateOneRequiredWithoutBookingsNestedInput
   user?: Prisma.UserUpdateOneWithoutBookingsNestedInput
 }
 
 export type BookingUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  fullName?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.StringFieldUpdateOperationsInput | string
   proofOfPaymentUrl?: Prisma.StringFieldUpdateOperationsInput | string
-  referenceNumber?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   slotId?: Prisma.IntFieldUpdateOperationsInput | number
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  referenceNumber?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type BookingCreateManyInput = {
   id?: number
-  fullName: string
   email: string
   phone: string
   proofOfPaymentUrl: string
-  referenceNumber: string
   userId?: number | null
   slotId: number
   updatedAt?: Date | string
   createdAt?: Date | string
+  fullName: string
+  referenceNumber: string
 }
 
 export type BookingUpdateManyMutationInput = {
-  fullName?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.StringFieldUpdateOperationsInput | string
   proofOfPaymentUrl?: Prisma.StringFieldUpdateOperationsInput | string
-  referenceNumber?: Prisma.StringFieldUpdateOperationsInput | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  referenceNumber?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type BookingUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  fullName?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.StringFieldUpdateOperationsInput | string
   proofOfPaymentUrl?: Prisma.StringFieldUpdateOperationsInput | string
-  referenceNumber?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   slotId?: Prisma.IntFieldUpdateOperationsInput | number
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  referenceNumber?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type BookingCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  fullName?: Prisma.SortOrder
   email?: Prisma.SortOrder
   phone?: Prisma.SortOrder
   proofOfPaymentUrl?: Prisma.SortOrder
-  referenceNumber?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   slotId?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  fullName?: Prisma.SortOrder
+  referenceNumber?: Prisma.SortOrder
 }
 
 export type BookingAvgOrderByAggregateInput = {
@@ -442,28 +442,28 @@ export type BookingAvgOrderByAggregateInput = {
 
 export type BookingMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  fullName?: Prisma.SortOrder
   email?: Prisma.SortOrder
   phone?: Prisma.SortOrder
   proofOfPaymentUrl?: Prisma.SortOrder
-  referenceNumber?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   slotId?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  fullName?: Prisma.SortOrder
+  referenceNumber?: Prisma.SortOrder
 }
 
 export type BookingMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  fullName?: Prisma.SortOrder
   email?: Prisma.SortOrder
   phone?: Prisma.SortOrder
   proofOfPaymentUrl?: Prisma.SortOrder
-  referenceNumber?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   slotId?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  fullName?: Prisma.SortOrder
+  referenceNumber?: Prisma.SortOrder
 }
 
 export type BookingSumOrderByAggregateInput = {
@@ -591,26 +591,26 @@ export type BookingUncheckedUpdateManyWithoutUserNestedInput = {
 }
 
 export type BookingCreateWithoutSlotInput = {
-  fullName: string
   email: string
   phone: string
   proofOfPaymentUrl: string
-  referenceNumber: string
   updatedAt?: Date | string
   createdAt?: Date | string
+  fullName: string
+  referenceNumber: string
   user?: Prisma.UserCreateNestedOneWithoutBookingsInput
 }
 
 export type BookingUncheckedCreateWithoutSlotInput = {
   id?: number
-  fullName: string
   email: string
   phone: string
   proofOfPaymentUrl: string
-  referenceNumber: string
   userId?: number | null
   updatedAt?: Date | string
   createdAt?: Date | string
+  fullName: string
+  referenceNumber: string
 }
 
 export type BookingCreateOrConnectWithoutSlotInput = {
@@ -644,38 +644,38 @@ export type BookingScalarWhereInput = {
   OR?: Prisma.BookingScalarWhereInput[]
   NOT?: Prisma.BookingScalarWhereInput | Prisma.BookingScalarWhereInput[]
   id?: Prisma.IntFilter<"Booking"> | number
-  fullName?: Prisma.StringFilter<"Booking"> | string
   email?: Prisma.StringFilter<"Booking"> | string
   phone?: Prisma.StringFilter<"Booking"> | string
   proofOfPaymentUrl?: Prisma.StringFilter<"Booking"> | string
-  referenceNumber?: Prisma.StringFilter<"Booking"> | string
   userId?: Prisma.IntNullableFilter<"Booking"> | number | null
   slotId?: Prisma.IntFilter<"Booking"> | number
   updatedAt?: Prisma.DateTimeFilter<"Booking"> | Date | string
   createdAt?: Prisma.DateTimeFilter<"Booking"> | Date | string
+  fullName?: Prisma.StringFilter<"Booking"> | string
+  referenceNumber?: Prisma.StringFilter<"Booking"> | string
 }
 
 export type BookingCreateWithoutUserInput = {
-  fullName: string
   email: string
   phone: string
   proofOfPaymentUrl: string
-  referenceNumber: string
   updatedAt?: Date | string
   createdAt?: Date | string
+  fullName: string
+  referenceNumber: string
   slot: Prisma.ScheduleSlotCreateNestedOneWithoutBookingsInput
 }
 
 export type BookingUncheckedCreateWithoutUserInput = {
   id?: number
-  fullName: string
   email: string
   phone: string
   proofOfPaymentUrl: string
-  referenceNumber: string
   slotId: number
   updatedAt?: Date | string
   createdAt?: Date | string
+  fullName: string
+  referenceNumber: string
 }
 
 export type BookingCreateOrConnectWithoutUserInput = {
@@ -706,159 +706,159 @@ export type BookingUpdateManyWithWhereWithoutUserInput = {
 
 export type BookingCreateManySlotInput = {
   id?: number
-  fullName: string
   email: string
   phone: string
   proofOfPaymentUrl: string
-  referenceNumber: string
   userId?: number | null
   updatedAt?: Date | string
   createdAt?: Date | string
+  fullName: string
+  referenceNumber: string
 }
 
 export type BookingUpdateWithoutSlotInput = {
-  fullName?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.StringFieldUpdateOperationsInput | string
   proofOfPaymentUrl?: Prisma.StringFieldUpdateOperationsInput | string
-  referenceNumber?: Prisma.StringFieldUpdateOperationsInput | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  referenceNumber?: Prisma.StringFieldUpdateOperationsInput | string
   user?: Prisma.UserUpdateOneWithoutBookingsNestedInput
 }
 
 export type BookingUncheckedUpdateWithoutSlotInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  fullName?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.StringFieldUpdateOperationsInput | string
   proofOfPaymentUrl?: Prisma.StringFieldUpdateOperationsInput | string
-  referenceNumber?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  referenceNumber?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type BookingUncheckedUpdateManyWithoutSlotInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  fullName?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.StringFieldUpdateOperationsInput | string
   proofOfPaymentUrl?: Prisma.StringFieldUpdateOperationsInput | string
-  referenceNumber?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  referenceNumber?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type BookingCreateManyUserInput = {
   id?: number
-  fullName: string
   email: string
   phone: string
   proofOfPaymentUrl: string
-  referenceNumber: string
   slotId: number
   updatedAt?: Date | string
   createdAt?: Date | string
+  fullName: string
+  referenceNumber: string
 }
 
 export type BookingUpdateWithoutUserInput = {
-  fullName?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.StringFieldUpdateOperationsInput | string
   proofOfPaymentUrl?: Prisma.StringFieldUpdateOperationsInput | string
-  referenceNumber?: Prisma.StringFieldUpdateOperationsInput | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  referenceNumber?: Prisma.StringFieldUpdateOperationsInput | string
   slot?: Prisma.ScheduleSlotUpdateOneRequiredWithoutBookingsNestedInput
 }
 
 export type BookingUncheckedUpdateWithoutUserInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  fullName?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.StringFieldUpdateOperationsInput | string
   proofOfPaymentUrl?: Prisma.StringFieldUpdateOperationsInput | string
-  referenceNumber?: Prisma.StringFieldUpdateOperationsInput | string
   slotId?: Prisma.IntFieldUpdateOperationsInput | number
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  referenceNumber?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type BookingUncheckedUpdateManyWithoutUserInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  fullName?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.StringFieldUpdateOperationsInput | string
   proofOfPaymentUrl?: Prisma.StringFieldUpdateOperationsInput | string
-  referenceNumber?: Prisma.StringFieldUpdateOperationsInput | string
   slotId?: Prisma.IntFieldUpdateOperationsInput | number
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  referenceNumber?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 
 
 export type BookingSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  fullName?: boolean
   email?: boolean
   phone?: boolean
   proofOfPaymentUrl?: boolean
-  referenceNumber?: boolean
   userId?: boolean
   slotId?: boolean
   updatedAt?: boolean
   createdAt?: boolean
+  fullName?: boolean
+  referenceNumber?: boolean
   slot?: boolean | Prisma.ScheduleSlotDefaultArgs<ExtArgs>
   user?: boolean | Prisma.Booking$userArgs<ExtArgs>
 }, ExtArgs["result"]["booking"]>
 
 export type BookingSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  fullName?: boolean
   email?: boolean
   phone?: boolean
   proofOfPaymentUrl?: boolean
-  referenceNumber?: boolean
   userId?: boolean
   slotId?: boolean
   updatedAt?: boolean
   createdAt?: boolean
+  fullName?: boolean
+  referenceNumber?: boolean
   slot?: boolean | Prisma.ScheduleSlotDefaultArgs<ExtArgs>
   user?: boolean | Prisma.Booking$userArgs<ExtArgs>
 }, ExtArgs["result"]["booking"]>
 
 export type BookingSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  fullName?: boolean
   email?: boolean
   phone?: boolean
   proofOfPaymentUrl?: boolean
-  referenceNumber?: boolean
   userId?: boolean
   slotId?: boolean
   updatedAt?: boolean
   createdAt?: boolean
+  fullName?: boolean
+  referenceNumber?: boolean
   slot?: boolean | Prisma.ScheduleSlotDefaultArgs<ExtArgs>
   user?: boolean | Prisma.Booking$userArgs<ExtArgs>
 }, ExtArgs["result"]["booking"]>
 
 export type BookingSelectScalar = {
   id?: boolean
-  fullName?: boolean
   email?: boolean
   phone?: boolean
   proofOfPaymentUrl?: boolean
-  referenceNumber?: boolean
   userId?: boolean
   slotId?: boolean
   updatedAt?: boolean
   createdAt?: boolean
+  fullName?: boolean
+  referenceNumber?: boolean
 }
 
-export type BookingOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "fullName" | "email" | "phone" | "proofOfPaymentUrl" | "referenceNumber" | "userId" | "slotId" | "updatedAt" | "createdAt", ExtArgs["result"]["booking"]>
+export type BookingOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "phone" | "proofOfPaymentUrl" | "userId" | "slotId" | "updatedAt" | "createdAt" | "fullName" | "referenceNumber", ExtArgs["result"]["booking"]>
 export type BookingInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   slot?: boolean | Prisma.ScheduleSlotDefaultArgs<ExtArgs>
   user?: boolean | Prisma.Booking$userArgs<ExtArgs>
@@ -880,15 +880,15 @@ export type $BookingPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
-    fullName: string
     email: string
     phone: string
     proofOfPaymentUrl: string
-    referenceNumber: string
     userId: number | null
     slotId: number
     updatedAt: Date
     createdAt: Date
+    fullName: string
+    referenceNumber: string
   }, ExtArgs["result"]["booking"]>
   composites: {}
 }
@@ -1315,15 +1315,15 @@ export interface Prisma__BookingClient<T, Null = never, ExtArgs extends runtime.
  */
 export interface BookingFieldRefs {
   readonly id: Prisma.FieldRef<"Booking", 'Int'>
-  readonly fullName: Prisma.FieldRef<"Booking", 'String'>
   readonly email: Prisma.FieldRef<"Booking", 'String'>
   readonly phone: Prisma.FieldRef<"Booking", 'String'>
   readonly proofOfPaymentUrl: Prisma.FieldRef<"Booking", 'String'>
-  readonly referenceNumber: Prisma.FieldRef<"Booking", 'String'>
   readonly userId: Prisma.FieldRef<"Booking", 'Int'>
   readonly slotId: Prisma.FieldRef<"Booking", 'Int'>
   readonly updatedAt: Prisma.FieldRef<"Booking", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"Booking", 'DateTime'>
+  readonly fullName: Prisma.FieldRef<"Booking", 'String'>
+  readonly referenceNumber: Prisma.FieldRef<"Booking", 'String'>
 }
     
 

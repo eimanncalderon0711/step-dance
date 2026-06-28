@@ -1,26 +1,23 @@
 model ScheduleDay {
-  id    Int      @id @default(autoincrement())
-  date  DateTime @unique
-
+  id    Int            @id @default(autoincrement())
+  date  DateTime       @unique
   slots ScheduleSlot[]
+
   @@map("schedule_days")
 }
 
 model ScheduleSlot {
-  id        Int      @id @default(autoincrement())
-  startTime DateTime 
-  endTime   DateTime 
-  location  String
+  id        Int         @id @default(autoincrement())
   capacity  Int
-  booked    Int @default(0)
-
+  booked    Int         @default(0)
   dayId     Int
-  day       ScheduleDay @relation(fields: [dayId], references: [id], onDelete: Cascade)
+  updatedAt DateTime    @updatedAt
+  createdAt DateTime    @default(now())
+  startTime DateTime
+  endTime   DateTime
+  location  String
   bookings  Booking[]
-
-  updatedAt DateTime @updatedAt
-  createdAt DateTime @default(now())
+  day       ScheduleDay @relation(fields: [dayId], references: [id], onDelete: Cascade)
 
   @@map("schedule_slots")
 }
-

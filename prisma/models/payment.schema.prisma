@@ -1,0 +1,12 @@
+model PaymentOption {
+  id            Int      @id @default(autoincrement())
+
+  method        String   // e.g. GCash, BPI, GoTyme
+  accountName   String   // e.g. Juan Dela Cruz
+  accountNumber String   // e.g. 09123456789
+
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@map("payment_options")
+}

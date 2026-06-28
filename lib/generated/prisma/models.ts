@@ -9,6 +9,7 @@
  * 🟢 You can import this file directly.
  */
 export type * from './models/Booking'
+export type * from './models/PaymentOption'
 export type * from './models/Post'
 export type * from './models/ScheduleDay'
 export type * from './models/ScheduleSlot'

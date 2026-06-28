@@ -52,6 +52,7 @@ export const AnyNull = runtime.AnyNull
 
 export const ModelName = {
   Booking: 'Booking',
+  PaymentOption: 'PaymentOption',
   Post: 'Post',
   ScheduleDay: 'ScheduleDay',
   ScheduleSlot: 'ScheduleSlot',
@@ -77,18 +78,30 @@ export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof
 
 export const BookingScalarFieldEnum = {
   id: 'id',
-  fullName: 'fullName',
   email: 'email',
   phone: 'phone',
   proofOfPaymentUrl: 'proofOfPaymentUrl',
-  referenceNumber: 'referenceNumber',
   userId: 'userId',
   slotId: 'slotId',
   updatedAt: 'updatedAt',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  fullName: 'fullName',
+  referenceNumber: 'referenceNumber'
 } as const
 
 export type BookingScalarFieldEnum = (typeof BookingScalarFieldEnum)[keyof typeof BookingScalarFieldEnum]
+
+
+export const PaymentOptionScalarFieldEnum = {
+  id: 'id',
+  method: 'method',
+  accountName: 'accountName',
+  accountNumber: 'accountNumber',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PaymentOptionScalarFieldEnum = (typeof PaymentOptionScalarFieldEnum)[keyof typeof PaymentOptionScalarFieldEnum]
 
 
 export const PostScalarFieldEnum = {
@@ -112,14 +125,14 @@ export type ScheduleDayScalarFieldEnum = (typeof ScheduleDayScalarFieldEnum)[key
 
 export const ScheduleSlotScalarFieldEnum = {
   id: 'id',
-  startTime: 'startTime',
-  endTime: 'endTime',
-  location: 'location',
   capacity: 'capacity',
   booked: 'booked',
   dayId: 'dayId',
   updatedAt: 'updatedAt',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  startTime: 'startTime',
+  endTime: 'endTime',
+  location: 'location'
 } as const
 
 export type ScheduleSlotScalarFieldEnum = (typeof ScheduleSlotScalarFieldEnum)[keyof typeof ScheduleSlotScalarFieldEnum]
@@ -127,10 +140,10 @@ export type ScheduleSlotScalarFieldEnum = (typeof ScheduleSlotScalarFieldEnum)[k
 
 export const UserScalarFieldEnum = {
   id: 'id',
-  supabaseId: 'supabaseId',
   email: 'email',
   name: 'name',
-  roleId: 'roleId'
+  roleId: 'roleId',
+  supabaseId: 'supabaseId'
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]

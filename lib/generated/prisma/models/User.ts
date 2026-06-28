@@ -38,26 +38,26 @@ export type UserSumAggregateOutputType = {
 
 export type UserMinAggregateOutputType = {
   id: number | null
-  supabaseId: string | null
   email: string | null
   name: string | null
   roleId: number | null
+  supabaseId: string | null
 }
 
 export type UserMaxAggregateOutputType = {
   id: number | null
-  supabaseId: string | null
   email: string | null
   name: string | null
   roleId: number | null
+  supabaseId: string | null
 }
 
 export type UserCountAggregateOutputType = {
   id: number
-  supabaseId: number
   email: number
   name: number
   roleId: number
+  supabaseId: number
   _all: number
 }
 
@@ -74,26 +74,26 @@ export type UserSumAggregateInputType = {
 
 export type UserMinAggregateInputType = {
   id?: true
-  supabaseId?: true
   email?: true
   name?: true
   roleId?: true
+  supabaseId?: true
 }
 
 export type UserMaxAggregateInputType = {
   id?: true
-  supabaseId?: true
   email?: true
   name?: true
   roleId?: true
+  supabaseId?: true
 }
 
 export type UserCountAggregateInputType = {
   id?: true
-  supabaseId?: true
   email?: true
   name?: true
   roleId?: true
+  supabaseId?: true
   _all?: true
 }
 
@@ -185,10 +185,10 @@ export type UserGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
 
 export type UserGroupByOutputType = {
   id: number
-  supabaseId: string
   email: string
   name: string | null
   roleId: number
+  supabaseId: string
   _count: UserCountAggregateOutputType | null
   _avg: UserAvgAggregateOutputType | null
   _sum: UserSumAggregateOutputType | null
@@ -216,10 +216,10 @@ export type UserWhereInput = {
   OR?: Prisma.UserWhereInput[]
   NOT?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
   id?: Prisma.IntFilter<"User"> | number
-  supabaseId?: Prisma.StringFilter<"User"> | string
   email?: Prisma.StringFilter<"User"> | string
   name?: Prisma.StringNullableFilter<"User"> | string | null
   roleId?: Prisma.IntFilter<"User"> | number
+  supabaseId?: Prisma.StringFilter<"User"> | string
   bookings?: Prisma.BookingListRelationFilter
   posts?: Prisma.PostListRelationFilter
   role?: Prisma.XOR<Prisma.RoleScalarRelationFilter, Prisma.RoleWhereInput>
@@ -227,10 +227,10 @@ export type UserWhereInput = {
 
 export type UserOrderByWithRelationInput = {
   id?: Prisma.SortOrder
-  supabaseId?: Prisma.SortOrder
   email?: Prisma.SortOrder
   name?: Prisma.SortOrderInput | Prisma.SortOrder
   roleId?: Prisma.SortOrder
+  supabaseId?: Prisma.SortOrder
   bookings?: Prisma.BookingOrderByRelationAggregateInput
   posts?: Prisma.PostOrderByRelationAggregateInput
   role?: Prisma.RoleOrderByWithRelationInput
@@ -238,8 +238,8 @@ export type UserOrderByWithRelationInput = {
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
   id?: number
-  supabaseId?: string
   email?: string
+  supabaseId?: string
   AND?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
   OR?: Prisma.UserWhereInput[]
   NOT?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
@@ -248,14 +248,14 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   bookings?: Prisma.BookingListRelationFilter
   posts?: Prisma.PostListRelationFilter
   role?: Prisma.XOR<Prisma.RoleScalarRelationFilter, Prisma.RoleWhereInput>
-}, "id" | "supabaseId" | "email">
+}, "id" | "email" | "supabaseId">
 
 export type UserOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
-  supabaseId?: Prisma.SortOrder
   email?: Prisma.SortOrder
   name?: Prisma.SortOrderInput | Prisma.SortOrder
   roleId?: Prisma.SortOrder
+  supabaseId?: Prisma.SortOrder
   _count?: Prisma.UserCountOrderByAggregateInput
   _avg?: Prisma.UserAvgOrderByAggregateInput
   _max?: Prisma.UserMaxOrderByAggregateInput
@@ -268,16 +268,16 @@ export type UserScalarWhereWithAggregatesInput = {
   OR?: Prisma.UserScalarWhereWithAggregatesInput[]
   NOT?: Prisma.UserScalarWhereWithAggregatesInput | Prisma.UserScalarWhereWithAggregatesInput[]
   id?: Prisma.IntWithAggregatesFilter<"User"> | number
-  supabaseId?: Prisma.StringWithAggregatesFilter<"User"> | string
   email?: Prisma.StringWithAggregatesFilter<"User"> | string
   name?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   roleId?: Prisma.IntWithAggregatesFilter<"User"> | number
+  supabaseId?: Prisma.StringWithAggregatesFilter<"User"> | string
 }
 
 export type UserCreateInput = {
-  supabaseId: string
   email: string
   name?: string | null
+  supabaseId: string
   bookings?: Prisma.BookingCreateNestedManyWithoutUserInput
   posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
   role: Prisma.RoleCreateNestedOneWithoutUsersInput
@@ -285,18 +285,18 @@ export type UserCreateInput = {
 
 export type UserUncheckedCreateInput = {
   id?: number
-  supabaseId: string
   email: string
   name?: string | null
   roleId: number
+  supabaseId: string
   bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutUserInput
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
 }
 
 export type UserUpdateInput = {
-  supabaseId?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supabaseId?: Prisma.StringFieldUpdateOperationsInput | string
   bookings?: Prisma.BookingUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
   role?: Prisma.RoleUpdateOneRequiredWithoutUsersNestedInput
@@ -304,34 +304,34 @@ export type UserUpdateInput = {
 
 export type UserUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  supabaseId?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   roleId?: Prisma.IntFieldUpdateOperationsInput | number
+  supabaseId?: Prisma.StringFieldUpdateOperationsInput | string
   bookings?: Prisma.BookingUncheckedUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
 }
 
 export type UserCreateManyInput = {
   id?: number
-  supabaseId: string
   email: string
   name?: string | null
   roleId: number
+  supabaseId: string
 }
 
 export type UserUpdateManyMutationInput = {
-  supabaseId?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supabaseId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type UserUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  supabaseId?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   roleId?: Prisma.IntFieldUpdateOperationsInput | number
+  supabaseId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type UserNullableScalarRelationFilter = {
@@ -341,10 +341,10 @@ export type UserNullableScalarRelationFilter = {
 
 export type UserCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  supabaseId?: Prisma.SortOrder
   email?: Prisma.SortOrder
   name?: Prisma.SortOrder
   roleId?: Prisma.SortOrder
+  supabaseId?: Prisma.SortOrder
 }
 
 export type UserAvgOrderByAggregateInput = {
@@ -354,18 +354,18 @@ export type UserAvgOrderByAggregateInput = {
 
 export type UserMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  supabaseId?: Prisma.SortOrder
   email?: Prisma.SortOrder
   name?: Prisma.SortOrder
   roleId?: Prisma.SortOrder
+  supabaseId?: Prisma.SortOrder
 }
 
 export type UserMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  supabaseId?: Prisma.SortOrder
   email?: Prisma.SortOrder
   name?: Prisma.SortOrder
   roleId?: Prisma.SortOrder
+  supabaseId?: Prisma.SortOrder
 }
 
 export type UserSumOrderByAggregateInput = {
@@ -462,19 +462,19 @@ export type UserUncheckedUpdateManyWithoutRoleNestedInput = {
 }
 
 export type UserCreateWithoutBookingsInput = {
-  supabaseId: string
   email: string
   name?: string | null
+  supabaseId: string
   posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
   role: Prisma.RoleCreateNestedOneWithoutUsersInput
 }
 
 export type UserUncheckedCreateWithoutBookingsInput = {
   id?: number
-  supabaseId: string
   email: string
   name?: string | null
   roleId: number
+  supabaseId: string
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
 }
 
@@ -495,36 +495,36 @@ export type UserUpdateToOneWithWhereWithoutBookingsInput = {
 }
 
 export type UserUpdateWithoutBookingsInput = {
-  supabaseId?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supabaseId?: Prisma.StringFieldUpdateOperationsInput | string
   posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
   role?: Prisma.RoleUpdateOneRequiredWithoutUsersNestedInput
 }
 
 export type UserUncheckedUpdateWithoutBookingsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  supabaseId?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   roleId?: Prisma.IntFieldUpdateOperationsInput | number
+  supabaseId?: Prisma.StringFieldUpdateOperationsInput | string
   posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
 }
 
 export type UserCreateWithoutPostsInput = {
-  supabaseId: string
   email: string
   name?: string | null
+  supabaseId: string
   bookings?: Prisma.BookingCreateNestedManyWithoutUserInput
   role: Prisma.RoleCreateNestedOneWithoutUsersInput
 }
 
 export type UserUncheckedCreateWithoutPostsInput = {
   id?: number
-  supabaseId: string
   email: string
   name?: string | null
   roleId: number
+  supabaseId: string
   bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutUserInput
 }
 
@@ -545,35 +545,35 @@ export type UserUpdateToOneWithWhereWithoutPostsInput = {
 }
 
 export type UserUpdateWithoutPostsInput = {
-  supabaseId?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supabaseId?: Prisma.StringFieldUpdateOperationsInput | string
   bookings?: Prisma.BookingUpdateManyWithoutUserNestedInput
   role?: Prisma.RoleUpdateOneRequiredWithoutUsersNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPostsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  supabaseId?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   roleId?: Prisma.IntFieldUpdateOperationsInput | number
+  supabaseId?: Prisma.StringFieldUpdateOperationsInput | string
   bookings?: Prisma.BookingUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutRoleInput = {
-  supabaseId: string
   email: string
   name?: string | null
+  supabaseId: string
   bookings?: Prisma.BookingCreateNestedManyWithoutUserInput
   posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
 }
 
 export type UserUncheckedCreateWithoutRoleInput = {
   id?: number
-  supabaseId: string
   email: string
   name?: string | null
+  supabaseId: string
   bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutUserInput
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
 }
@@ -609,41 +609,41 @@ export type UserScalarWhereInput = {
   OR?: Prisma.UserScalarWhereInput[]
   NOT?: Prisma.UserScalarWhereInput | Prisma.UserScalarWhereInput[]
   id?: Prisma.IntFilter<"User"> | number
-  supabaseId?: Prisma.StringFilter<"User"> | string
   email?: Prisma.StringFilter<"User"> | string
   name?: Prisma.StringNullableFilter<"User"> | string | null
   roleId?: Prisma.IntFilter<"User"> | number
+  supabaseId?: Prisma.StringFilter<"User"> | string
 }
 
 export type UserCreateManyRoleInput = {
   id?: number
-  supabaseId: string
   email: string
   name?: string | null
+  supabaseId: string
 }
 
 export type UserUpdateWithoutRoleInput = {
-  supabaseId?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supabaseId?: Prisma.StringFieldUpdateOperationsInput | string
   bookings?: Prisma.BookingUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRoleInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  supabaseId?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supabaseId?: Prisma.StringFieldUpdateOperationsInput | string
   bookings?: Prisma.BookingUncheckedUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
 }
 
 export type UserUncheckedUpdateManyWithoutRoleInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  supabaseId?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supabaseId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 
@@ -688,10 +688,10 @@ export type UserCountOutputTypeCountPostsArgs<ExtArgs extends runtime.Types.Exte
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  supabaseId?: boolean
   email?: boolean
   name?: boolean
   roleId?: boolean
+  supabaseId?: boolean
   bookings?: boolean | Prisma.User$bookingsArgs<ExtArgs>
   posts?: boolean | Prisma.User$postsArgs<ExtArgs>
   role?: boolean | Prisma.RoleDefaultArgs<ExtArgs>
@@ -700,31 +700,31 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
 
 export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  supabaseId?: boolean
   email?: boolean
   name?: boolean
   roleId?: boolean
+  supabaseId?: boolean
   role?: boolean | Prisma.RoleDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  supabaseId?: boolean
   email?: boolean
   name?: boolean
   roleId?: boolean
+  supabaseId?: boolean
   role?: boolean | Prisma.RoleDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectScalar = {
   id?: boolean
-  supabaseId?: boolean
   email?: boolean
   name?: boolean
   roleId?: boolean
+  supabaseId?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "supabaseId" | "email" | "name" | "roleId", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "name" | "roleId" | "supabaseId", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   bookings?: boolean | Prisma.User$bookingsArgs<ExtArgs>
   posts?: boolean | Prisma.User$postsArgs<ExtArgs>
@@ -747,10 +747,10 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
-    supabaseId: string
     email: string
     name: string | null
     roleId: number
+    supabaseId: string
   }, ExtArgs["result"]["user"]>
   composites: {}
 }
@@ -1178,10 +1178,10 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
  */
 export interface UserFieldRefs {
   readonly id: Prisma.FieldRef<"User", 'Int'>
-  readonly supabaseId: Prisma.FieldRef<"User", 'String'>
   readonly email: Prisma.FieldRef<"User", 'String'>
   readonly name: Prisma.FieldRef<"User", 'String'>
   readonly roleId: Prisma.FieldRef<"User", 'Int'>
+  readonly supabaseId: Prisma.FieldRef<"User", 'String'>
 }
     
 

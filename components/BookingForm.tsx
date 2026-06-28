@@ -35,7 +35,7 @@ type Slot = {
   startTime: string;
   endTime: string;
   capacity: number;
-  location:string;
+  location: string;
   booked: number;
 };
 
@@ -62,6 +62,8 @@ export default function BookingForm() {
   const [schedule, setSchedule] = useState<Day[]>([]);
   const [selectedDate, setSelectedDate] = useState<Date | undefined>();
 
+  const [paymentOptions, setPaymentOptions] = useState<any[]>([]);
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -76,6 +78,20 @@ export default function BookingForm() {
   });
 
   // ---------------- FETCH ----------------
+
+  const fetchPayments = async () => {
+    try {
+      const res = await fetch("/api/payment-options");
+
+      if (!res.ok) throw new Error("Failed to fetch payment options");
+
+      const data = await res.json();
+      setPaymentOptions(data.data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   const fetchSchedule = async () => {
     try {
       const res = await fetch("/api/schedules");
@@ -94,6 +110,7 @@ export default function BookingForm() {
 
   useEffect(() => {
     fetchSchedule();
+    fetchPayments();
   }, []);
 
   // ---------------- HELPERS ----------------
@@ -324,7 +341,8 @@ export default function BookingForm() {
                     >
                       {format(new Date(slot.startTime), "hh:mm a")} -{" "}
                       {format(new Date(slot.endTime), "hh:mm a")} ({available}{" "}
-                      left){" - "}{slot.location}
+                      left){" - "}
+                      {slot.location}
                     </NativeSelectOption>
                   );
                 })}
@@ -345,24 +363,34 @@ export default function BookingForm() {
           </div>
 
           {/* PAYMENT */}
-          <div className="border-t pt-4 text-amber-50 flex justify-start gap-10">
-            {/* <div>
-              <p className="text-xs text-orange-400 uppercase">GCash Payment</p>
-              <p className="font-bold">0935 110 6411</p>
-              <p className="text-sm">Al Batulan</p>
-            </div> */}
-            <div>
-              <p className="text-xs text-orange-400 uppercase font-bold">GCash</p>
-              <p className="font-bold">0965 528 6894</p>
-              <p className="text-sm">Ariston Liquit</p>
-            </div>
-            <div>
-              <p className="text-xs text-orange-400 uppercase font-bold">GoTyme</p>
-              <p className="font-bold">010 224 907 026</p>
-              <p className="text-sm">Chary Ann Liquit</p>
-            </div>
+          <div className="border-t pt-4 text-amber-50">
+            <p className="text-xs text-orange-400 uppercase font-bold mb-3">
+              Payment Options
+            </p>
+
+            {paymentOptions.length === 0 ? (
+              <p className="text-sm text-slate-400">
+                No payment options available
+              </p>
+            ) : (
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {paymentOptions.map((p) => (
+                  <div
+                    key={p.id}
+                    className="rounded-lg border border-slate-700 bg-slate-900 p-3"
+                  >
+                    <p className="text-orange-400 text-xs uppercase font-bold">
+                      {p.method}
+                    </p>
+
+                    <p className="font-bold text-white">{p.accountNumber}</p>
+
+                    <p className="text-sm text-slate-300">{p.accountName}</p>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
-          
 
           {/* UPLOAD */}
           <UploadWrapper setForm={setForm} form={form} />

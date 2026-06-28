@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { SidebarTrigger } from "@/components/ui/sidebar";
 import { createClient } from "@/lib/supabase/client";
 import Image from "next/image";
 import Link from "next/link";
@@ -20,9 +21,10 @@ export default function Header({ user }: { user: any }) {
   };
 
   return (
-    <header className="sticky top-0 z-50 bg-slate-800 text-white py-2 px-2">
+    <header className="sticky top-0 right-0 left-0 z-50 bg-slate-800 text-white py-2 px-2">
       <nav className="container m-auto flex justify-between items-center">
         <div className="flex items-center gap-2.5">
+          <SidebarTrigger className="hover:bg-slate-900"/>
           <div className="w-16 h-16 rounded-full overflow-hidden">
             <Image
               src="/images/step-dance-logo.png"

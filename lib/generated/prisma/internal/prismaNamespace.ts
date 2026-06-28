@@ -385,6 +385,7 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 
 export const ModelName = {
   Booking: 'Booking',
+  PaymentOption: 'PaymentOption',
   Post: 'Post',
   ScheduleDay: 'ScheduleDay',
   ScheduleSlot: 'ScheduleSlot',
@@ -405,7 +406,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "booking" | "post" | "scheduleDay" | "scheduleSlot" | "user" | "role"
+    modelProps: "booking" | "paymentOption" | "post" | "scheduleDay" | "scheduleSlot" | "user" | "role"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -480,6 +481,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.BookingCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.BookingCountAggregateOutputType> | number
+        }
+      }
+    }
+    PaymentOption: {
+      payload: Prisma.$PaymentOptionPayload<ExtArgs>
+      fields: Prisma.PaymentOptionFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.PaymentOptionFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PaymentOptionPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.PaymentOptionFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PaymentOptionPayload>
+        }
+        findFirst: {
+          args: Prisma.PaymentOptionFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PaymentOptionPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.PaymentOptionFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PaymentOptionPayload>
+        }
+        findMany: {
+          args: Prisma.PaymentOptionFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PaymentOptionPayload>[]
+        }
+        create: {
+          args: Prisma.PaymentOptionCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PaymentOptionPayload>
+        }
+        createMany: {
+          args: Prisma.PaymentOptionCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.PaymentOptionCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PaymentOptionPayload>[]
+        }
+        delete: {
+          args: Prisma.PaymentOptionDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PaymentOptionPayload>
+        }
+        update: {
+          args: Prisma.PaymentOptionUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PaymentOptionPayload>
+        }
+        deleteMany: {
+          args: Prisma.PaymentOptionDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.PaymentOptionUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.PaymentOptionUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PaymentOptionPayload>[]
+        }
+        upsert: {
+          args: Prisma.PaymentOptionUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PaymentOptionPayload>
+        }
+        aggregate: {
+          args: Prisma.PaymentOptionAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregatePaymentOption>
+        }
+        groupBy: {
+          args: Prisma.PaymentOptionGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PaymentOptionGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.PaymentOptionCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PaymentOptionCountAggregateOutputType> | number
         }
       }
     }
@@ -894,18 +969,30 @@ export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof
 
 export const BookingScalarFieldEnum = {
   id: 'id',
-  fullName: 'fullName',
   email: 'email',
   phone: 'phone',
   proofOfPaymentUrl: 'proofOfPaymentUrl',
-  referenceNumber: 'referenceNumber',
   userId: 'userId',
   slotId: 'slotId',
   updatedAt: 'updatedAt',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  fullName: 'fullName',
+  referenceNumber: 'referenceNumber'
 } as const
 
 export type BookingScalarFieldEnum = (typeof BookingScalarFieldEnum)[keyof typeof BookingScalarFieldEnum]
+
+
+export const PaymentOptionScalarFieldEnum = {
+  id: 'id',
+  method: 'method',
+  accountName: 'accountName',
+  accountNumber: 'accountNumber',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PaymentOptionScalarFieldEnum = (typeof PaymentOptionScalarFieldEnum)[keyof typeof PaymentOptionScalarFieldEnum]
 
 
 export const PostScalarFieldEnum = {
@@ -929,14 +1016,14 @@ export type ScheduleDayScalarFieldEnum = (typeof ScheduleDayScalarFieldEnum)[key
 
 export const ScheduleSlotScalarFieldEnum = {
   id: 'id',
-  startTime: 'startTime',
-  endTime: 'endTime',
-  location: 'location',
   capacity: 'capacity',
   booked: 'booked',
   dayId: 'dayId',
   updatedAt: 'updatedAt',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  startTime: 'startTime',
+  endTime: 'endTime',
+  location: 'location'
 } as const
 
 export type ScheduleSlotScalarFieldEnum = (typeof ScheduleSlotScalarFieldEnum)[keyof typeof ScheduleSlotScalarFieldEnum]
@@ -944,10 +1031,10 @@ export type ScheduleSlotScalarFieldEnum = (typeof ScheduleSlotScalarFieldEnum)[k
 
 export const UserScalarFieldEnum = {
   id: 'id',
-  supabaseId: 'supabaseId',
   email: 'email',
   name: 'name',
-  roleId: 'roleId'
+  roleId: 'roleId',
+  supabaseId: 'supabaseId'
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -1149,6 +1236,7 @@ export type PrismaClientOptions = ({
 }
 export type GlobalOmitConfig = {
   booking?: Prisma.BookingOmit
+  paymentOption?: Prisma.PaymentOptionOmit
   post?: Prisma.PostOmit
   scheduleDay?: Prisma.ScheduleDayOmit
   scheduleSlot?: Prisma.ScheduleSlotOmit

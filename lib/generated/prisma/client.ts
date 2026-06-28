@@ -47,6 +47,11 @@ export { Prisma }
  */
 export type Booking = Prisma.BookingModel
 /**
+ * Model PaymentOption
+ * 
+ */
+export type PaymentOption = Prisma.PaymentOptionModel
+/**
  * Model Post
  * 
  */

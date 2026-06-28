@@ -1,17 +1,16 @@
 model Booking {
-  id        Int @id @default(autoincrement())
-  fullName  String
-  email     String
-  phone     String
+  id                Int          @id @default(autoincrement())
+  email             String
+  phone             String
   proofOfPaymentUrl String
-  referenceNumber String
-  userId    Int?
-  slotId    Int
-  slot      ScheduleSlot @relation(fields: [slotId], references: [id])
-  user      User? @relation(fields: [userId], references: [id])
-
-  updatedAt DateTime @updatedAt
-  createdAt DateTime @default(now())
+  userId            Int?
+  slotId            Int
+  updatedAt         DateTime     @updatedAt
+  createdAt         DateTime     @default(now())
+  fullName          String
+  referenceNumber   String
+  slot              ScheduleSlot @relation(fields: [slotId], references: [id])
+  user              User?        @relation(fields: [userId], references: [id])
 
   @@map("bookings")
 }
