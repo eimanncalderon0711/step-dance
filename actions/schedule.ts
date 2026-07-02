@@ -31,6 +31,10 @@ export async function createSlotAction(data: CreateScheduleSlotDTO) {
   revalidatePath("/admin")
 }
 
+export async function getSlotAction(slotId: number) {
+  return await scheduleService.getSlotById(slotId)
+}
+
 export async function editSlotAction(slotId: number, data: UpdateScheduleSlotDTO){
   await scheduleService.updateSlot(slotId, data);
 }

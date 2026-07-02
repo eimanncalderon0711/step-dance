@@ -2,7 +2,8 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { TableCell, TableRow } from "@/components/ui/table";
 import { format, isValid } from "date-fns";
-import { Clock, Pencil, Trash2, Users } from "lucide-react";
+import { Clock, Eye, Pencil, Trash2, Users } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 type ScheduleSlot = {
   id: number;
@@ -25,6 +26,8 @@ type SlotProps = {
 };
 
 export const SlotList = ({ slot, full, remaining, onEdit, handleDeleteSlot }: SlotProps) => {
+
+  const navigation = useRouter();
 
   if (!slot) return null; // 🔥 prevents React crash
   
@@ -73,6 +76,15 @@ export const SlotList = ({ slot, full, remaining, onEdit, handleDeleteSlot }: Sl
       </TableCell>
 
       <TableCell className="text-right">
+        <Button
+          size="icon"
+          variant="ghost"
+          className="h-8 w-8"
+          onClick={() => navigation.push(`/admin/booking/${slot.id}`)}
+        >
+          <Eye className="w-4 h-4" />
+        </Button>
+
         <Button
           size="icon"
           variant="ghost"

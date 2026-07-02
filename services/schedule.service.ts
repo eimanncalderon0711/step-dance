@@ -1,30 +1,28 @@
 // services/schedule.service.ts
 
-import { scheduleRepository } from "@/repositories/schedule.repository"
+import { scheduleRepository } from "@/repositories/schedule.repository";
 import {
   CreateScheduleDayDTO,
   CreateScheduleSlotDTO,
   ScheduleQueryParams,
   UpdateScheduleSlotDTO,
-} from "@/dto/schedule.dto"
+} from "@/dto/schedule.dto";
 
 export const scheduleService = {
-  
-  
   getAll: async (params: ScheduleQueryParams) => {
-    return scheduleRepository.findAll(params)
+    return scheduleRepository.findAll(params);
   },
 
   async createDay(data: CreateScheduleDayDTO) {
-    const date = new Date(data.date)
+    const date = new Date(data.date);
 
-    const existing = await scheduleRepository.findDayByDate(date)
+    const existing = await scheduleRepository.findDayByDate(date);
 
     if (existing) {
-      throw new Error("Schedule day already exists")
+      throw new Error("Schedule day already exists");
     }
 
-    return scheduleRepository.createDay(date)
+    return scheduleRepository.createDay(date);
   },
 
   async deleteDay(dayId: number) {
@@ -32,30 +30,26 @@ export const scheduleService = {
   },
 
   async createSlot(data: CreateScheduleSlotDTO) {
-    const start = new Date(data.startTime)
-    const end = new Date(data.endTime)
+    const start = new Date(data.startTime);
+    const end = new Date(data.endTime);
 
     if (start >= end) {
-      throw new Error("Invalid time range")
+      throw new Error("Invalid time range");
     }
 
-    const existingSlots = await scheduleRepository.findSlotsByDay(data.dayId)
+    const existingSlots = await scheduleRepository.findSlotsByDay(data.dayId);
 
     // 🚨 Prevent overlapping slots
     const overlap = existingSlots.some((slot) => {
       const sameLocation =
         slot.location.trim().toLowerCase() ===
-        data.location.trim().toLowerCase()
+        data.location.trim().toLowerCase();
 
-      return (
-        sameLocation &&
-        start < slot.endTime &&
-        end > slot.startTime
-      )
-    })
+      return sameLocation && start < slot.endTime && end > slot.startTime;
+    });
 
     if (overlap) {
-      throw new Error("Slot overlaps with existing schedule")
+      throw new Error("Slot overlaps with existing schedule");
     }
 
     return scheduleRepository.createSlot({
@@ -63,15 +57,25 @@ export const scheduleService = {
       startTime: start,
       endTime: end,
       capacity: data.capacity,
-      location: data.location
-    })
+      location: data.location,
+    });
+  },
+
+  async getSlotById(id: number) {
+    const slot = await scheduleRepository.findSlotById(id);
+
+    if (!slot) {
+      throw new Error("Schedule slot not found");
+    }
+
+    return slot;
   },
 
   async updateSlot(id: number, data: UpdateScheduleSlotDTO) {
-    return scheduleRepository.updateSlot(id, data)
+    return scheduleRepository.updateSlot(id, data);
   },
 
   async deleteSlot(id: number) {
-    return scheduleRepository.deleteSlot(id)
+    return scheduleRepository.deleteSlot(id);
   },
-}
+};

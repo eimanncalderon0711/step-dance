@@ -1,8 +1,6 @@
-import { ScheduleQueryParams } from "@/dto/schedule.dto"
-import { Prisma } from "@/lib/generated/prisma/client"
-import { prisma } from "@/lib/prisma"
-
-
+import { ScheduleQueryParams } from "@/dto/schedule.dto";
+import { Prisma } from "@/lib/generated/prisma/client";
+import { prisma } from "@/lib/prisma";
 
 export const scheduleRepository = {
   /**
@@ -20,9 +18,9 @@ export const scheduleRepository = {
 
       sortBy = "date",
       sortOrder = "asc",
-    } = params
+    } = params;
 
-    const skip = (page - 1) * limit
+    const skip = (page - 1) * limit;
 
     /**
      * WHERE
@@ -37,9 +35,7 @@ export const scheduleRepository = {
             gte: new Date(search),
 
             lt: new Date(
-              new Date(search).setDate(
-                new Date(search).getDate() + 1
-              )
+              new Date(search).setDate(new Date(search).getDate() + 1),
             ),
           },
         }),
@@ -58,7 +54,7 @@ export const scheduleRepository = {
           }),
         },
       }),
-    }
+    };
 
     /**
      * SORTING
@@ -70,7 +66,7 @@ export const scheduleRepository = {
           }
         : {
             date: sortOrder,
-          }
+          };
 
     /**
      * QUERY
@@ -100,12 +96,12 @@ export const scheduleRepository = {
       prisma.scheduleDay.count({
         where,
       }),
-    ])
+    ]);
 
     /**
      * META
      */
-    const totalPages = Math.ceil(total / limit)
+    const totalPages = Math.ceil(total / limit);
 
     return {
       data,
@@ -132,7 +128,7 @@ export const scheduleRepository = {
           sortOrder,
         },
       },
-    }
+    };
   },
 
   /**
@@ -141,7 +137,7 @@ export const scheduleRepository = {
   findDayByDate: (date: Date) => {
     return prisma.scheduleDay.findUnique({
       where: { date },
-    })
+    });
   },
 
   /**
@@ -150,7 +146,7 @@ export const scheduleRepository = {
   createDay: (date: Date) => {
     return prisma.scheduleDay.create({
       data: { date },
-    })
+    });
   },
 
   /**
@@ -159,7 +155,7 @@ export const scheduleRepository = {
   deleteDay: (dayId: number) => {
     return prisma.scheduleDay.delete({
       where: { id: dayId },
-    })
+    });
   },
 
   /**
@@ -172,22 +168,35 @@ export const scheduleRepository = {
       orderBy: {
         startTime: "asc",
       },
-    })
+    });
+  },
+
+  /**
+   * Find SLOT
+   */
+  findSlotById: (id: number) => {
+    return prisma.scheduleSlot.findUnique({
+      where: { id },
+      include: {
+        bookings: true,
+        day: true, // optional, if you also want the schedule day
+      },
+    });
   },
 
   /**
    * CREATE SLOT
    */
   createSlot: (data: {
-    dayId: number
-    startTime: Date
-    endTime: Date
-    capacity: number,
-    location:string
+    dayId: number;
+    startTime: Date;
+    endTime: Date;
+    capacity: number;
+    location: string;
   }) => {
     return prisma.scheduleSlot.create({
       data,
-    })
+    });
   },
 
   /**
@@ -198,7 +207,7 @@ export const scheduleRepository = {
       where: { id },
 
       data,
-    })
+    });
   },
 
   /**
@@ -207,6 +216,6 @@ export const scheduleRepository = {
   deleteSlot: (id: number) => {
     return prisma.scheduleSlot.delete({
       where: { id },
-    })
+    });
   },
-}
+};
