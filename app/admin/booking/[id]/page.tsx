@@ -1,11 +1,15 @@
 import { getSlotAction } from "@/actions/schedule";
-import { Calendar, Clock, MapPin, Users, User, Mail, Phone, CreditCard, Hash } from "lucide-react";
+import { Calendar, Clock, MapPin, Users, User, Mail, Phone, CreditCard } from "lucide-react";
+import { format } from "date-fns";
+import { toZonedTime } from "date-fns-tz";
 
 interface PageProps {
   params: {
     id: string;
   };
 }
+
+const TIMEZONE = 'Asia/Manila';
 
 export default async function Page({ params }: PageProps) {
   const { id } = await params;
@@ -20,6 +24,21 @@ export default async function Page({ params }: PageProps) {
   }
 
   const availableSlots = slot.capacity - slot.booked;
+
+  // Convert UTC date to local timezone
+  const toLocalTime = (date: Date | string) => {
+    return toZonedTime(new Date(date), TIMEZONE);
+  };
+
+  // Format date
+  const formatDate = (date: Date | string, pattern: string = 'MMM dd, yyyy') => {
+    return format(toLocalTime(date), pattern);
+  };
+
+  // Format time
+  const formatTime = (date: Date | string, pattern: string = 'hh:mm a') => {
+    return format(toLocalTime(date), pattern);
+  };
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-8 mt-6">
@@ -39,12 +58,7 @@ export default async function Page({ params }: PageProps) {
             <div>
               <p className="text-white/40 text-xs uppercase tracking-wider">Date</p>
               <p className="text-white font-medium">
-                {new Date(slot.day.date).toLocaleDateString('en-US', {
-                  weekday: 'short',
-                  month: 'short',
-                  day: 'numeric',
-                  year: 'numeric'
-                })}
+                {formatDate(slot.day.date, 'EEE, MMM dd, yyyy')}
               </p>
             </div>
           </div>
@@ -56,13 +70,7 @@ export default async function Page({ params }: PageProps) {
             <div>
               <p className="text-white/40 text-xs uppercase tracking-wider">Time</p>
               <p className="text-white font-medium">
-                {new Date(slot.startTime).toLocaleTimeString('en-US', {
-                  hour: '2-digit',
-                  minute: '2-digit'
-                })} - {new Date(slot.endTime).toLocaleTimeString('en-US', {
-                  hour: '2-digit',
-                  minute: '2-digit'
-                })}
+                {formatTime(slot.startTime)} - {formatTime(slot.endTime)}
               </p>
             </div>
           </div>
@@ -156,10 +164,7 @@ export default async function Page({ params }: PageProps) {
 
                 <div className="mt-3 pt-3 border-t border-white/5 flex items-center justify-between text-xs">
                   <span className="text-white/30">
-                    Booked {new Date(booking.createdAt).toLocaleDateString('en-US', {
-                      month: 'short',
-                      day: 'numeric'
-                    })}
+                    Booked {formatDate(booking.createdAt, 'MMM dd')}
                   </span>
                   <span className="text-white/20">ID: {booking.id}</span>
                 </div>
