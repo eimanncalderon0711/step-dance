@@ -24,12 +24,12 @@ export async function sendBookingEmail({
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "api-key": process.env.BREVO_API_KEY!,
+        "api-key": process.env.BREVO_API_KEY_V2!,
       },
       body: JSON.stringify({
         sender: {
           name: "Step Dance",
-          email: "eimanjoshua.calderon@ustp.edu.ph",
+          email: "stepdancephbookings@gmail.com",
         },
         to: [
           {
@@ -68,7 +68,7 @@ export async function sendBookingEmail({
 
             <hr/>
             <p style="font-size:12px;color:#777;">
-              Step Dance Studio
+              StepDance PH
             </p>
           </div>
         `,
