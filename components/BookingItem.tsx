@@ -65,10 +65,10 @@ const BookingItem = ({ booking, onEdit, onDelete, onViewReceipt, checked, onChec
                 <Pencil />
                 Edit
               </DropdownMenuItem>
-              <DropdownMenuItem variant="destructive" onClick={onDelete}>
+              {/* <DropdownMenuItem variant="destructive" onClick={onDelete}>
                 <Trash2 />
                 Delete
-              </DropdownMenuItem>
+              </DropdownMenuItem> */}
             </DropdownMenuContent>
           </DropdownMenu>
         </TableCell>
