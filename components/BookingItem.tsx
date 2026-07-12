@@ -1,6 +1,7 @@
 'use client'
 import { BookingModal } from "@/components/BookingModal";
 import Button from "@/components/Button";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -20,15 +21,23 @@ import {
 
 type Props = {
   booking: BookingResponse;
+  checked: boolean;
+  onCheckedChange: () => void;
   onEdit: () => void;
   onDelete: () => void;
   onViewReceipt: () => void;
 };
 
-const BookingItem = ({ booking, onEdit, onDelete, onViewReceipt }: Props) => {
+const BookingItem = ({ booking, onEdit, onDelete, onViewReceipt, checked, onCheckedChange }: Props) => {
   return (
     <>
       <TableRow className="text-white">
+        <TableCell>
+          <Checkbox
+            checked={checked}
+            onCheckedChange={onCheckedChange}
+          />
+        </TableCell>
         <TableCell>{booking.fullName}</TableCell>
         <TableCell>{booking.email}</TableCell>
         <TableCell>

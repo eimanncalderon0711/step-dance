@@ -1,6 +1,8 @@
 'use server'
 import { createBookingDTO, updateBookingDTO } from "@/dto/booking.dto";
+import { prisma } from "@/lib/prisma";
 import { bookingService } from "@/services/booking.service";
+import { revalidatePath } from "next/dist/server/web/spec-extension/revalidate";
 
 type GetBookingsParams = {
   page?: number;
@@ -54,4 +56,10 @@ export const getBookingByIdAction = async (id: number) => {
 
 export const deleteBookingAction = async (id: number) => {
   return await bookingService.deleteBooking(id);
+}
+
+export const deleteBookingsAction = async (ids: number[]) => {
+  await bookingService.deleteBookings(ids);
+
+  return revalidatePath("/admin");
 }

@@ -82,18 +82,18 @@ export const bookingRepository = {
             createdAt: sortOrder,
           }
         : sortBy === "scheduleTime"
-        ? {
-            slot: {
-              startTime: sortOrder,
-            },
-          }
-        : {
-            slot: {
-              day: {
-                date: sortOrder,
+          ? {
+              slot: {
+                startTime: sortOrder,
               },
-            },
-          };
+            }
+          : {
+              slot: {
+                day: {
+                  date: sortOrder,
+                },
+              },
+            };
 
     /**
      * QUERY
@@ -214,6 +214,33 @@ export const bookingRepository = {
   delete: (id: number) => {
     return prisma.booking.delete({
       where: { id },
+    });
+  },
+
+  findManyByIds: (ids: number[]) => {
+    return prisma.booking.findMany({
+      where: {
+        id: {
+          in: ids,
+        },
+      },
+      select: {
+        id: true,
+        proofOfPaymentUrl: true,
+      },
+    });
+  },
+
+  /**
+   * BULK DELETE
+   */
+  deleteMany: (ids: number[]) => {
+    return prisma.booking.deleteMany({
+      where: {
+        id: {
+          in: ids,
+        },
+      },
     });
   },
 };

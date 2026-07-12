@@ -3,6 +3,8 @@ import { BookingUpdateInput } from "@/lib/generated/prisma/models";
 import { prisma } from "@/lib/prisma";
 import { bookingRepository } from "@/repositories/booking.repository";
 import { sendBookingEmail } from "@/lib/email/send-booking-email";
+import { extractCloudinaryPublicId } from "@/utils/cloudinary/cloudinary";
+import cloudinary from "@/lib/cloudinary/cloud";
 
 type GetAllBookingsParams = {
   page?: number;
@@ -118,5 +120,22 @@ export const bookingService = {
 
   async deleteBooking(id: number) {
     return await bookingRepository.delete(id);
+  },
+
+  async deleteBookings(ids: number[]) {
+  const bookings = await bookingRepository.findManyByIds(ids);
+
+  await Promise.all(
+    bookings.map(async (booking) => {
+      const publicId = extractCloudinaryPublicId(
+        booking.proofOfPaymentUrl
+      );
+
+      if (publicId) {
+        await cloudinary.uploader.destroy(publicId);
+      }
+    })
+  );
+    return await bookingRepository.deleteMany(ids);
   },
 };
