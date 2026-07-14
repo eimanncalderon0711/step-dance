@@ -9,7 +9,7 @@ export const scheduleRepository = {
   findAll: async (params: ScheduleQueryParams = {}) => {
     const {
       page = 1,
-      limit = 10,
+      limit = 30,
 
       search,
 
