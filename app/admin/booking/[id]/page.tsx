@@ -1,5 +1,5 @@
 import { getSlotAction } from "@/actions/schedule";
-import { Calendar, Clock, MapPin, Users, User, Mail, Phone, CreditCard } from "lucide-react";
+import { Calendar, Clock, MapPin, Users, User, Mail, Phone, CreditCard, TicketPercent } from "lucide-react";
 import { format } from "date-fns";
 import { toZonedTime } from "date-fns-tz";
 
@@ -146,6 +146,10 @@ export default async function Page({ params }: PageProps) {
                   <div className="flex items-center gap-2 text-sm">
                     <Phone className="w-3.5 h-3.5 text-white/40 shrink-0" />
                     <span className="text-white/60">{booking.phone}</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-sm">
+                    <TicketPercent className="w-3.5 h-3.5 text-white/40 shrink-0" />
+                    <span className="text-white/60">Slots: {booking.availedSlots}</span>
                   </div>
                   {booking.proofOfPaymentUrl && (
                     <div className="flex items-center gap-2 text-sm">

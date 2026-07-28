@@ -4,6 +4,7 @@ export type createBookingDTO = {
   phone: string;
   proofOfPaymentUrl: string;
   referenceNumber: string;
+  availedSlots: number;
   userId?: number | null;
   scheduleId: number;
 };

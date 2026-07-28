@@ -28,6 +28,8 @@ export const bookingService = {
   },
 
   async createBooking(data: createBookingDTO) {
+    const availedSlots = Number(data.availedSlots);
+
     try {
       const booking = await prisma.$transaction(async (tx) => {
         const slot = await tx.scheduleSlot.findUnique({
@@ -47,7 +49,7 @@ export const bookingService = {
           },
           data: {
             booked: {
-              increment: 1,
+              increment: availedSlots,
             },
           },
         });
@@ -64,6 +66,7 @@ export const bookingService = {
             phone: data.phone,
             proofOfPaymentUrl: data.proofOfPaymentUrl,
             referenceNumber: data.referenceNumber,
+            availedSlots: availedSlots,
             slotId: data.scheduleId,
             userId: data.userId ?? null,
           },

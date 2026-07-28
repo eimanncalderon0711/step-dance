@@ -52,6 +52,7 @@ export type BookingData = {
   proofOfPaymentUrl: string | null;
   scheduleId: number | null;
   referenceNumber: string;
+  availedSlots: number;
   userId: number | null;
 };
 
@@ -74,6 +75,7 @@ export default function BookingForm() {
     scheduleId: null,
     referenceNumber: "",
     proofOfPaymentUrl: "",
+    availedSlots: 1,
     userId: null,
   });
 
@@ -142,6 +144,20 @@ export default function BookingForm() {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
+    if (name === "availedSlots") {
+      if (value !== "" && Number(value) <= 0){
+        setForm((prev) => ({...prev, availedSlots: 1}))
+        return
+      };
+
+      setForm((prev) => ({
+        ...prev,
+        availedSlots: Number(value),
+      }));
+
+      return;
+    }
+
     setForm((prev) => ({
       ...prev,
       [name]: value,
@@ -158,6 +174,7 @@ export default function BookingForm() {
       scheduleId: null,
       referenceNumber: "",
       proofOfPaymentUrl: "",
+      availedSlots: 1,
       userId: null,
     });
   };
@@ -176,6 +193,7 @@ export default function BookingForm() {
         phone: form.phone,
         proofOfPaymentUrl: form.proofOfPaymentUrl!,
         referenceNumber: form.referenceNumber,
+        availedSlots: form.availedSlots,
         scheduleId: form.scheduleId!,
       });
 
@@ -268,6 +286,19 @@ export default function BookingForm() {
               className="bg-white text-black"
               name="phone"
               value={form.phone}
+              onChange={handleChange}
+            />
+          </div>
+
+          {/* Availed Slots */}
+          <div className="space-y-2 text-amber-50">
+            <Label>Number of slots to avail</Label>
+
+            <Input
+              type="number"
+              className="bg-white text-black"
+              name="availedSlots"
+              value={form.availedSlots}
               onChange={handleChange}
             />
           </div>

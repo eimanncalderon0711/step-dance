@@ -9,6 +9,7 @@ model Booking {
   createdAt         DateTime     @default(now())
   fullName          String
   referenceNumber   String
+  availedSlots      Int?        @default(1)
   slot              ScheduleSlot @relation(fields: [slotId], references: [id])
   user              User?        @relation(fields: [userId], references: [id])
 
