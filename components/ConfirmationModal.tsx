@@ -348,6 +348,7 @@ const ConfirmationModal = ({ form, setForm, setSubmitted }: ConfirmationModalPro
               userId: null,
               scheduleId: null,
               referenceNumber: '',
+              availedSlots: 1,
               proofOfPaymentUrl: '',
             });
           }}
