@@ -30,6 +30,7 @@ export function BookingModal({open, setOpen, booking}: Props) {
     scheduleId: null,
     referenceNumber: "",
     proofOfPaymentUrl: "",
+    availedSlots: 1,
     userId: null,
   });
 
@@ -45,6 +46,7 @@ export function BookingModal({open, setOpen, booking}: Props) {
         scheduleId: booking.slotId,
         proofOfPaymentUrl: booking.proofOfPaymentUrl,
         referenceNumber: booking.referenceNumber,
+        availedSlots: booking.availedSlots,
         userId: booking.userId
     });
   },[booking])

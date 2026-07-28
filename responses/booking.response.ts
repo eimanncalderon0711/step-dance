@@ -7,6 +7,7 @@ export type BookingResponse = {
   phone: string;
   proofOfPaymentUrl: string;
   referenceNumber: string;
+  availedSlots: number;
   userId: number | null;
   slotId: number;
   createdAt: string;
