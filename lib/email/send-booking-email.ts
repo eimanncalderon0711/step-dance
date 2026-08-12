@@ -5,6 +5,7 @@ type SendBookingEmailParams = {
   fullName: string;
   referenceNumber: string;
   startTime: Date;
+  numberOfSlots?: number;
 };
 
 export async function sendBookingEmail({
@@ -12,6 +13,7 @@ export async function sendBookingEmail({
   fullName,
   referenceNumber,
   startTime,
+  numberOfSlots,
 }: SendBookingEmailParams) {
 
     const scheduleText = formatInTimeZone(
@@ -47,7 +49,7 @@ export async function sendBookingEmail({
             <p>Your StepDancePH booking is <b>CONFIRMED</b>. Thank you!</p>
 
             <p>
-              You schedule is on: ${scheduleText} 1 slot booked.<br><br>
+              You schedule is on: ${scheduleText} ${numberOfSlots || 1} slot(s) booked.<br><br>
             </p>
 
 

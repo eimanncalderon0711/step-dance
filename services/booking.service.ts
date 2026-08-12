@@ -90,7 +90,8 @@ export const bookingService = {
           to: booking.email,
           fullName: booking.fullName,
           referenceNumber: booking.referenceNumber,
-          startTime: booking.slot.startTime
+          startTime: booking.slot.startTime,
+          numberOfSlots: booking.availedSlots || 1,
         });
       } catch (err) {
         console.error(
