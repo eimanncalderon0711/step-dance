@@ -96,12 +96,12 @@ const ScheduleManager = ({ schedules, meta }: Props) => {
   };
 
   return (
-    <Card className="border-0 shadow-md bg-slate-800 my-4">
+    <Card className="admin-panel">
       <CardHeader className="space-y-4">
-        <div className="flex items-center justify-between">
+        <div className="flex flex-wrap items-center justify-between gap-3">
           <CardTitle className="text-white flex items-center gap-2">
             <CalendarPlus className="w-4 h-4" />
-            Schedule Management
+            Class schedule
           </CardTitle>
 
           <CreateDayDialog
@@ -111,15 +111,19 @@ const ScheduleManager = ({ schedules, meta }: Props) => {
           />
         </div>
 
-        <div className="flex gap-2">
+        <div className="admin-filters">
           <input
             type="date"
-            className="border rounded px-3 py-2 text-white bg-slate-700"
+            aria-label="Filter schedules by date"
+            value={searchParams.get("scheduleSearch") || ""}
+            className="admin-field"
             onChange={(e) => handleSearch(e.target.value)}
           />
 
           <select
-            className="border rounded px-3 py-2 text-white bg-slate-700"
+            aria-label="Sort schedules"
+            value={searchParams.get("scheduleSortOrder") || "asc"}
+            className="admin-field"
             onChange={(e) => handleSort(e.target.value)}
           >
             <option value="asc">Oldest</option>
@@ -128,7 +132,7 @@ const ScheduleManager = ({ schedules, meta }: Props) => {
 
           <button
             onClick={handleResetFilters}
-            className="px-4 py-2 rounded bg-slate-500 text-white hover:bg-slate-600"
+            className="admin-secondary"
           >
             Reset
           </button>
@@ -137,7 +141,7 @@ const ScheduleManager = ({ schedules, meta }: Props) => {
 
       <CardContent className="space-y-6">
         {schedules.length === 0 ? (
-          <div className="text-center text-muted-foreground py-10 border border-dashed rounded-sm">
+          <div className="admin-empty">
             No available schedule days
           </div>
         ) : (
@@ -153,19 +157,21 @@ const ScheduleManager = ({ schedules, meta }: Props) => {
           ))
         )}
 
-        <div className="flex items-center justify-between text-white">
+        <div className="admin-pagination">
           <button
+            className="admin-secondary"
             disabled={!meta.hasPreviousPage}
             onClick={() => handlePageChange(meta.page - 1)}
           >
             Previous
           </button>
 
-          <p className="text-white">
-            Page {meta.page} of {meta.totalPages}
+          <p>
+            Page {meta.page} of {Math.max(1, meta.totalPages)}
           </p>
 
           <button
+            className="admin-secondary"
             disabled={!meta.hasNextPage}
             onClick={() => handlePageChange(meta.page + 1)}
           >

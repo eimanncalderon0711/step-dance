@@ -2,8 +2,9 @@
 import { getMe } from "@/actions/users";
 import { AppSidebar } from "@/components/AppSideBar";
 import Header from "@/components/Header";
-import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import { SidebarProvider } from "@/components/ui/sidebar";
 import { redirect } from "next/navigation";
+import "./admin.css";
 
 export default async function AdminLayout({
   children,
@@ -17,16 +18,14 @@ export default async function AdminLayout({
   }
 
   return (
-    // <div className="flex flex-col min-h-screen bg-slate-900">
-      <SidebarProvider className="bg-slate-900">
-        <AppSidebar />
-        <main className="w-full flex flex-col min-h-screen">
-          <Header user={user} />
-          <div className="container mx-auto flex-1">
-            {children}
-          </div>
-        </main>
-      </SidebarProvider>
-    // {/* </div> */}
+    <SidebarProvider className="admin-shell">
+      <AppSidebar />
+      <main className="min-w-0 flex-1 flex flex-col min-h-screen">
+        <Header user={user} />
+        <div className="admin-content">
+          {children}
+        </div>
+      </main>
+    </SidebarProvider>
   );
 }

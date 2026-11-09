@@ -44,26 +44,28 @@ const BookingsToolbar = () => {
   return (
     <form
       action={handleSubmit}
-      className="flex flex-col sm:flex-row gap-3 mt-3"
+      className="flex flex-col lg:flex-row gap-3 mt-1"
     >
       {/* SEARCH */}
       <input
         name="search"
+        aria-label="Search bookings"
         defaultValue={
           searchParams.get("search") || ""
         }
         placeholder="Search bookings..."
-        className="w-full rounded-md border px-3 py-2 text-sm bg-slate-900 text-white"
+        className="admin-field w-full lg:flex-1"
       />
 
       {/* SORT BY */}
       <select
         name="sortBy"
+        aria-label="Sort bookings by"
         defaultValue={
           searchParams.get("sortBy") ||
           "scheduleDate"
         }
-        className="rounded-md border px-3 py-2 text-sm bg-slate-900 text-white"
+        className="admin-field"
       >
         <option value="scheduleDate">
           Schedule Date
@@ -81,21 +83,22 @@ const BookingsToolbar = () => {
       {/* SORT ORDER */}
       <select
         name="sortOrder"
+        aria-label="Booking sort direction"
         defaultValue={
           searchParams.get("sortOrder") ||
           "desc"
         }
-        className="rounded-md border px-3 py-2 text-sm bg-slate-900 text-white"
+        className="admin-field"
       >
-        <option value="desc">Desc</option>
-        <option value="asc">Asc</option>
+        <option value="desc">Descending</option>
+        <option value="asc">Ascending</option>
       </select>
 
       {/* SUBMIT */}
       <button
         type="submit"
         disabled={isPending}
-        className="px-4 py-2 rounded-md bg-blue-600 text-white text-sm disabled:opacity-50"
+        className="admin-primary"
       >
         {isPending ? "Loading..." : "Apply"}
       </button>

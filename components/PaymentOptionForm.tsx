@@ -45,37 +45,49 @@ export default function PaymentOptionForm({
   return (
     <form
       onSubmit={handleSubmit}
-      className="mx-auto w-full max-w-lg rounded-xl border border-slate-700 bg-slate-800 p-8 shadow-lg"
+      className="admin-form-card w-full"
     >
-      <h2 className="text-2xl font-semibold text-white mb-6">
+      <h2 className="font-semibold text-white mb-6">
         {editing ? "Edit Payment Option" : "Add Payment Option"}
       </h2>
 
       <div className="space-y-4">
+        <div>
+          <label htmlFor="payment-method">Payment method</label>
         <input
+          id="payment-method"
           value={method}
           onChange={(e) => setMethod(e.target.value)}
           placeholder="GCash, BPI, GoTyme"
-          className="w-full bg-slate-900 border border-slate-600 text-white p-2 rounded"
+          className="admin-field w-full"
         />
+        </div>
 
+        <div>
+          <label htmlFor="payment-accountName">Account holder</label>
         <input
+          id="payment-accountName"
           value={accountName}
           onChange={(e) => setAccountName(e.target.value)}
           placeholder="Account Name"
-          className="w-full bg-slate-900 border border-slate-600 text-white p-2 rounded"
+          className="admin-field w-full"
         />
+        </div>
 
+        <div>
+          <label htmlFor="payment-accountNumber">Account number</label>
         <input
+          id="payment-accountNumber"
           value={accountNumber}
           onChange={(e) => setAccountNumber(e.target.value)}
           placeholder="Account Number"
-          className="w-full bg-slate-900 border border-slate-600 text-white p-2 rounded"
+          className="admin-field w-full"
         />
+        </div>
 
         <button
           type="submit"
-          className="w-full bg-orange-500 hover:bg-orange-600 text-white py-2 rounded-lg"
+          className="admin-primary w-full"
         >
           {editing ? "Update Payment Option" : "Save Payment Option"}
         </button>

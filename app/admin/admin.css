@@ -1,0 +1,80 @@
+/* Admin-only styles: never apply these tokens to the public booking pages. */
+.admin-shell {
+  --background: #111215;
+  --foreground: #f4f4f5;
+  --card: #191a1e;
+  --card-foreground: #f4f4f5;
+  --border: #303137;
+  --input: #37383f;
+  --muted: #24252b;
+  --muted-foreground: #a1a1aa;
+  --accent: #292a31;
+  --accent-foreground: #fafafa;
+  --secondary: #292a31;
+  --secondary-foreground: #e4e4e7;
+  --sidebar: #151619;
+  --sidebar-foreground: #d4d4d8;
+  --sidebar-border: #292a30;
+  --sidebar-accent: #292a30;
+  --sidebar-accent-foreground: #fafafa;
+  --ring: #fb923c;
+  background: var(--background);
+  color: var(--foreground);
+}
+.admin-content { width: 100%; max-width: 1600px; margin: 0 auto; padding: 36px clamp(16px, 3vw, 44px) 48px; }
+.admin-topbar { position: sticky; top: 0; z-index: 30; display: flex; min-height: 76px; padding: 12px clamp(16px, 3vw, 44px); border-bottom: 1px solid #292a30; background: #111215f5; backdrop-filter: blur(16px); }
+.admin-navigation { background: #151619; color: #d4d4d8; }
+.admin-nav-link { color: #a1a1aa; font-weight: 500; }
+.admin-nav-link:hover { background: #24252b; color: #fafafa; }
+.admin-nav-link[data-active="true"] { background: #fb923c14; color: #fdba74; box-shadow: inset 3px 0 #fb923c; }
+.admin-page-heading { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px; margin-bottom: 30px; }
+.admin-eyebrow { margin-bottom: 8px; color: #fb923c; font-size: 10px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; }
+.admin-page-heading h1 { font-size: clamp(26px, 3vw, 34px); line-height: 1.2; font-weight: 650; letter-spacing: -.045em; color: #fafafa; }
+.admin-description { margin-top: 10px; color: #a1a1aa; font-size: 13px; line-height: 1.7; }
+.admin-stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-bottom: 28px; }
+.admin-stat { display: flex; align-items: center; gap: 16px; padding: 22px; border: 1px solid #303137; border-radius: 14px; background: #191a1e; }
+.admin-stat-icon { display: grid; place-items: center; width: 44px; height: 44px; flex-shrink: 0; border: 1px solid #fb923c26; border-radius: 12px; background: #fb923c0d; color: #fdba74; }
+.admin-stat p { color: #a1a1aa; font-size: 12px; }
+.admin-stat strong { display: block; margin-top: 5px; font-size: 27px; line-height: 1.1; font-weight: 600; letter-spacing: -.04em; font-variant-numeric: tabular-nums; }
+.admin-panel { background: #191a1e; border: 1px solid #303137; border-radius: 16px; box-shadow: none; --tw-ring-shadow: 0 0 #0000; }
+.admin-panel [data-slot="card-header"] { gap: 18px; }
+.admin-panel [data-slot="card-title"] { font-size: 16px; font-weight: 600; letter-spacing: -.02em; }
+.admin-panel [data-slot="card-title"] > svg { color: #fb923c; width: 19px; height: 19px; }
+.admin-panel table { font-size: 12px; }
+.admin-panel th { height: 44px; padding: 10px 16px; background: #1e1f24; color: #a1a1aa; font-size: 10px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; }
+.admin-panel td { padding: 13px 16px; color: #d4d4d8; }
+.admin-panel tr { border-color: #2c2d33; }
+.admin-panel tbody tr:hover { background: #ffffff03; }
+.admin-panel td:first-child { font-weight: 500; }
+.admin-panel [data-slot="badge"][data-variant="secondary"] { background: #34d39912; color: #6ee7b7; }
+.admin-field { min-height: 40px; min-width: 0; border: 1px solid #37383f; border-radius: 8px; padding: 9px 12px; background: #141518; color: #e4e4e7; font-size: 12px; color-scheme: dark; }
+.admin-field::placeholder { color: #71717a; }
+.admin-field:disabled { opacity: .55; cursor: not-allowed; }
+.admin-field:focus-visible { outline: 2px solid #fb923c; outline-offset: 2px; }
+.admin-primary, .admin-secondary { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 40px; padding: 9px 16px; border-radius: 8px; font-size: 12px; font-weight: 600; cursor: pointer; transition: background .15s; }
+.admin-primary { border: 1px solid #fb923c; background: #fb923c; color: #211209; }
+.admin-primary:hover { background: #fdba74; color: #211209; }
+.admin-secondary { border: 1px solid #37383f; background: #222329; color: #d4d4d8; }
+.admin-secondary:hover { background: #303137; color: #fafafa; }
+.admin-primary:disabled, .admin-secondary:disabled { opacity: .35; cursor: not-allowed; }
+.admin-shell :is(button, a):focus-visible { outline: 2px solid #fb923c; outline-offset: 3px; }
+.admin-filters { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+.admin-day { overflow: hidden; border: 1px solid #303137; border-radius: 10px; }
+.admin-day-heading { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 16px; border-bottom: 1px solid #303137; background: #222329; }
+.admin-pagination { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-top: 20px; border-top: 1px solid #303137; color: #a1a1aa; font-size: 12px; }
+.admin-form-card { padding: 28px; border: 1px solid #303137; border-radius: 16px; background: #191a1e; color: #f4f4f5; }
+.admin-form-card h2 { font-size: 17px; letter-spacing: -.02em; }
+.admin-form-card label { display: block; margin-bottom: 8px; color: #a1a1aa; font-size: 12px; }
+.admin-payment-card { position: relative; overflow: hidden; border: 1px solid #303137; border-radius: 14px; background: #191a1e; padding: 24px; }
+.admin-payment-card::before { position: absolute; inset: 0 0 auto; height: 3px; background: #fb923c; content: ""; }
+.admin-empty { padding: 48px 20px; border: 1px dashed #3f3f46; border-radius: 12px; text-align: center; color: #a1a1aa; font-size: 13px; }
+@media (max-width: 700px) {
+  .admin-content { padding-top: 24px; }
+  .admin-stats { grid-template-columns: 1fr; gap: 10px; }
+  .admin-stat { padding: 15px 18px; }
+  .admin-stat strong { font-size: 23px; }
+  .admin-panel [data-slot="card-header"], .admin-panel [data-slot="card-content"] { padding-left: 16px; padding-right: 16px; }
+  .admin-form-card { padding: 20px; }
+  .admin-filters .admin-field { flex: 1; }
+  .admin-day-heading { padding: 12px; }
+}

@@ -69,6 +69,7 @@ const BookingItems = ({ bookings }: Props) => {
         <TableRow>
           <TableHead className="w-10">
             <Checkbox
+              aria-label="Select all bookings on this page"
               checked={
                 bookings.length > 0 &&
                 selectedIds.length === bookings.length

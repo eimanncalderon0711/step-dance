@@ -2,6 +2,8 @@ import { getBookingsAction } from "@/actions/bookings";
 import { getDayAction } from "@/actions/schedule";
 import RecentBookings from "@/components/RecentBookings";
 import ScheduleManager from "@/components/ScheduleManager";
+import AdminPageHeading from "@/components/AdminPageHeading";
+import { CalendarDays, Ticket, Clock3 } from "lucide-react";
 import { format } from "date-fns/format";
 
 type Props = {
@@ -75,13 +77,21 @@ const serializedSchedules = schedules.data.map((day) => ({
 }));
 
   return (
-    <div className="h-full px-2 sm:px-0 flex flex-col justify-center gap-4">
+    <div>
+      <AdminPageHeading eyebrow="Your studio, at a glance" title="Studio overview" description="Manage your schedule, keep track of bookings, and make room for the next move." />
+      <div className="admin-stats">
+        <div className="admin-stat"><span className="admin-stat-icon"><CalendarDays className="size-5" /></span><div><p>{params.scheduleSearch ? "Matching schedule days" : "Schedule days"}</p><strong>{schedules.meta.total}</strong></div></div>
+        <div className="admin-stat"><span className="admin-stat-icon"><Ticket className="size-5" /></span><div><p>{params.search ? "Matching bookings" : "Total bookings"}</p><strong>{bookings.meta.total}</strong></div></div>
+        <div className="admin-stat"><span className="admin-stat-icon"><Clock3 className="size-5" /></span><div><p>Time slots · this page</p><strong>{serializedSchedules.reduce((total, day) => total + day.slots.length, 0)}</strong></div></div>
+      </div>
+      <div className="space-y-6">
       <ScheduleManager schedules={serializedSchedules} meta={schedules.meta}/>
 
       <RecentBookings
         bookings={bookings.data}
         meta={bookings.meta}
       />
+      </div>
     </div>
   );
 };

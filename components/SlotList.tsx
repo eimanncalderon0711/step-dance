@@ -2,7 +2,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { TableCell, TableRow } from "@/components/ui/table";
 import { format, isValid } from "date-fns";
-import { Clock, Eye, Pencil, Trash2, Users } from "lucide-react";
+import { Clock, Eye, Pencil, Trash2, Users, MapPin } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 type ScheduleSlot = {
@@ -46,7 +46,7 @@ export const SlotList = ({ slot, full, remaining, onEdit, handleDeleteSlot }: Sl
     <TableRow>
       <TableCell className="font-medium">
         <span className="inline-flex items-center gap-1.5">
-          <Clock className="w-3.5 h-3.5 text-muted-foreground" />
+          <MapPin className="w-3.5 h-3.5 text-muted-foreground" />
           {slot.location}
         </span>
       </TableCell>
@@ -80,6 +80,7 @@ export const SlotList = ({ slot, full, remaining, onEdit, handleDeleteSlot }: Sl
           size="icon"
           variant="ghost"
           className="h-8 w-8"
+          aria-label="View slot bookings"
           onClick={() => navigation.push(`/admin/booking/${slot.id}`)}
         >
           <Eye className="w-4 h-4" />
@@ -89,6 +90,7 @@ export const SlotList = ({ slot, full, remaining, onEdit, handleDeleteSlot }: Sl
           size="icon"
           variant="ghost"
           className="h-8 w-8"
+          aria-label="Edit time slot"
           onClick={() => onEdit(slot)}
         >
           <Pencil className="w-4 h-4" />
@@ -98,6 +100,7 @@ export const SlotList = ({ slot, full, remaining, onEdit, handleDeleteSlot }: Sl
           size="icon"
           variant="ghost"
           className="h-8 w-8 text-destructive"
+          aria-label="Delete time slot"
           onClick={handleDeleteSlot}
         >
           <Trash2 className="w-4 h-4" />

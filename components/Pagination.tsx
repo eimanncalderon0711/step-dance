@@ -24,16 +24,16 @@ const Pagination = ({ meta }: Props) => {
   };
 
   return (
-    <div className="flex items-center justify-between pt-4">
+    <div className="admin-pagination">
       <div className="text-sm text-gray-400">
-        Page {meta.page} of {meta.totalPages}
+        Page {meta.page} of {Math.max(1, meta.totalPages)}
       </div>
 
       <div className="flex gap-2">
         {meta.hasPreviousPage && (
           <Link
             href={createUrl(meta.page - 1)}
-            className="px-3 py-1 rounded bg-slate-700 text-white text-sm"
+            className="admin-secondary"
           >
             Previous
           </Link>
@@ -42,7 +42,7 @@ const Pagination = ({ meta }: Props) => {
         {meta.hasNextPage && (
           <Link
             href={createUrl(meta.page + 1)}
-            className="px-3 py-1 rounded bg-slate-700 text-white text-sm"
+            className="admin-secondary"
           >
             Next
           </Link>

@@ -60,9 +60,9 @@ export function CreateDayDialog({
       <AlertDialogTrigger asChild>
         <Button
           variant="outline"
-          className="bg-orange-500 border-0 text-white cursor-pointer hover:bg-orange-600"
+          className="admin-primary"
         >
-          Add Day Schedule
+          + Add schedule day
         </Button>
       </AlertDialogTrigger>
       <AlertDialogContent>

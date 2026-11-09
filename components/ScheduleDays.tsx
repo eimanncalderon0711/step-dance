@@ -9,7 +9,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { format } from "date-fns";
-import { Pencil, Plus, Trash2 } from "lucide-react";
+import { Plus, Trash2 } from "lucide-react";
 import { useState } from "react";
 
 type ScheduleSlot = {
@@ -69,20 +69,20 @@ const ScheduleDays = ({
   return (
     <div
       key={day.id}
-      className="border border-border rounded-lg overflow-hidden"
+      className="admin-day"
     >
       {/* Day header */}
-      <div className="flex items-center justify-between bg-slate-700 px-4 py-3 border-b border-border">
+      <div className="admin-day-heading">
         <div className="flex items-center gap-3">
           <div className="space-y-0.5">
-            <p className="font-semibold text-orange-500">
+            <p className="text-sm font-medium text-zinc-200">
               {displayDate}
             </p>
           </div>
         </div>
         <div className="flex items-center gap-1">
           <Button
-            className="bg-gray-800 border border-gray-900 text-white"
+            className="admin-secondary"
             size="sm"
             variant="outline"
             onClick={() => {
@@ -92,13 +92,12 @@ const ScheduleDays = ({
           >
             <Plus className="w-3.5 h-3.5 mr-1" /> Add Slot
           </Button>
-          <Button size="icon" variant="ghost" className="h-8 w-8">
-            <Pencil className="w-4 h-4" />
-          </Button>
+
           <Button
             size="icon"
             variant="ghost"
             className="h-8 w-8 text-destructive hover:text-destructive hover:bg-destructive/10"
+            aria-label={`Delete schedule for ${displayDate}`}
             onClick={() => handleDeleteDay(day.id)}
           >
             <Trash2 className="w-4 h-4" />

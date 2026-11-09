@@ -34,6 +34,7 @@ const BookingItem = ({ booking, onEdit, onDelete, onViewReceipt, checked, onChec
       <TableRow className="text-white">
         <TableCell>
           <Checkbox
+            aria-label={`Select booking for ${booking.fullName}`}
             checked={checked}
             onCheckedChange={onCheckedChange}
           />
@@ -49,16 +50,15 @@ const BookingItem = ({ booking, onEdit, onDelete, onViewReceipt, checked, onChec
             format(new Date(booking.slot.endTime), "hh:mm a")}
         </TableCell>
         <TableCell>{booking.referenceNumber}</TableCell>
-        <TableCell className="flex items-center gap-2 cursor-pointer">
-          <Eye className="h-4 w-4" />
-          <div onClick={onViewReceipt}>
-            View Receipt
-          </div>
+        <TableCell>
+          <button type="button" onClick={onViewReceipt} className="inline-flex items-center gap-2 text-orange-300 hover:text-orange-200">
+            <Eye className="h-3.5 w-3.5" /> View receipt
+          </button>
         </TableCell>
         <TableCell>
           <DropdownMenu>
             <DropdownMenuTrigger asChild className="cursor-pointer">
-              <Ellipsis />
+              <button type="button" aria-label={`Actions for ${booking.fullName}`} className="rounded-md p-2 hover:bg-white/10"><Ellipsis className="size-4" /></button>
             </DropdownMenuTrigger>
             <DropdownMenuContent>
               <DropdownMenuItem onClick={onEdit}>

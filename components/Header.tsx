@@ -4,12 +4,14 @@ import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { createClient } from "@/lib/supabase/client";
-import Image from "next/image";
+import { ChevronDown, LogOut, Settings2 } from "lucide-react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 export default function Header({ user }: { user: any }) {
   const router = useRouter();
+  const pathname = usePathname();
+  const title = pathname.startsWith("/admin/payment") ? "Payment options" : pathname.startsWith("/admin/settings") ? "Account settings" : pathname.startsWith("/admin/booking") ? "Schedule details" : "Overview";
 
   const handleLogout = async () => {
     const supabase = createClient();
@@ -21,36 +23,30 @@ export default function Header({ user }: { user: any }) {
   };
 
   return (
-    <header className="sticky top-0 right-0 left-0 z-50 bg-slate-800 text-white py-2 px-2">
-      <nav className="container m-auto flex justify-between items-center">
-        <div className="flex items-center gap-2.5">
-          <SidebarTrigger className="hover:bg-slate-900"/>
-          <div className="w-16 h-16 rounded-full overflow-hidden">
-            <Image
-              src="/images/step-dance-logo.png"
-              alt="Step Dance Logo"
-              width={64}
-              height={64}
-              priority
-            />
-          </div>
-
-          <span className="font-bold text-lg text-orange-400">
-            <Link href="/admin">StepDance PH</Link>
-          </span>
+    <header className="admin-topbar">
+      <nav className="flex w-full items-center justify-between gap-4" aria-label="Workspace">
+        <div className="flex items-center gap-3">
+          <SidebarTrigger className="text-zinc-400 hover:bg-white/5 hover:text-white" />
+          <span className="hidden text-sm text-zinc-500 sm:inline">Workspace</span>
+          <span className="hidden text-zinc-700 sm:inline">/</span>
+          <span className="text-sm font-medium text-zinc-200">{title}</span>
         </div>
 
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="hover:bg-transparent hover:text-white cursor-pointer">{user.name}</Button>
+            <Button variant="ghost" className="h-auto gap-3 px-2 py-1.5 text-zinc-200 hover:bg-white/5 hover:text-white">
+              <span className="flex size-9 items-center justify-center rounded-full border border-orange-400/20 bg-orange-400/10 text-sm font-semibold text-orange-300">{(user.name || "A").slice(0, 1).toUpperCase()}</span>
+              <span className="hidden text-left sm:block"><span className="block text-xs font-medium">{user.name}</span><span className="block text-[10px] text-zinc-500">Studio admin</span></span>
+              <ChevronDown className="size-3.5 text-zinc-500" />
+            </Button>
           </DropdownMenuTrigger>
 
           <DropdownMenuContent align="end">
             <DropdownMenuItem asChild>
-              <Link href="/admin/settings">Settings</Link>
+              <Link href="/admin/settings"><Settings2 /> Settings</Link>
             </DropdownMenuItem>
 
-            <DropdownMenuItem onClick={handleLogout}>Logout</DropdownMenuItem>
+            <DropdownMenuItem onClick={handleLogout}><LogOut /> Logout</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       </nav>

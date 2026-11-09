@@ -1,12 +1,10 @@
 import BookingItems from "@/components/BookingItems";
-import BookingsSkeleton from "@/components/BookingsSkeleton";
 import BookingsToolbar from "@/components/BookingsToolbar";
 import Pagination from "@/components/Pagination";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 import { ClipboardClock } from "lucide-react";
-import { Suspense } from "react";
 
 type Props = {
   bookings: any[];
@@ -23,11 +21,11 @@ type Props = {
 
 const RecentBookings = ({ bookings, meta }: Props) => {
   return (
-    <Card className="border-0 shadow-md bg-slate-800 my-4">
+    <Card className="admin-panel">
       <CardHeader>
         <CardTitle className="text-white text-base flex gap-2 items-center">
           <ClipboardClock className="w-4 h-4" />
-          Recent Bookings
+          Bookings <span className="ml-1 rounded-md bg-white/5 px-2 py-0.5 text-xs font-normal text-zinc-400">{meta.total}</span>
         </CardTitle>
 
         {/* CLIENT CONTROLS */}
@@ -36,11 +34,11 @@ const RecentBookings = ({ bookings, meta }: Props) => {
 
       <CardContent className="space-y-6">
         {bookings.length === 0 ? (
-          <div className="text-center text-muted-foreground py-12 border border-dashed border-border rounded-lg">
+          <div className="admin-empty">
             No bookings found
           </div>
         ) : (
-          <div className="max-h-130 overflow-y-auto">
+          <div className="overflow-x-auto">
               <BookingItems bookings={bookings} />
           </div>
         )}

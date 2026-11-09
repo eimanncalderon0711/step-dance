@@ -9,39 +9,40 @@ const contactInfo = [
 
 const ContactSection = () => {
   return (
-    <section id="contact" className="py-20 px-4 bg-slate-800/90">
-      <div className="container max-w-6xl mx-auto">
-        <div className="text-center mb-12">
-          <span className="text-xs font-semibold uppercase tracking-wider text-orange-400">
+    <section id="contact" className="home-contact home-section">
+      <div className="home-container">
+        <div className="home-contact-heading">
+          <span className="home-eyebrow">
             Get in Touch
           </span>
-          <h2 className="text-3xl md:text-4xl font-extrabold text-white mt-2">
+          <h2 className="home-section-title">
             Contact Us
           </h2>
-          <p className="text-muted-foreground mt-3 max-w-md mx-auto">
+          <p className="home-body-copy">
             Have questions or want to know more? Reach out — we'd love to hear
             from you!
           </p>
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-4xl mx-auto">
+        <div className="home-contact-grid">
           {contactInfo.map((c) => (
             <div
               key={c.label}
-              className="bg-slate-900 rounded-xl p-6 border border-slate-700 text-center wrap-break-word hover:shadow-md transition-shadow"
+              className="home-contact-card"
             >
-              <div className="w-12 h-12 rounded-full bg-orange-600/10 flex items-center justify-center mx-auto mb-4">
-                <c.icon className="w-5 h-5 text-orange-600" />
+              <div className="home-contact-icon">
+                <c.icon className="size-5" />
               </div>
-              <h3 className="font-bold text-white text-sm mb-1">{c.label}</h3>
-              <p className="text-sm text-muted-foreground">{c.value}</p>
+              <h3 className="home-contact-label">{c.label}</h3>
+              <p className="home-contact-value">{c.value}</p>
             </div>
           ))}
         </div>
 
         {/* Static Map */}
-        <div className="mt-12 rounded-xl overflow-hidden border border-border shadow-lg max-w-4xl mx-auto">
+        <div className="home-map">
           <iframe
+            title="Map of Cagayan de Oro City"
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d252647.27982287708!2d124.4641228696208!3d8.341120662879112!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x32fff2d9810e9e81%3A0x2edcd5b84a6de2a2!2sCagayan%20De%20Oro%20City%2C%20Misamis%20Oriental!5e0!3m2!1sen!2sph!4v1775388138558!5m2!1sen!2sph"
             width="100%"
             height="350"

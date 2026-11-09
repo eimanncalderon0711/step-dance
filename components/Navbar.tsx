@@ -1,8 +1,9 @@
-'use client';
-import { Footprints, Menu, X } from "lucide-react";
-import Image from "next/image";
-import { useEffect, useState } from "react";
+"use client";
 
+import { ArrowUpRight, Menu, X } from "lucide-react";
+import Image from "next/image";
+import { useState } from "react";
+import { HomeThemeToggle } from "@/components/HomeAppearance";
 
 const NAV_LINKS = [
   { label: "Home", href: "#home" },
@@ -11,78 +12,43 @@ const NAV_LINKS = [
   { label: "Contact", href: "#contact" },
 ];
 
-const Navbar = () => {
+export default function Navbar() {
   const [open, setOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 20) {
-        setScrolled(true);
-      } else {
-        setScrolled(false);
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  const scrollTo = (href: string) => {
-    setOpen(false);
-    const el = document.querySelector(href);
-    el?.scrollIntoView({ behavior: "smooth" });
-  };
 
   return (
-    <nav
-      className={`sticky top-0 z-50 border-b border-slate-700 backdrop-blur-sm transition-colors duration-300`}
-    >
-      <div className="container max-w-6xl mx-auto flex items-center justify-between h-20 px-4">
-        <button onClick={() => scrollTo("#home")} className="flex items-center gap-2.5">
-          <div className="w-16 h-16 rounded-full overflow-hidden flex items-center justify-center">
-            {/* <Footprints className="w-4.5 h-4.5 text-primary-foreground" /> */}
-            <Image src="/images/step-dance-logo.png" alt="Step Dance Logo" width={64} height={64} priority/>
-          </div>
-          <span className="font-bold text-lg text-orange-400">StepDance PH</span>
-        </button>
-
-        {/* Desktop */}
-        <ul className="hidden md:flex items-center gap-1">
-          {NAV_LINKS.map((l) => (
-            <li key={l.href}>
-              <button
-                onClick={() => scrollTo(l.href)}
-                className="px-4 py-2 rounded-md text-base font-medium text-muted-foreground cursor-pointer hover:text-foreground hover:bg-orange-400 transition-colors"
-              >
-                {l.label}
-              </button>
-            </li>
+    <header className="home-nav">
+      <nav className="home-container home-nav-inner" aria-label="Main navigation">
+        <a href="#home" className="home-brand" onClick={() => setOpen(false)}>
+          <Image src="/images/step-dance-logo.png" alt="StepDance PH logo" width={48} height={48} />
+          <span>StepDance<span className="home-brand-accent"> PH</span></span>
+        </a>
+        <ul className="home-desktop-links">
+          {NAV_LINKS.map((link) => (
+            <li key={link.href}><a href={link.href}>{link.label}</a></li>
           ))}
         </ul>
-
-        {/* Mobile toggle */}
-        <button onClick={() => setOpen(!open)} className="md:hidden p-2 text-foreground">
-          {open ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+        <div className="home-nav-actions">
+        <HomeThemeToggle />
+        <a href="#booking" className="home-button home-nav-cta">Book a session <ArrowUpRight size={16} /></a>
+        <button
+          type="button"
+          className="home-menu-toggle"
+          aria-label={open ? "Close navigation" : "Open navigation"}
+          aria-expanded={open}
+          aria-controls="home-mobile-nav"
+          onClick={() => setOpen(!open)}
+        >
+          {open ? <X size={22} /> : <Menu size={22} />}
         </button>
-      </div>
-
-      {/* Mobile menu */}
-      {open && (
-        <div className="md:hidden border-t border-border bg-slate-900 px-4 pb-4">
-          {NAV_LINKS.map((l) => (
-            <button
-              key={l.href}
-              onClick={() => scrollTo(l.href)}
-              className="block w-full text-left py-3 text-sm font-medium text-white hover:text-foreground transition-colors"
-            >
-              {l.label}
-            </button>
-          ))}
         </div>
+      </nav>
+      {open && (
+        <nav id="home-mobile-nav" className="home-mobile-nav" aria-label="Mobile navigation">
+          {NAV_LINKS.map((link) => (
+            <a key={link.href} href={link.href} onClick={() => setOpen(false)}>{link.label}<ArrowUpRight size={16} /></a>
+          ))}
+        </nav>
       )}
-    </nav>
+    </header>
   );
-};
-
-export default Navbar;
+}

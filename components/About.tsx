@@ -1,4 +1,3 @@
-import aboutDance from "@/assets/about-dance.jpg";
 import { Heart, Users, Zap, Dumbbell, StretchHorizontal, Target, Brain, Scale } from "lucide-react";
 import Image from "next/image";
 
@@ -15,36 +14,39 @@ const features = [
 
 const AboutSection = () => {
   return (
-    <section id="about" className="py-20 px-4">
-      <div className="container max-w-6xl mx-auto">
-        {/* Intro */}
-        <div className="grid md:grid-cols-2 gap-12 items-center mb-20">
-          <div className="space-y-5">
-            <span className="text-xs font-semibold uppercase tracking-wider text-orange-400">About Us</span>
-            <h2 className="text-3xl md:text-4xl font-extrabold text-white leading-tight">
+    <section id="about" className="home-about home-section">
+      <div className="home-container">
+        <div className="home-about-intro">
+          <div className="home-about-copy">
+
+            <span className="home-eyebrow">About Us</span>
+            <h2 className="home-section-title">
               More Than Just a Workout
             </h2>
-            <p className="text-muted-foreground leading-relaxed">
+            <p className="home-body-copy">
               StepDance PH was founded with one mission: to make fitness fun and accessible through the power of step dancing. We believe that staying healthy shouldn't feel like a chore — it should feel like a celebration.
             </p>
-            <p className="text-muted-foreground leading-relaxed">
+            <p className="home-body-copy">
               Our certified instructors create an inclusive, supportive environment where everyone can move at their own pace. Every class is a chance to connect with your body, meet new people, and leave feeling amazing.
             </p>
           </div>
-          <div className="rounded-2xl overflow-hidden shadow-xl">
-            <Image src={'/images/about-dance.jpg'} alt="Step dance in studio" loading="lazy" width={800} height={800} className="w-full h-80 md:h-96 object-cover" />
+          <div className="home-about-visual">
+            <Image src={'/images/about-dance.jpg'} alt="Step dance in studio" loading="lazy" width={800} height={800} sizes="(max-width: 800px) 100vw, 45vw" className="home-about-photo" />
           </div>
         </div>
 
-        {/* Features grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {features.map((f) => (
-            <div key={f.title} className="bg-slate-800 rounded-xl p-6 border border-slate-700 hover:shadow-lg hover:border-primary transition-all duration-300">
-              <div className="w-11 h-11 rounded-lg bg-orange-600/10 flex items-center justify-center mb-4">
-                <f.icon className="w-5 h-5 text-orange-600" />
+        <div className="home-benefits-heading">
+          <div><p className="home-eyebrow">The feel-good benefits</p><h2 className="home-section-title">Every step does more.</h2></div>
+          <p className="home-body-copy">For your body. For your mind.<br />For the joy of moving together.</p>
+        </div>
+        <div className="home-benefits-grid">
+          {features.map((f, index) => (
+            <div key={f.title} className="home-benefit-card">
+              <div className="home-benefit-top">
+                <f.icon className="home-benefit-icon" /><span>{String(index + 1).padStart(2, "0")}</span>
               </div>
-              <h3 className="font-bold text-white mb-1.5">{f.title}</h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">{f.desc}</p>
+              <h3 className="home-benefit-title">{f.title}</h3>
+              <p className="text-sm home-body-copy">{f.desc}</p>
             </div>
           ))}
           

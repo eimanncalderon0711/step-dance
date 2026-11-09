@@ -1,5 +1,7 @@
 "use client";
 
+import AdminPageHeading from "@/components/AdminPageHeading";
+import { CreditCard, Pencil, Plus, Trash2 } from "lucide-react";
 import { useState } from "react";
 import PaymentOptionForm from "@/components/PaymentOptionForm";
 import { deletePaymentOption } from "@/actions/payment";
@@ -27,28 +29,18 @@ export default function PaymentClient({ payments: initialPayments }: any) {
   }
 
   return (
-    <div className="h-full p-6">
-
-      {/* HEADER */}
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-white text-xl font-semibold">
-          Payment Options
-        </h1>
-
-        <button
-          onClick={() => {
-            setEditing(null);
-            setShowForm(true);
-          }}
-          className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-lg"
-        >
-          + Add Payment Option
-        </button>
-      </div>
+    <div>
+      <AdminPageHeading
+        eyebrow="Payments"
+        title="Payment options"
+        description="Manage the accounts your dancers use to pay for their classes."
+        action={<button onClick={() => { setEditing(null); setShowForm(true); }} className="admin-primary"><Plus className="size-4" /> Add payment option</button>}
+      />
 
       {/* FORM */}
       {showForm && (
-        <div className="flex justify-center mb-10">
+        <div className="relative mb-8">
+          <div className="mb-3 flex justify-end"><button type="button" className="admin-secondary" onClick={() => { setShowForm(false); setEditing(null); }}>Cancel</button></div>
           <PaymentOptionForm
             key={editing?.id || "new"}
             editing={editing}
@@ -78,26 +70,28 @@ export default function PaymentClient({ payments: initialPayments }: any) {
           {payments.map((p: any) => (
             <div
               key={p.id}
-              className="rounded-xl border border-slate-700 bg-slate-800 p-5"
+              className="admin-payment-card"
             >
-              <h3 className="text-white font-semibold">{p.method}</h3>
-              <p className="text-slate-300">{p.accountName}</p>
-              <p className="text-slate-400">{p.accountNumber}</p>
+              <div className="mb-7 flex items-center gap-3"><span className="admin-stat-icon"><CreditCard className="size-5" /></span><h2 className="text-lg font-semibold text-white">{p.method}</h2></div>
+              <p className="mb-1 text-[10px] uppercase tracking-widest text-zinc-500">Account holder</p>
+              <p className="break-words text-sm text-zinc-200">{p.accountName}</p>
+              <p className="mb-1 mt-5 text-[10px] uppercase tracking-widest text-zinc-500">Account number</p>
+              <p className="break-all font-mono text-sm tracking-wide text-zinc-300">{p.accountNumber}</p>
 
               {/* ACTIONS */}
-              <div className="flex gap-3 mt-4">
+              <div className="flex items-center justify-between gap-3 mt-6 border-t border-white/10 pt-4">
                 <button
                   onClick={() => handleEdit(p)}
-                  className="text-blue-400 hover:underline text-sm"
+                  className="inline-flex items-center gap-2 text-xs font-medium text-zinc-300 hover:text-white"
                 >
-                  Edit
+                  <Pencil className="size-3.5" /> Edit
                 </button>
 
                 <button
                   onClick={() => handleDelete(p.id)}
-                  className="text-red-400 hover:underline text-sm"
+                  className="inline-flex items-center gap-2 text-xs text-red-400 hover:text-red-300"
                 >
-                  Delete
+                  <Trash2 className="size-3.5" /> Delete
                 </button>
               </div>
             </div>
@@ -107,7 +101,7 @@ export default function PaymentClient({ payments: initialPayments }: any) {
 
       {/* EMPTY */}
       {payments.length === 0 && !showForm && (
-        <div className="text-center text-slate-400 mt-10">
+        <div className="admin-empty">
           No payment options yet.
         </div>
       )}
