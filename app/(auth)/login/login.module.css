@@ -1,0 +1,56 @@
+.page {
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  max-width: 1440px;
+  margin-inline: auto;
+  padding: 0 clamp(24px, 6vw, 88px);
+}
+.header, .footer { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+.header { min-height: 100px; border-bottom: 1px solid var(--home-line); }
+.brand { font-size: 24px; font-weight: 800; letter-spacing: -.06em; }
+.brand span { color: var(--home-accent); }
+.main { flex: 1; display: grid; grid-template-columns: 1fr 440px; gap: clamp(40px, 8vw, 120px); align-items: center; padding-block: 72px; }
+.intro h1 { margin-top: 28px; font-size: clamp(44px, 5.4vw, 76px); line-height: 1.04; letter-spacing: -.065em; font-weight: 750; }
+.intro h1 span { color: var(--home-accent); }
+.description { max-width: 360px; margin-top: 28px; font-size: 15px; line-height: 1.85; color: var(--home-muted); }
+.signature { display: flex; flex-wrap: wrap; gap: 16px 32px; margin-top: 60px; padding-top: 24px; border-top: 1px solid var(--home-line); color: var(--home-muted); font-size: 11px; }
+.signature span:first-child { letter-spacing: .2em; color: var(--home-accent); }
+.card { min-width: 0; padding: 40px; border: 1px solid var(--home-line); border-radius: 20px; background: var(--home-card); box-shadow: 0 24px 70px #00000012; }
+.icon { display: grid; place-items: center; width: 48px; height: 48px; border: 1px solid var(--home-line); border-radius: 14px; color: var(--home-accent); background: var(--home-paper); margin-bottom: 28px; }
+.eyebrow { color: var(--home-muted); font-size: 10px; font-weight: 650; letter-spacing: .16em; }
+.card h2 { margin-top: 10px; font-size: 32px; font-weight: 650; letter-spacing: -.045em; line-height: 1.2; }
+.subtitle { margin-top: 12px; color: var(--home-muted); font-size: 13px; line-height: 1.7; }
+.form { display: grid; gap: 22px; margin-top: 32px; }
+.field { display: grid; gap: 10px; }
+.field label { font-size: 12px; font-weight: 550; }
+.inputWrap { display: flex; align-items: center; gap: 12px; padding-left: 14px; background: var(--home-paper); border: 1px solid var(--home-line); border-radius: 8px; color: var(--home-muted); }
+.inputWrap > svg { flex-shrink: 0; }
+.inputWrap:focus-within { border-color: var(--home-accent); }
+.inputWrap input { width: 100%; min-width: 0; height: 50px; padding-right: 12px; background: transparent; color: var(--home-ink); font-size: 14px; border-radius: 6px; }
+.inputWrap input::placeholder { color: var(--home-muted); opacity: .8; }
+.reveal { display: grid; place-items: center; align-self: stretch; min-width: 44px; border-radius: 6px; cursor: pointer; }
+.reveal:hover { color: var(--home-accent); }
+.submit { display: flex; justify-content: space-between; align-items: center; gap: 12px; min-height: 50px; padding: 14px 18px; border-radius: 8px; background: var(--home-orange); color: #25180f; font-size: 13px; font-weight: 700; cursor: pointer; }
+.submit:hover:not(:disabled) { background: #f88a55; }
+.submit:disabled { opacity: .65; cursor: wait; }
+.error { border: 1px solid #dc262650; border-radius: 8px; padding: 12px; background: #dc262610; color: var(--home-ink); font-size: 13px; line-height: 1.6; overflow-wrap: anywhere; }
+.access { display: flex; justify-content: center; align-items: center; gap: 8px; margin-top: 24px; color: var(--home-muted); font-size: 11px; }
+.footer { padding-block: 24px; border-top: 1px solid var(--home-line); color: var(--home-muted); font-size: 11px; }
+.footer a { display: inline-flex; align-items: center; gap: 8px; }
+.footer a:hover { color: var(--home-accent); }
+.spinner { animation: spin 1s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .spinner { animation: none; } }
+@media (max-width: 900px) {
+  .main { grid-template-columns: 1fr; gap: 36px; max-width: 500px; width: 100%; margin-inline: auto; padding-block: 40px; }
+  .intro h1 { font-size: 44px; margin-top: 16px; }
+  .description { margin-top: 18px; max-width: none; font-size: 14px; }
+  .signature { display: none; }
+  .header { min-height: 80px; }
+}
+@media (max-width: 480px) {
+  .card { padding: 28px 22px; }
+  .intro h1 { font-size: 40px; }
+  .footer { flex-direction: column; align-items: flex-start; gap: 14px; }
+}
